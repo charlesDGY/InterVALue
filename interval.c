@@ -84,6 +84,7 @@ void interval_mul(interval *a, interval *b, interval *c) {
     }
 };
 
+//if the arguments are float, just wipe out the floor and ceil function from the body.
 void interval_div(interval *a, interval *b, interval *c) {
     if ((b->low_value > MIN_VALUE && b->up_value < 0) || (b->low_value > 0 && b->up_value < MAX_VALUE)) {
         interval_value_type temp_max, temp_min, temp_mid;

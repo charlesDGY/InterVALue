@@ -24,12 +24,12 @@
 #define MIN_VALUE LONG_MIN
 
 //basic interval type
-typedef struct {
+typedef struct interval{
     interval_value_type low_value;
     interval_value_type up_value;
     //bool low_bound; [>true means close interval, false means open interval<]
     //bool up_bound;
-} interval;
+} ;
 
 
 void interval_add(interval *a, interval *b, interval *c);

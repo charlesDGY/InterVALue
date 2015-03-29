@@ -61,6 +61,7 @@ interval_value_type add_inf(interval_value_type a, interval_value_type b) {
 }
 
 
+//handle sub overflow
 void sub_overflow(interval_value_type *a, interval_value_type *b) {
     if ((*b > 0 && *a < MIN_VALUE + *b) || (*b < 0 && *a > MAX_VALUE + *b)) {
         /* Handle error */
@@ -69,6 +70,7 @@ void sub_overflow(interval_value_type *a, interval_value_type *b) {
     }
 }
 
+//sub operator, consider the infinite and overflow
 interval_value_type sub_inf(interval_value_type a, interval_value_type b) {
     if ((a == MAX_VALUE && b > MIN_VALUE && b < MAX_VALUE) || (b == MIN_VALUE && a > MIN_VALUE && a < MAX_VALUE) || (a == MAX_VALUE && b == MIN_VALUE)) {
         return MAX_VALUE ;
@@ -86,6 +88,7 @@ interval_value_type sub_inf(interval_value_type a, interval_value_type b) {
     }
 }
 
+//handle mul overflow
 void mul_overflow(interval_value_type *a, interval_value_type *b) {
     signed int result = 1 ;
     if (*a > 0) {  /* si_a is positive */
@@ -119,6 +122,7 @@ void mul_overflow(interval_value_type *a, interval_value_type *b) {
     }
 }
 
+//mul operator, consider infinite and overflow
 interval_value_type mul_inf(interval_value_type a, interval_value_type b) {
     if (a == MAX_VALUE) {
         if (b > 0) {
