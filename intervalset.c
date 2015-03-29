@@ -23,18 +23,6 @@
 
 
 
-interval_node *make_node(interval item);
-void free_node(interval_node *p);
-interval_node *search_node(interval key);
-void insert_node(interval_node *p);
-void delete_node(interval_node *p);
-void traverse(void (*visit)(interval_node *));
-void destroy_node(void);
-void push_node(interval_node *p);
-interval_node *pop_node(void);
-
-
-
 interval_node *make_node(interval item)
 {
 	interval_node *p = malloc(sizeof *p) ;
@@ -49,6 +37,32 @@ void free_node(interval_node *p)
 	free(p);
 }
 
+void destroy_set(interval_node *head)
+{
+	interval_node *q, *p = head;
+	while (p) {
+		q = p;
+		p = p->next;
+		free_node(q);
+	}
+}
+
+
+interval_node *copy_set(interval_node *src)
+{
+    interval temp_interval ;
+    interval_node *iter = src, *result = NULL ;
+    while (iter != NULL) {
+        temp_interval.low_value = iter->item.low_value ;
+        temp_interval.up_value = iter->item.up_value ;
+        result = make_node(temp_interval) ;
+        result->next = iter->next ;
+        iter = iter->next ;
+    }
+	return result ;
+}
+
+
 interval_node *search_node(interval_node *head, interval key)
 {
 	interval_node *p;
@@ -61,60 +75,48 @@ interval_node *search_node(interval_node *head, interval key)
 
 
 
-//
-void insert(interval_node * p)
+
+void insert_node(interval_node *head, interval_node *p)
 {
-	p->next = head;
-	head = p;
+    p->next = head->next;
+    head->next = p;
 }
 
-void delete(interval_node *head, interval_node *p)
-{
-	interval_node *pre;
-	if (p == head) {
-		head = p->next;
-		return;
-	}
-	for (pre = head; pre; pre = pre->next)
-		if (pre->next == p) {
-			pre->next = p->next;
-			return;
-		}
-}
+/*void delete(interval_node *head, interval_node *p)*/
+/*{*/
+	/*interval_node *pre;*/
+	/*if (p == head) {*/
+		/*head = p->next;*/
+		/*return;*/
+	/*}*/
+	/*for (pre = head; pre; pre = pre->next)*/
+		/*if (pre->next == p) {*/
+			/*pre->next = p->next;*/
+			/*return;*/
+		/*}*/
+/*}*/
 
-void traverse(void (*visit)(interval_node *))
-{
-	interval_node * p;
-	for (p = head; p; p = p->next)
-		visit(p);
-}
+/*void traverse(void (*visit)(interval_node *))*/
+/*{*/
+	/*interval_node * p;*/
+	/*for (p = head; p; p = p->next)*/
+		/*visit(p);*/
+/*}*/
+/*void push(interval_node * p)*/
+/*{*/
+	/*insert(p);*/
+/*}*/
 
-void destroy_set(interval_node *head)
-{
-	interval_node *q, p = head;
-	head = NULL;
-	while (p) {
-		q = p;
-		p = p->next;
-		free_node(q);
-	}
-}
-
-void push(interval_node * p)
-{
-	insert(p);
-}
-
-interval_node * pop(void)
-{
-	if (head == NULL)
-		return NULL;
-	else {
-		interval_node * p = head;
-		head = head->next ;
-		return p;
-	}
-}
+/*interval_node * pop(void)*/
+/*{*/
+	/*if (head == NULL)*/
+		/*return NULL;*/
+	/*else {*/
+		/*interval_node * p = head;*/
+		/*head = head->next ;*/
+		/*return p;*/
+	/*}*/
+/*}*/
 
 
 
@@ -127,6 +129,10 @@ interval_node * pop(void)
 
 //interval and set union operate
 void interval_set_union(interval a, interval_node *head) {
+    if (head == NULL) {
+        perror("input interval_set's head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
     if (head->next == NULL) {
         head->next = make_node(a) ;
         return ;
@@ -182,19 +188,182 @@ void interval_set_union(interval a, interval_node *head) {
 };
 
 //interval and set intersect operate
-void interval_set_intersect(interval a, interval_node *b) {
+void interval_set_intersect(interval a, interval_node *head) {
+/*    interval head_item ;*/
+    /*head_item.low_value = 0 ;*/
+    /*head_item.up_value = 0 ;*/
+    /*interval_node *result = make_node(head_item) ;*/
+    if (head == NULL) {
+        perror("input interval_set's head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    if (head->next == NULL) {
+        return ;
+    }
+    interval_node *iter = NULL, *p = NULL, *q = NULL, *pre_p = NULL ;
+    unsigned int p_loc = 0, q_loc = 0, i = 1 ;
+    for (iter = head->next; iter; iter = iter->next) {
+        if (iter == head->next && a.low_value <= iter->item.up_value) {
+            p = iter ;
+            pre_p = head ;
+            p_loc = i ;
+        }
+        else if (iter->next != NULL && a.low_value > iter->item.up_value && a.low_value <= (iter->next)->item.up_value) {
+            p = iter->next ;
+            pre_p = iter ;
+            p_loc = i + 1 ;
+        }
+        if (iter->next == NULL && a.up_value >= iter->item.low_value) {
+            q = iter ;
+            q_loc = i ;
+        }
+        else if (iter->next != NULL && a.up_value >= iter->item.low_value && a.up_value < (iter->next)->item.low_value) {
+            q = iter ;
+            q_loc = i ;
+        }
+        i++ ;
+    }
+
+    if ((p != NULL && q == NULL) || (p == NULL && q != NULL) || (p_loc > q_loc)) {
+        destroy_set(head->next) ;
+        head->next = NULL ;
+        return ;
+    }
+    else if (p == q) {
+        interval_node *temp_node = NULL ;
+        interval temp_interval ;
+        temp_interval.low_value = interval_value_max(p->item.low_value, a.low_value) ;
+        temp_interval.up_value = interval_value_min(q->item.up_value, a.up_value) ;
+        temp_node = make_node(temp_interval) ;
+        destroy_set(head->next) ;
+        head->next = temp_node ;
+        return ;
+    }
+    else {
+        interval_node *temp_node_head = NULL, *temp_node_tail = NULL ;
+        interval temp_head, temp_tail ;
+        temp_head.low_value = interval_value_max(p->item.low_value, a.low_value) ;
+        temp_head.up_value = p->item.up_value ;
+        temp_tail.up_value = interval_value_min(q->item.up_value, a.up_value) ;
+        temp_tail.low_value = q->item.low_value ;
+        temp_node_head = make_node(temp_head) ;
+        temp_node_tail = make_node(temp_tail) ;
+        temp_node_head->next = p->next ;
+        iter = p ;
+        while (iter->next != q) {
+            iter = iter->next ;
+        }
+        iter->next = temp_node_tail ;
+        p->next = NULL ;
+        destroy_set(head->next) ;
+        destroy_set(q) ;
+        head->next = temp_node_head ;
+        return ;
+    }
 
 };
 
 
 //set and set union operate
-void set_set_union(interval_node *a, interval_node *b) ;
+interval_node *set_set_union(interval_node *head_a, interval_node *head_b) {
+    if (head_a == NULL || head_b == NULL) {
+        perror("input interval_set's head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    if (head_a->next == NULL) {
+        return copy_set(head_b) ;
+    }
+    if (head_b->next == NULL) {
+        return copy_set(head_a) ;
+    }
+    interval_node *iter = NULL, *result = NULL ;
+    result = copy_set(head_b) ;
+
+    iter = head_a->next ;
+    while (iter != NULL) {
+        interval_set_union(iter->item, result) ;
+        iter = iter->next ;
+    }
+    return result ;
+};
 
 //set and set union operate
-void set_set_intersect(interval_node *a, interval_node *b) ;
+interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) {
+    if (head_a == NULL || head_b == NULL) {
+        perror("input interval_set's head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    interval_node *iter = NULL, *temp_head = NULL, *result = NULL ;
+    interval temp_interval ;
+    temp_interval.low_value = 0 ;
+    temp_interval.up_value = 0 ;
+    result = make_node(temp_interval) ;
+
+    if (head_a->next == NULL || head_b->next == NULL) {
+        return result;
+    }
+    iter = head_a->next ;
+
+    while (iter != NULL) {
+        temp_head = copy_set(head_b) ;
+        interval_set_intersect(iter->item, temp_head) ;
+        result = set_set_union(temp_head, result) ;
+        iter = iter->next ;
+    }
+    return result ;
+};
 
 //set and set add, sub, mul, div operate
-interval_node *set_set_arithmetic(interval_node *a, interval_node *b, unsigned int operator_in) ;
+interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, unsigned int operator_in) {
+    if (head_a == NULL || head_b == NULL) {
+        perror("input interval_set's head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    interval_node *iter_a = NULL, *iter_b = NULL, *temp_head = NULL, *result = NULL ;
+    interval temp_interval ;
+    if ((head_a->item.low_value == MIN_VALUE && head_a->item.up_value == MAX_VALUE) ||
+        (head_b->item.low_value == MIN_VALUE && head_b->item.up_value == MAX_VALUE)) {
+        temp_interval.low_value == MIN_VALUE ;
+        temp_interval.up_value == MAX_VALUE ;
+        result = make_node(temp_interval) ;
+        return result;
+    }
+    else if (head_a->next == NULL || head_b->next == NULL) {
+        perror("input interval set's member is NULL, can't calculate set and set arithmetic!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    temp_interval.low_value = 0 ;
+    temp_interval.up_value = 0 ;
+    result = make_node(temp_interval) ;
+
+    iter_a = head_a->next ;
+    iter_b = head_b->next ;
+    while (iter_a != NULL) {
+        while (iter_b != NULL) {
+            if (operator_in == 1) {
+                interval_add(&iter_a->item, &iter_b->item, &temp_interval) ;
+                interval_set_union(temp_interval, result) ;
+            }
+            else if (operator_in == 2) {
+                interval_sub(&iter_a->item, &iter_b->item, &temp_interval) ;
+                interval_set_union(temp_interval, result) ;
+            }
+            else if (operator_in == 3) {
+                interval_mul(&iter_a->item, &iter_b->item, &temp_interval) ;
+                interval_set_union(temp_interval, result) ;
+            }
+            else if (operator_in == 4) {
+                interval_sub(&iter_a->item, &iter_b->item, &temp_interval) ;
+                interval_set_union(temp_interval, result) ;
+            }
+            iter_b = iter_b->next ;
+        }
+        iter_b = head_b->next ;
+        iter_a = iter_a->next ;
+    }
+    return result ;
+
+};
 
 
 

@@ -1,4 +1,4 @@
-cscope 15 /home/dgy/Programming/VInterval -q 0000001560 0000119632
+cscope 15 /home/dgy/Programming/VInterval -q 0000001605 0000128568
 	@cfg.c
 
 23 
@@ -2594,10 +2594,14 @@ addr_t
 >
 
 16 
+	~<°dlib.h
+>
+
+17 
 	~"comm⁄.h
 "
 
-18 
+19 
 öãrvÆ_vÆue_ty≥
  
 	$öãrvÆ_vÆue_max
@@ -2609,25 +2613,25 @@ a
 b
 ) {
 
-19 i‡(
+20 i‡(
 a
  > 
 b
 ) {
 
-20  
+21  
 a
  ;
 
-22  
+23  
 b
  ;
 
-24 
+25 
 	}
 } ;
 
-27 
+28 
 öãrvÆ_vÆue_ty≥
  
 	$öãrvÆ_vÆue_mö
@@ -2639,23 +2643,575 @@ a
 b
 ) {
 
-28 i‡(
+29 i‡(
 a
  < 
 b
 ) {
 
-29  
+30  
 a
  ;
 
-31  
+32  
 b
  ;
 
-33 
+34 
 	}
 } ;
+
+37 
+	$add_ovîÊow
+(
+öãrvÆ_vÆue_ty≥
+ *
+a
+, i¡îvÆ_vÆue_ty≥ *
+b
+) {
+
+38 i‡(((*
+b
+ > 0Ë&& (*
+a
+ > (
+MAX_VALUE
+ - *b))Ë|| ((*b < 0Ë&& (*®< (
+MIN_VALUE
+ - *b)))) {
+
+40 
+	`≥º‹
+("add overflow!") ;
+
+41 
+	`exô
+(
+EXIT_FAILURE
+) ;
+
+43 
+	}
+}
+
+46 
+öãrvÆ_vÆue_ty≥
+ 
+	$add_öf
+(
+öãrvÆ_vÆue_ty≥
+ 
+a
+, i¡îvÆ_vÆue_ty≥ 
+b
+) {
+
+47 i‡((
+a
+ =
+MAX_VALUE
+ && 
+b
+ > 
+MIN_VALUE
+ && b < MAX_VALUE) || (b == MAX_VALUE &&á > MIN_VALUE &&á < MAX_VALUE) || (a == MAX_VALUE && b == MAX_VALUE) ) {
+
+48  
+MAX_VALUE
+ ;
+
+50 i‡((
+a
+ =
+MIN_VALUE
+ && 
+b
+ > MIN_VALUE && b < 
+MAX_VALUE
+) || (b == MIN_VALUE &&á > MIN_VALUE &&á < MAX_VALUE) || (a == MIN_VALUE && b == MIN_VALUE)) {
+
+51  
+MIN_VALUE
+ ;
+
+53 i‡((
+a
+ =
+MAX_VALUE
+ && 
+b
+ =
+MIN_VALUE
+) || (a == MIN_VALUE && b == MAX_VALUE)) {
+
+54 
+	`≥º‹
+("can't calculate different infiniteádd!") ;
+
+55 
+	`exô
+(
+EXIT_FAILURE
+);
+
+58 
+	`add_ovîÊow
+(&
+a
+, &
+b
+) ;
+
+59  
+a
+ + 
+b
+ ;
+
+61 
+	}
+}
+
+65 
+	$sub_ovîÊow
+(
+öãrvÆ_vÆue_ty≥
+ *
+a
+, i¡îvÆ_vÆue_ty≥ *
+b
+) {
+
+66 i‡((*
+b
+ > 0 && *
+a
+ < 
+MIN_VALUE
+ + *bË|| (*b < 0 && *®> 
+MAX_VALUE
+ + *b)) {
+
+68 
+	`≥º‹
+("sub overflow!") ;
+
+69 
+	`exô
+(
+EXIT_FAILURE
+) ;
+
+71 
+	}
+}
+
+74 
+öãrvÆ_vÆue_ty≥
+ 
+	$sub_öf
+(
+öãrvÆ_vÆue_ty≥
+ 
+a
+, i¡îvÆ_vÆue_ty≥ 
+b
+) {
+
+75 i‡((
+a
+ =
+MAX_VALUE
+ && 
+b
+ > 
+MIN_VALUE
+ && b < MAX_VALUE) || (b == MIN_VALUE &&á > MIN_VALUE &&á < MAX_VALUE) || (a == MAX_VALUE && b == MIN_VALUE)) {
+
+76  
+MAX_VALUE
+ ;
+
+78 i‡((
+b
+ =
+MAX_VALUE
+ && 
+a
+ > 
+MIN_VALUE
+ &&á < MAX_VALUE) || (a == MIN_VALUE && b > MIN_VALUE && b < MAX_VALUE) || (a == MIN_VALUE && b == MAX_VALUE)) {
+
+79  
+MIN_VALUE
+ ;
+
+81 i‡((
+a
+ =
+MAX_VALUE
+ && 
+b
+ =MAX_VALUEË|| (®=
+MIN_VALUE
+ && b == MIN_VALUE)) {
+
+82 
+	`≥º‹
+("can't calculate same infinite sub!") ;
+
+83 
+	`exô
+(
+EXIT_FAILURE
+) ;
+
+86 
+	`sub_ovîÊow
+(&
+a
+, &
+b
+) ;
+
+87  
+a
+ - 
+b
+ ;
+
+89 
+	}
+}
+
+92 
+	$mul_ovîÊow
+(
+öãrvÆ_vÆue_ty≥
+ *
+a
+, i¡îvÆ_vÆue_ty≥ *
+b
+) {
+
+93 sig√d 
+ªsu…
+ = 1 ;
+
+94 i‡(*
+a
+ > 0) {
+
+95 i‡(*
+b
+ > 0) {
+
+96 i‡(*
+a
+ > (
+MAX_VALUE
+ / *
+b
+)) {
+
+98 
+ªsu…
+ = -1 ;
+
+101 i‡(*
+b
+ < (
+MIN_VALUE
+ / *
+a
+)) {
+
+103 
+ªsu…
+ = -1 ;
+
+107 i‡(*
+b
+ > 0) {
+
+108 i‡(*
+a
+ < (
+MIN_VALUE
+ / *
+b
+)) {
+
+110 
+ªsu…
+ = -1;
+
+113 i‡((*
+a
+ !0Ë&& (*
+b
+ < (
+MAX_VALUE
+ / *a))) {
+
+115 
+ªsu…
+ = -1;
+
+119 i‡(
+ªsu…
+ == -1) {
+
+120 
+	`≥º‹
+("mul overflow!!") ;
+
+121 
+	`exô
+(
+EXIT_FAILURE
+) ;
+
+123 
+	}
+}
+
+126 
+öãrvÆ_vÆue_ty≥
+ 
+	$mul_öf
+(
+öãrvÆ_vÆue_ty≥
+ 
+a
+, i¡îvÆ_vÆue_ty≥ 
+b
+) {
+
+127 i‡(
+a
+ =
+MAX_VALUE
+) {
+
+128 i‡(
+b
+ > 0) {
+
+129  
+MAX_VALUE
+ ;
+
+131 i‡(
+b
+ < 0) {
+
+132  
+MIN_VALUE
+ ;
+
+135 i‡(
+a
+ =
+MIN_VALUE
+) {
+
+136 i‡(
+b
+ > 0) {
+
+137  
+MIN_VALUE
+ ;
+
+139 i‡(
+b
+ < 0) {
+
+140  
+MAX_VALUE
+ ;
+
+143 i‡(
+b
+ =
+MAX_VALUE
+) {
+
+144 i‡(
+a
+ > 0) {
+
+145  
+MAX_VALUE
+ ;
+
+147 i‡(
+a
+ < 0) {
+
+148  
+MIN_VALUE
+ ;
+
+151 i‡(
+b
+ =
+MIN_VALUE
+) {
+
+152 i‡(
+a
+ > 0) {
+
+153  
+MIN_VALUE
+ ;
+
+155 i‡(
+a
+ < 0) {
+
+156  
+MAX_VALUE
+ ;
+
+160 
+	`mul_ovîÊow
+(&
+a
+, &
+b
+) ;
+
+161  
+a
+ * 
+b
+ ;
+
+163 
+	}
+}
+
+166 
+	$div_ovîÊow
+(
+öãrvÆ_vÆue_ty≥
+ *
+a
+, i¡îvÆ_vÆue_ty≥ *
+b
+) {
+
+167 i‡((*
+b
+ =0Ë|| ((*
+a
+ =
+MIN_VALUE
+) && (*b == -1))) {
+
+169 
+	`≥º‹
+("div overflow!") ;
+
+170 
+	`exô
+(
+EXIT_FAILURE
+) ;
+
+172 
+	}
+}
+
+175 
+öãrvÆ_vÆue_ty≥
+ 
+	$div_öf
+(
+öãrvÆ_vÆue_ty≥
+ 
+a
+, i¡îvÆ_vÆue_ty≥ 
+b
+) {
+
+176 i‡((
+a
+ =
+MAX_VALUE
+ && 
+b
+ =MAX_VALUEË|| (®=MAX_VALUE && b =
+MIN_VALUE
+) || (a == MIN_VALUE && b == MAX_VALUE) || (a == MIN_VALUE && b == MIN_VALUE)) {
+
+177 
+	`≥º‹
+("can't calculateÅwo infiniteÇumber's div!") ;
+
+178 
+	`exô
+(
+EXIT_FAILURE
+) ;
+
+180 i‡(
+b
+ =
+MIN_VALUE
+ || b =
+MAX_VALUE
+) {
+
+183 i‡((
+a
+ =
+MAX_VALUE
+ && 
+b
+ > 0Ë|| (®=
+MIN_VALUE
+ && b < 0)) {
+
+184  
+MAX_VALUE
+ ;
+
+186 i‡((
+a
+ =
+MAX_VALUE
+ && 
+b
+ < 0Ë|| (®=
+MIN_VALUE
+ && b > 0)) {
+
+187  
+MIN_VALUE
+ ;
+
+190 
+	`div_ovîÊow
+(&
+a
+, &
+b
+) ;
+
+191  
+a
+ / 
+b
+ ;
+
+193 
+	}
+}
 
 	@common.h
 
@@ -2677,7 +3233,7 @@ COMMON_H
 	~"öãrvÆ.h
 "
 
-19 
+20 
 öãrvÆ_vÆue_ty≥
  
 öãrvÆ_vÆue_max
@@ -2687,10 +3243,90 @@ a
 b
 );
 
-21 
+22 
 öãrvÆ_vÆue_ty≥
  
 öãrvÆ_vÆue_mö
+(öãrvÆ_vÆue_ty≥ 
+a
+, i¡îvÆ_vÆue_ty≥ 
+b
+);
+
+25 
+add_ovîÊow
+(
+öãrvÆ_vÆue_ty≥
+ *
+a
+, i¡îvÆ_vÆue_ty≥ *
+b
+) ;
+
+27 
+sub_ovîÊow
+(
+öãrvÆ_vÆue_ty≥
+ *
+a
+, i¡îvÆ_vÆue_ty≥ *
+b
+) ;
+
+29 
+mul_ovîÊow
+(
+öãrvÆ_vÆue_ty≥
+ *
+a
+, i¡îvÆ_vÆue_ty≥ *
+b
+) ;
+
+31 
+div_ovîÊow
+(
+öãrvÆ_vÆue_ty≥
+ *
+a
+, i¡îvÆ_vÆue_ty≥ *
+b
+) ;
+
+33 
+öãrvÆ_vÆue_ty≥
+ 
+add_öf
+(öãrvÆ_vÆue_ty≥ 
+a
+, i¡îvÆ_vÆue_ty≥ 
+b
+);
+
+35 
+öãrvÆ_vÆue_ty≥
+ 
+sub_öf
+(öãrvÆ_vÆue_ty≥ 
+a
+, i¡îvÆ_vÆue_ty≥ 
+b
+);
+
+37 
+öãrvÆ_vÆue_ty≥
+ 
+mul_öf
+(öãrvÆ_vÆue_ty≥ 
+a
+, i¡îvÆ_vÆue_ty≥ 
+b
+);
+
+39 
+öãrvÆ_vÆue_ty≥
+ 
+div_öf
 (öãrvÆ_vÆue_ty≥ 
 a
 , i¡îvÆ_vÆue_ty≥ 
@@ -2756,20 +3392,24 @@ c
 ->
 low_vÆue
  = 
+	`add_öf
+(
 a
-->low_vÆuê+ 
+->low_vÆue, 
 b
-->low_value ;
+->low_value) ;
 
 26 
 c
 ->
 up_vÆue
  = 
+	`add_öf
+(
 a
-->up_vÆuê+ 
+->up_vÆue, 
 b
-->up_value ;
+->up_value) ;
 
 28 i‡((
 a
@@ -2798,10 +3438,12 @@ c
 ->
 low_vÆue
  = 
+	`add_öf
+(
 a
-->low_vÆuê+ 
+->low_vÆue, 
 b
-->low_value ;
+->low_value) ;
 
 31 
 c
@@ -2846,10 +3488,12 @@ c
 ->
 up_vÆue
  = 
+	`add_öf
+(
 a
-->up_vÆuê+ 
+->up_vÆue, 
 b
-->up_value ;
+->up_value) ;
 
 39 
 c
@@ -2912,24 +3556,28 @@ c
 ->
 low_vÆue
  = 
+	`sub_öf
+(
 a
-->low_vÆuê- 
+->low_vÆue, 
 b
 ->
 up_vÆue
- ;
+) ;
 
 48 
 c
 ->
 up_vÆue
  = 
+	`sub_öf
+(
 a
-->up_vÆuê- 
+->up_vÆue, 
 b
 ->
 low_vÆue
- ;
+) ;
 
 50 i‡((
 a
@@ -2964,12 +3612,14 @@ c
 ->
 low_vÆue
  = 
+	`sub_öf
+(
 a
-->low_vÆuê- 
+->low_vÆue, 
 b
 ->
 up_vÆue
- ;
+) ;
 
 53 
 c
@@ -3020,12 +3670,14 @@ c
 ->
 up_vÆue
  = 
+	`sub_öf
+(
 a
-->up_vÆuê- 
+->up_vÆue, 
 b
 ->
 low_vÆue
- ;
+) ;
 
 61 
 c
@@ -3118,28 +3770,32 @@ b
  = 
 	`öãrvÆ_vÆue_mö
 (
+	`mul_öf
+(
 a
 ->
 low_vÆue
- * 
+, 
 b
-->low_vÆue,á->low_vÆuê* b->
+->low_vÆue), mul_öf◊->low_vÆue, b->
 up_vÆue
-) ;
+)) ;
 
 73 
 ãmp_mid
  = 
 	`öãrvÆ_vÆue_mö
 (
+	`mul_öf
+(
 a
 ->
 up_vÆue
- * 
+, 
 b
 ->
 low_vÆue
-,á->up_value * b->up_value) ;
+), mul_inf(a->up_value, b->up_value)) ;
 
 74 
 ãmp_mö
@@ -3154,28 +3810,32 @@ low_vÆue
  = 
 	`öãrvÆ_vÆue_max
 (
+	`mul_öf
+(
 a
 ->
 low_vÆue
- * 
+, 
 b
-->low_vÆue,á->low_vÆuê* b->
+->low_vÆue), mul_öf◊->low_vÆue, b->
 up_vÆue
-) ;
+)) ;
 
 76 
 ãmp_mid
  = 
 	`öãrvÆ_vÆue_max
 (
+	`mul_öf
+(
 a
 ->
 up_vÆue
- * 
+, 
 b
 ->
 low_vÆue
-,á->up_value * b->up_value) ;
+), mul_inf(a->up_value, b->up_value)) ;
 
 77 
 ãmp_max
@@ -3221,7 +3881,7 @@ MAX_VALUE
 	}
 };
 
-87 
+88 
 	$öãrvÆ_div
 (
 öãrvÆ
@@ -3233,7 +3893,7 @@ b
 c
 ) {
 
-88 i‡((
+89 i‡((
 b
 ->
 low_vÆue
@@ -3245,7 +3905,7 @@ up_vÆue
 MAX_VALUE
 )) {
 
-89 
+90 
 öãrvÆ_vÆue_ty≥
  
 ãmp_max
@@ -3254,20 +3914,6 @@ MAX_VALUE
 , 
 ãmp_mid
 ;
-
-90 
-öãrvÆ_vÆue_ty≥
- 
-ãm∑
- = (öãrvÆ_vÆue_ty≥)
-	`Êo‹
-(()
-a
-->
-low_vÆue
- / 
-b
-->low_value) ;
 
 91 
 ãmp_mö
@@ -3539,6 +4185,10 @@ LONG_MIN
 
 	)
 
+27 
+	söãrvÆ
+{
+
 28 
 öãrvÆ_vÆue_ty≥
  
@@ -3549,10 +4199,6 @@ LONG_MIN
 öãrvÆ_vÆue_ty≥
  
 	mup_vÆue
-;
-
-32 } 
-	töãrvÆ
 ;
 
 35 
@@ -3591,7 +4237,7 @@ b
 c
 );
 
-41 
+42 
 öãrvÆ_div
 (
 öãrvÆ
@@ -3602,6 +4248,996 @@ b
 , i¡îvÆ *
 c
 );
+
+	@intervalset.c
+
+15 
+	~<°dio.h
+>
+
+17 
+	~"öãrvÆ£t.h
+"
+
+26 
+öãrvÆ_node
+ *
+make_node
+(
+öãrvÆ
+ 
+ôem
+);
+
+27 
+‰ì_node
+(
+öãrvÆ_node
+ *
+p
+);
+
+28 
+öãrvÆ_node
+ *
+£¨ch_node
+(
+öãrvÆ
+ 
+key
+);
+
+29 
+ö£π_node
+(
+öãrvÆ_node
+ *
+p
+);
+
+30 
+dñëe_node
+(
+öãrvÆ_node
+ *
+p
+);
+
+31 
+åavî£
+((*
+visô
+)(
+öãrvÆ_node
+ *));
+
+32 
+	`de°roy_node
+();
+
+33 
+	`push_node
+(
+öãrvÆ_node
+ *
+p
+);
+
+34 
+öãrvÆ_node
+ *
+	`p›_node
+();
+
+38 
+öãrvÆ_node
+ *
+	$make_node
+(
+öãrvÆ
+ 
+ôem
+)
+
+40 
+öãrvÆ_node
+ *
+p
+ = 
+	`mÆloc
+( *p) ;
+
+41 
+p
+->
+ôem
+.
+low_vÆue
+ = item.low_value ;
+
+42 
+p
+->
+ôem
+.
+up_vÆue
+ = item.up_value ;
+
+43 
+p
+->
+√xt
+ = 
+NULL
+ ;
+
+44  
+p
+;
+
+45 
+	}
+}
+
+47 
+	$‰ì_node
+(
+öãrvÆ_node
+ *
+p
+)
+
+49 
+	`‰ì
+(
+p
+);
+
+50 
+	}
+}
+
+52 
+öãrvÆ_node
+ *
+	$£¨ch_node
+(
+öãrvÆ_node
+ *
+hód
+, 
+öãrvÆ
+ 
+key
+)
+
+54 
+öãrvÆ_node
+ *
+p
+;
+
+55 
+p
+ = 
+hód
+->
+√xt
+;Ö;Ö =Ö->next)
+
+56 i‡(
+p
+->
+ôem
+.
+low_vÆue
+ =
+key
+.low_vÆuê&&Ö->ôem.
+up_vÆue
+ == key.up_value)
+
+57  
+p
+;
+
+58  
+NULL
+;
+
+59 
+	}
+}
+
+65 
+	$ö£π
+(
+öãrvÆ_node
+ * 
+p
+)
+
+67 
+p
+->
+√xt
+ = 
+hód
+;
+
+68 
+hód
+ = 
+p
+;
+
+69 
+	}
+}
+
+71 
+	$dñëe
+(
+öãrvÆ_node
+ *
+hód
+, i¡îvÆ_nodê*
+p
+)
+
+73 
+öãrvÆ_node
+ *
+¥e
+;
+
+74 i‡(
+p
+ =
+hód
+) {
+
+75 
+hód
+ = 
+p
+->
+√xt
+;
+
+78 
+¥e
+ = 
+hód
+;Öª;Öª =Öª->
+√xt
+)
+
+79 i‡(
+¥e
+->
+√xt
+ =
+p
+) {
+
+80 
+¥e
+->
+√xt
+ = 
+p
+->next;
+
+83 
+	}
+}
+
+85 
+åavî£
+((*
+visô
+)(
+öãrvÆ_node
+ *))
+
+87 
+öãrvÆ_node
+ * 
+p
+;
+
+88 
+p
+ = 
+hód
+;Ö;Ö =Ö->
+√xt
+)
+
+89 
+	`visô
+(
+p
+);
+
+90 
+	}
+}
+
+92 
+	$de°roy_£t
+(
+öãrvÆ_node
+ *
+hód
+)
+
+94 
+öãrvÆ_node
+ *
+q
+, 
+p
+ = 
+hód
+;
+
+95 
+hód
+ = 
+NULL
+;
+
+96 
+p
+) {
+
+97 
+q
+ = 
+p
+;
+
+98 
+p
+ =Ö->
+√xt
+;
+
+99 
+	`‰ì_node
+(
+q
+);
+
+101 
+	}
+}
+
+103 
+	$push
+(
+öãrvÆ_node
+ * 
+p
+)
+
+105 
+	`ö£π
+(
+p
+);
+
+106 
+	}
+}
+
+108 
+öãrvÆ_node
+ * 
+	$p›
+()
+
+110 i‡(
+hód
+ =
+NULL
+)
+
+111  
+NULL
+;
+
+113 
+öãrvÆ_node
+ * 
+p
+ = 
+hód
+;
+
+114 
+hód
+ = hód->
+√xt
+ ;
+
+115  
+p
+;
+
+117 
+	}
+}
+
+129 
+	$öãrvÆ_£t_uni⁄
+(
+öãrvÆ
+ 
+a
+, 
+öãrvÆ_node
+ *
+hód
+) {
+
+130 i‡(
+hód
+->
+√xt
+ =
+NULL
+) {
+
+131 
+hód
+->
+√xt
+ = 
+	`make_node
+(
+a
+) ;
+
+134 
+öãrvÆ_node
+ *
+ôî
+ = 
+NULL
+, *
+p
+ = NULL, *
+q
+ = NULL, *
+¥e_p
+ = NULL ;
+
+135 
+p_loc
+ = 0, 
+q_loc
+ = 0, 
+i
+ = 1 ;
+
+136 
+ôî
+ = 
+hód
+->
+√xt
+; iter; iter = iter->next) {
+
+137 i‡(
+ôî
+ =
+hód
+->
+√xt
+ && 
+a
+.
+low_vÆue
+ <ôî->
+ôem
+.
+up_vÆue
+) {
+
+138 
+p
+ = 
+ôî
+ ;
+
+139 
+¥e_p
+ = 
+hód
+ ;
+
+140 
+p_loc
+ = 
+i
+ ;
+
+142 i‡(
+ôî
+->
+√xt
+ !
+NULL
+ && 
+a
+.
+low_vÆue
+ > iãr->
+ôem
+.
+up_vÆue
+ &&á.low_value <= (iter->next)->item.up_value) {
+
+143 
+p
+ = 
+ôî
+->
+√xt
+ ;
+
+144 
+¥e_p
+ = 
+ôî
+ ;
+
+145 
+p_loc
+ = 
+i
+ + 1 ;
+
+147 i‡(
+ôî
+->
+√xt
+ =
+NULL
+ && 
+a
+.
+up_vÆue
+ >ôî->
+ôem
+.
+low_vÆue
+) {
+
+148 
+q
+ = 
+ôî
+ ;
+
+149 
+q_loc
+ = 
+i
+ ;
+
+151 i‡(
+ôî
+->
+√xt
+ !
+NULL
+ && 
+a
+.
+up_vÆue
+ >ôî->
+ôem
+.
+low_vÆue
+ &&á.up_value < (iter->next)->item.low_value) {
+
+152 
+q
+ = 
+ôî
+ ;
+
+153 
+q_loc
+ = 
+i
+ ;
+
+155 
+i
+++ ;
+
+158 
+öãrvÆ_node
+ *
+ãmp_node
+ = 
+NULL
+ ;
+
+159 i‡(
+p
+ !
+NULL
+ && 
+q
+ == NULL) {
+
+160 
+ãmp_node
+ = 
+	`make_node
+(
+a
+) ;
+
+161 
+ãmp_node
+->
+√xt
+ = 
+hód
+->next ;
+
+162 
+hód
+->
+√xt
+ = 
+ãmp_node
+ ;
+
+164 i‡(
+p
+ =
+NULL
+ && 
+q
+ != NULL) {
+
+165 
+q
+->
+√xt
+ = 
+	`make_node
+(
+a
+) ;
+
+167 i‡(
+p_loc
+ > 
+q_loc
+) {
+
+168 
+ãmp_node
+ = 
+	`make_node
+(
+a
+) ;
+
+169 
+q
+->
+√xt
+ = 
+ãmp_node
+ ;
+
+170 
+ãmp_node
+->
+√xt
+ = 
+p
+ ;
+
+173 
+öãrvÆ
+ 
+ãmp_öãrvÆ
+ ;
+
+174 
+ãmp_öãrvÆ
+.
+low_vÆue
+ = 
+	`öãrvÆ_vÆue_mö
+(
+p
+->
+ôem
+.low_vÆue, 
+a
+.low_value) ;
+
+175 
+ãmp_öãrvÆ
+.
+up_vÆue
+ = 
+	`öãrvÆ_vÆue_max
+(
+q
+->
+ôem
+.up_vÆue, 
+a
+.up_value) ;
+
+176 
+ãmp_node
+ = 
+	`make_node
+(
+ãmp_öãrvÆ
+) ;
+
+177 
+¥e_p
+->
+√xt
+ = 
+ãmp_node
+ ;
+
+178 
+ãmp_node
+->
+√xt
+ = 
+q
+->next ;
+
+179 
+q
+->
+√xt
+ = 
+NULL
+ ;
+
+180 
+	`de°roy_£t
+(
+p
+) ;
+
+182 
+	}
+};
+
+185 
+	$öãrvÆ_£t_öãr£˘
+(
+öãrvÆ
+ 
+a
+, 
+öãrvÆ_node
+ *
+b
+) {
+
+187 
+	}
+};
+
+191 
+£t_£t_uni⁄
+(
+öãrvÆ_node
+ *
+a
+, i¡îvÆ_nodê*
+b
+) ;
+
+194 
+£t_£t_öãr£˘
+(
+öãrvÆ_node
+ *
+a
+, i¡îvÆ_nodê*
+b
+) ;
+
+197 
+öãrvÆ_node
+ *
+£t_£t_¨ôhmëic
+(öãrvÆ_nodê*
+a
+, i¡îvÆ_nodê*
+b
+, 
+›î©‹_ö
+) ;
+
+	@intervalset.h
+
+15 #i‚de‡
+INTERVALSET_H
+
+
+16 
+	#INTERVALSET_H
+
+
+	)
+
+17 
+	~<°dio.h
+>
+
+19 
+	~"öãrvÆ.h
+"
+
+20 
+	~"comm⁄.h
+"
+
+22 
+	söãrvÆ_node
+ {
+
+23 
+öãrvÆ
+ 
+	môem
+ ;
+
+24 
+öãrvÆ
+ *
+	m√xt
+ ;
+
+29 
+öãrvÆ_node
+ *
+make_node
+(
+öãrvÆ
+ 
+ôem
+);
+
+30 
+‰ì_node
+(
+öãrvÆ_node
+ *
+p
+);
+
+31 
+öãrvÆ_node
+ *
+£¨ch_node
+(
+öãrvÆ
+ 
+key
+);
+
+32 
+ö£π_node
+(
+öãrvÆ_node
+ *
+p
+);
+
+33 
+dñëe_node
+(
+öãrvÆ_node
+ *
+p
+);
+
+34 
+åavî£
+((*
+visô
+)(
+öãrvÆ_node
+ *));
+
+35 
+	`de°roy_£t
+();
+
+36 
+	`push_node
+(
+öãrvÆ_node
+ *
+p
+);
+
+37 
+öãrvÆ_node
+ *
+	`p›_node
+();
+
+41 
+öãrvÆ_node
+ *
+	`öãrvÆ_£t_uni⁄
+(
+öãrvÆ
+ 
+a
+, i¡îvÆ_nodê*
+b
+) ;
+
+44 
+öãrvÆ_node
+ *
+	`öãrvÆ_£t_öãr£˘
+(
+öãrvÆ
+ 
+a
+, i¡îvÆ_nodê*
+b
+) ;
+
+48 
+öãrvÆ_node
+ *
+	`£t_£t_uni⁄
+(öãrvÆ_nodê*
+a
+, i¡îvÆ_nodê*
+b
+) ;
+
+51 
+öãrvÆ_node
+ *
+	`£t_£t_öãr£˘
+(öãrvÆ_nodê*
+a
+, i¡îvÆ_nodê*
+b
+) ;
+
+54 
+öãrvÆ_node
+ *
+	`£t_£t_¨ôhmëic
+(öãrvÆ_nodê*
+a
+, i¡îvÆ_nodê*
+b
+, 
+›î©‹_ö
+) ;
 
 	@main.c
 
@@ -3659,7 +5295,9 @@ c
 a
 ->
 low_vÆue
- = 5 ;
+ = 
+MIN_VALUE
+ ;
 
 34 
 a
@@ -3681,7 +5319,9 @@ MIN_VALUE
 b
 ->
 up_vÆue
- = -10 ;
+ = 
+MIN_VALUE
+ ;
 
 37 
 	`öãrvÆ_add
@@ -21960,14 +23600,16 @@ __END_DECLS
 .
 1
 /usr/include
-23
-415
+25
+443
 cfg.c
 cfg.h
 common.c
 common.h
 interval.c
 interval.h
+intervalset.c
+intervalset.h
 main.c
 /usr/include/limits.h
 /usr/include/math.h

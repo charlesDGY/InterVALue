@@ -1,9 +1,9 @@
-objects = main.o interval.o common.o
+objects = main.o interval.o common.o intervalset.o
 
 edit : $(objects)
 	gcc -o edit $(objects) -lm
 
-main.o : interval.h
+main.o : interval.h intervalset.h
 interval.o : common.h
 
 

@@ -12,6 +12,7 @@ CTRL_COND	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTR
 CTRL_RET	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	e	enum:__anon1
 CTRL_SEQ	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	e	enum:__anon1
 CTRL_UNCOND	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	e	enum:__anon1
+INTERVALSET_H	intervalset.h	16;"	d
 INTERVAL_H	interval.h	16;"	d
 LOOP_HEAD	cfg.h	33;"	d
 LOOP_TAIL	cfg.h	34;"	d
@@ -42,8 +43,10 @@ __anon2::type	cfg.h	/^    bb_type_t	type;$/;"	m	struct:__anon2	access:public
 __anon3::addr	cfg.h	/^    addr_t addr;$/;"	m	struct:__anon3	access:public
 __anon3::name	cfg.h	/^    char* name;$/;"	m	struct:__anon3	access:public
 __anon3::size	cfg.h	/^    int size;$/;"	m	struct:__anon3	access:public
-__anon4::low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:__anon4	access:public
-__anon4::up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:__anon4	access:public
+add_inf	common.c	/^interval_value_type add_inf(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
+add_inf	common.h	/^interval_value_type add_inf(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
+add_overflow	common.c	/^void add_overflow(interval_value_type *a, interval_value_type *b) {$/;"	f	signature:(interval_value_type *a, interval_value_type *b)
+add_overflow	common.h	/^void add_overflow(interval_value_type *a, interval_value_type *b) ;$/;"	p	signature:(interval_value_type *a, interval_value_type *b)
 addr	cfg.h	/^    addr_t addr;$/;"	m	struct:__anon3	access:public
 bb_is_loop_head	cfg.c	/^bb_is_loop_head(cfg_node_t *bb)$/;"	f	signature:(cfg_node_t *bb)
 bb_is_loop_tail	cfg.c	/^bb_is_loop_tail(cfg_node_t *bb)$/;"	f	signature:(cfg_node_t *bb)
@@ -61,23 +64,48 @@ code	cfg.h	/^    de_inst_t   *code;		\/\/ pointer to the first instruction$/;"	m
 create_cfg	cfg.c	/^create_cfg(proc_t *proc)$/;"	f	file:	signature:(proc_t *proc)
 create_cfg_edges	cfg.c	/^create_cfg_edges(proc_t *proc)$/;"	f	file:	signature:(proc_t *proc)
 d_instlist	cfg.h	/^     void   *d_instlist;$/;"	m	struct:__anon2	access:public
+delete	intervalset.c	/^void delete(interval_node *head, interval_node *p)$/;"	f	signature:(interval_node *head, interval_node *p)
+delete_node	intervalset.c	/^void delete_node(interval_node *p);$/;"	p	file:	signature:(interval_node *p)
+delete_node	intervalset.h	/^void delete_node(interval_node *p);$/;"	p	signature:(interval_node *p)
+destroy_node	intervalset.c	/^void destroy_node(void);$/;"	p	file:	signature:(void)
+destroy_set	intervalset.c	/^void destroy_set(interval_node *head)$/;"	f	signature:(interval_node *head)
+destroy_set	intervalset.h	/^void destroy_set(void);$/;"	p	signature:(void)
+div_inf	common.c	/^interval_value_type div_inf(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
+div_inf	common.h	/^interval_value_type div_inf(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
+div_overflow	common.c	/^void div_overflow(interval_value_type *a, interval_value_type *b) {$/;"	f	signature:(interval_value_type *a, interval_value_type *b)
+div_overflow	common.h	/^void div_overflow(interval_value_type *a, interval_value_type *b) ;$/;"	p	signature:(interval_value_type *a, interval_value_type *b)
 dst	cfg.h	/^    cfg_node_t  *src, *dst;	\/\/ src -> dst$/;"	m	struct:cfg_edge_t	access:public
 dump_cfg	cfg.c	/^dump_cfg(FILE *fp, proc_t *proc)$/;"	f	signature:(FILE *fp, proc_t *proc)
 flags	cfg.h	/^    int		flags;		\/\/ for traverse usage$/;"	m	struct:__anon2	access:public
 flags	cfg.h	/^    int		flags;$/;"	m	struct:proc_t	access:public
+free_node	intervalset.c	/^void free_node(interval_node *p)$/;"	f	signature:(interval_node *p)
+free_node	intervalset.c	/^void free_node(interval_node *p);$/;"	p	file:	signature:(interval_node *p)
+free_node	intervalset.h	/^void free_node(interval_node *p);$/;"	p	signature:(interval_node *p)
 id	cfg.h	/^    int		id;		\/\/ basic block id (per procedure)$/;"	m	struct:__anon2	access:public
 id	cfg.h	/^    int		id;		\/\/ proc id$/;"	m	struct:proc_t	access:public
 identify_loops	cfg.c	/^identify_loops(proc_t *proc)$/;"	f	file:	signature:(proc_t *proc)
 in	cfg.h	/^    cfg_edge_t	**in;		\/\/ incoming edges$/;"	m	struct:__anon2	access:public
 in_abs_mem_value	cfg.h	/^	 abs_mem_p in_abs_mem_value;  \/* A data structure holding value in abstract *\/$/;"	m	struct:__anon2	access:public
 in_abs_reg_value	cfg.h	/^	 ric_p* in_abs_reg_value;	\/* values. Register numbers can directly be *\/$/;"	m	struct:__anon2	access:public
-interval	interval.h	/^} interval;$/;"	t	typeref:struct:__anon4
+insert	intervalset.c	/^void insert(interval_node * p)$/;"	f	signature:(interval_node * p)
+insert_node	intervalset.c	/^void insert_node(interval_node *p);$/;"	p	file:	signature:(interval_node *p)
+insert_node	intervalset.h	/^void insert_node(interval_node *p);$/;"	p	signature:(interval_node *p)
+interval	interval.h	/^typedef struct interval{$/;"	s
+interval::low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:interval	access:public
+interval::up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:interval	access:public
 interval_add	interval.c	/^void interval_add(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
 interval_add	interval.h	/^void interval_add(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_div	interval.c	/^void interval_div(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
 interval_div	interval.h	/^void interval_div(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_mul	interval.c	/^void interval_mul(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
 interval_mul	interval.h	/^void interval_mul(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
+interval_node	intervalset.h	/^typedef struct interval_node {$/;"	s
+interval_node::item	intervalset.h	/^    interval item ;$/;"	m	struct:interval_node	access:public
+interval_node::next	intervalset.h	/^    interval *next ;$/;"	m	struct:interval_node	access:public
+interval_set_intersect	intervalset.c	/^void interval_set_intersect(interval a, interval_node *b) {$/;"	f	signature:(interval a, interval_node *b)
+interval_set_intersect	intervalset.h	/^interval_node *interval_set_intersect(interval a, interval_node *b) ;$/;"	p	signature:(interval a, interval_node *b)
+interval_set_union	intervalset.c	/^void interval_set_union(interval a, interval_node *head) {$/;"	f	signature:(interval a, interval_node *head)
+interval_set_union	intervalset.h	/^interval_node *interval_set_union(interval a, interval_node *b) ;$/;"	p	signature:(interval a, interval_node *b)
 interval_sub	interval.c	/^void interval_sub(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
 interval_sub	interval.h	/^void interval_sub(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_value_max	common.c	/^interval_value_type interval_value_max(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
@@ -85,15 +113,24 @@ interval_value_max	common.h	/^interval_value_type interval_value_max(interval_va
 interval_value_min	common.c	/^interval_value_type interval_value_min(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
 interval_value_min	common.h	/^interval_value_type interval_value_min(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
 interval_value_type	interval.h	22;"	d
+item	intervalset.h	/^    interval item ;$/;"	m	struct:interval_node	access:public
 lookup_addr	cfg.c	/^lookup_addr(de_inst_t *code, int num, addr_t addr)$/;"	f	file:	signature:(de_inst_t *code, int num, addr_t addr)
 lookup_bb	cfg.c	/^lookup_bb(cfg_node_t *cfg, int num, addr_t addr)$/;"	f	file:	signature:(cfg_node_t *cfg, int num, addr_t addr)
 lookup_proc	cfg.c	/^lookup_proc(addr_t addr)$/;"	f	file:	signature:(addr_t addr)
 loop_check	cfg.c	/^loop_check(proc_t *proc, int start, int end)$/;"	f	file:	signature:(proc_t *proc, int start, int end)
 loop_role	cfg.h	/^    int		loop_role;	\/\/ whether it is a loop head, tail, or neither$/;"	m	struct:__anon2	access:public
-low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:__anon4	access:public
+low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:interval	access:public
 main	main.c	/^int main(int argc, const char *argv[])$/;"	f	signature:(int argc, const char *argv[])
+make_node	intervalset.c	/^interval_node *make_node(interval item)$/;"	f	signature:(interval item)
+make_node	intervalset.c	/^interval_node *make_node(interval item);$/;"	p	file:	signature:(interval item)
+make_node	intervalset.h	/^interval_node *make_node(interval item);$/;"	p	signature:(interval item)
+mul_inf	common.c	/^interval_value_type mul_inf(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
+mul_inf	common.h	/^interval_value_type mul_inf(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
+mul_overflow	common.c	/^void mul_overflow(interval_value_type *a, interval_value_type *b) {$/;"	f	signature:(interval_value_type *a, interval_value_type *b)
+mul_overflow	common.h	/^void mul_overflow(interval_value_type *a, interval_value_type *b) ;$/;"	p	signature:(interval_value_type *a, interval_value_type *b)
 name	cfg.h	/^    char* name;$/;"	m	struct:__anon3	access:public
 new_edge	cfg.c	/^new_edge(cfg_node_t *src, cfg_node_t *dst, int taken)$/;"	f	file:	signature:(cfg_node_t *src, cfg_node_t *dst, int taken)
+next	intervalset.h	/^    interval *next ;$/;"	m	struct:interval_node	access:public
 num_bb	cfg.h	/^    int		num_bb;		\/\/ number of basic blocks$/;"	m	struct:proc_t	access:public
 num_d_inst	cfg.h	/^     int    num_d_inst;$/;"	m	struct:__anon2	access:public
 num_in	cfg.h	/^    int		num_in;		\/\/ number of incoming edges$/;"	m	struct:__anon2	access:public
@@ -104,6 +141,9 @@ out_abs_mem_value	cfg.h	/^	 abs_mem_p out_abs_mem_value; \/*  memory locations *
 out_abs_reg_value	cfg.h	/^	 ric_p* out_abs_reg_value; \/* indexed in this structure *\/$/;"	m	struct:__anon2	access:public
 out_n	cfg.h	/^    cfg_edge_t	*out_n, *out_t;	\/\/ outgoing edges (non-taken\/taken)$/;"	m	struct:__anon2	access:public
 out_t	cfg.h	/^    cfg_edge_t	*out_n, *out_t;	\/\/ outgoing edges (non-taken\/taken)$/;"	m	struct:__anon2	access:public
+pop	intervalset.c	/^interval_node * pop(void)$/;"	f	signature:(void)
+pop_node	intervalset.c	/^interval_node *pop_node(void);$/;"	p	file:	signature:(void)
+pop_node	intervalset.h	/^interval_node *pop_node(void);$/;"	p	signature:(void)
 proc	cfg.h	/^    proc_t  	*proc;		\/\/ up-link to the procedure containing it$/;"	m	struct:__anon2	access:public
 proc_t	cfg.h	/^struct proc_t {$/;"	s
 proc_t	cfg.h	/^typedef struct proc_t	    proc_t;$/;"	t	typeref:struct:proc_t
@@ -115,14 +155,33 @@ proc_t::num_bb	cfg.h	/^    int		num_bb;		\/\/ number of basic blocks$/;"	m	struc
 proc_t::num_inst	cfg.h	/^    int		num_inst;	\/\/ number of instructions$/;"	m	struct:proc_t	access:public
 proc_t::sa	cfg.h	/^    addr_t	sa;		\/\/ proc start addr$/;"	m	struct:proc_t	access:public
 proc_t::size	cfg.h	/^    int		size;		\/\/ size (in bytes)$/;"	m	struct:proc_t	access:public
+push	intervalset.c	/^void push(interval_node * p)$/;"	f	signature:(interval_node * p)
+push_node	intervalset.c	/^void push_node(interval_node *p);$/;"	p	file:	signature:(interval_node *p)
+push_node	intervalset.h	/^void push_node(interval_node *p);$/;"	p	signature:(interval_node *p)
 sa	cfg.h	/^    addr_t	sa;		\/\/ block start addr$/;"	m	struct:__anon2	access:public
 sa	cfg.h	/^    addr_t	sa;		\/\/ proc start addr$/;"	m	struct:proc_t	access:public
 scan_blocks	cfg.c	/^scan_blocks(int *bb_ent, proc_t *proc)$/;"	f	file:	signature:(int *bb_ent, proc_t *proc)
 scan_procs	cfg.c	/^scan_procs(int *proc_ent)$/;"	f	file:	signature:(int *proc_ent)
+search_node	intervalset.c	/^interval_node *search_node(interval key);$/;"	p	file:	signature:(interval key)
+search_node	intervalset.c	/^interval_node *search_node(interval_node *head, interval key)$/;"	f	signature:(interval_node *head, interval key)
+search_node	intervalset.h	/^interval_node *search_node(interval key);$/;"	p	signature:(interval key)
+set_set_arithmetic	intervalset.c	/^interval_node *set_set_arithmetic(interval_node *a, interval_node *b, unsigned int operator_in) ;$/;"	p	file:	signature:(interval_node *a, interval_node *b, unsigned int operator_in)
+set_set_arithmetic	intervalset.h	/^interval_node *set_set_arithmetic(interval_node *a, interval_node *b, unsigned int operator_in) ;$/;"	p	signature:(interval_node *a, interval_node *b, unsigned int operator_in)
+set_set_intersect	intervalset.c	/^void set_set_intersect(interval_node *a, interval_node *b) ;$/;"	p	file:	signature:(interval_node *a, interval_node *b)
+set_set_intersect	intervalset.h	/^interval_node *set_set_intersect(interval_node *a, interval_node *b) ;$/;"	p	signature:(interval_node *a, interval_node *b)
+set_set_union	intervalset.c	/^void set_set_union(interval_node *a, interval_node *b) ;$/;"	p	file:	signature:(interval_node *a, interval_node *b)
+set_set_union	intervalset.h	/^interval_node *set_set_union(interval_node *a, interval_node *b) ;$/;"	p	signature:(interval_node *a, interval_node *b)
 size	cfg.h	/^    int		size;		\/\/ size (in bytes)$/;"	m	struct:__anon2	access:public
 size	cfg.h	/^    int		size;		\/\/ size (in bytes)$/;"	m	struct:proc_t	access:public
 size	cfg.h	/^    int size;$/;"	m	struct:__anon3	access:public
 src	cfg.h	/^    cfg_node_t  *src, *dst;	\/\/ src -> dst$/;"	m	struct:cfg_edge_t	access:public
+sub_inf	common.c	/^interval_value_type sub_inf(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
+sub_inf	common.h	/^interval_value_type sub_inf(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
+sub_overflow	common.c	/^void sub_overflow(interval_value_type *a, interval_value_type *b) {$/;"	f	signature:(interval_value_type *a, interval_value_type *b)
+sub_overflow	common.h	/^void sub_overflow(interval_value_type *a, interval_value_type *b) ;$/;"	p	signature:(interval_value_type *a, interval_value_type *b)
 symbol_i	cfg.h	/^} symbol_i;$/;"	t	typeref:struct:__anon3
+traverse	intervalset.c	/^void traverse(void (*visit)(interval_node *))$/;"	f	signature:(void (*visit)(interval_node *))
+traverse	intervalset.c	/^void traverse(void (*visit)(interval_node *));$/;"	p	file:	signature:(void (*visit)(interval_node *))
+traverse	intervalset.h	/^void traverse(void (*visit)(interval_node *));$/;"	p	signature:(void (*visit)(interval_node *))
 type	cfg.h	/^    bb_type_t	type;$/;"	m	struct:__anon2	access:public
-up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:__anon4	access:public
+up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:interval	access:public
