@@ -1,0 +1,128 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BOTH_BRANCHES	cfg.h	32;"	d
+CFG_H	cfg.h	23;"	d
+COMMON_H	common.h	15;"	d
+CTRL_CALL	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	e	enum:__anon1
+CTRL_COND	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	e	enum:__anon1
+CTRL_RET	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	e	enum:__anon1
+CTRL_SEQ	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	e	enum:__anon1
+CTRL_UNCOND	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	e	enum:__anon1
+INTERVAL_H	interval.h	16;"	d
+LOOP_HEAD	cfg.h	33;"	d
+LOOP_TAIL	cfg.h	34;"	d
+MAX_VALUE	interval.h	23;"	d
+MIN_VALUE	interval.h	24;"	d
+NOT_TAKEN	cfg.h	30;"	d
+TAKEN	cfg.h	31;"	d
+__anon2::callee	cfg.h	/^    proc_t	*callee;	\/\/ points to a callee if callee_addr not NULL$/;"	m	struct:__anon2	access:public
+__anon2::code	cfg.h	/^    de_inst_t   *code;		\/\/ pointer to the first instruction$/;"	m	struct:__anon2	access:public
+__anon2::d_instlist	cfg.h	/^     void   *d_instlist;$/;"	m	struct:__anon2	access:public
+__anon2::flags	cfg.h	/^    int		flags;		\/\/ for traverse usage$/;"	m	struct:__anon2	access:public
+__anon2::id	cfg.h	/^    int		id;		\/\/ basic block id (per procedure)$/;"	m	struct:__anon2	access:public
+__anon2::in	cfg.h	/^    cfg_edge_t	**in;		\/\/ incoming edges$/;"	m	struct:__anon2	access:public
+__anon2::in_abs_mem_value	cfg.h	/^	 abs_mem_p in_abs_mem_value;  \/* A data structure holding value in abstract *\/$/;"	m	struct:__anon2	access:public
+__anon2::in_abs_reg_value	cfg.h	/^	 ric_p* in_abs_reg_value;	\/* values. Register numbers can directly be *\/$/;"	m	struct:__anon2	access:public
+__anon2::loop_role	cfg.h	/^    int		loop_role;	\/\/ whether it is a loop head, tail, or neither$/;"	m	struct:__anon2	access:public
+__anon2::num_d_inst	cfg.h	/^     int    num_d_inst;$/;"	m	struct:__anon2	access:public
+__anon2::num_in	cfg.h	/^    int		num_in;		\/\/ number of incoming edges$/;"	m	struct:__anon2	access:public
+__anon2::num_inst	cfg.h	/^    int		num_inst;	\/\/ number of instructions$/;"	m	struct:__anon2	access:public
+__anon2::out_abs_mem_value	cfg.h	/^	 abs_mem_p out_abs_mem_value; \/*  memory locations *\/$/;"	m	struct:__anon2	access:public
+__anon2::out_abs_reg_value	cfg.h	/^	 ric_p* out_abs_reg_value; \/* indexed in this structure *\/$/;"	m	struct:__anon2	access:public
+__anon2::out_n	cfg.h	/^    cfg_edge_t	*out_n, *out_t;	\/\/ outgoing edges (non-taken\/taken)$/;"	m	struct:__anon2	access:public
+__anon2::out_t	cfg.h	/^    cfg_edge_t	*out_n, *out_t;	\/\/ outgoing edges (non-taken\/taken)$/;"	m	struct:__anon2	access:public
+__anon2::proc	cfg.h	/^    proc_t  	*proc;		\/\/ up-link to the procedure containing it$/;"	m	struct:__anon2	access:public
+__anon2::sa	cfg.h	/^    addr_t	sa;		\/\/ block start addr$/;"	m	struct:__anon2	access:public
+__anon2::size	cfg.h	/^    int		size;		\/\/ size (in bytes)$/;"	m	struct:__anon2	access:public
+__anon2::type	cfg.h	/^    bb_type_t	type;$/;"	m	struct:__anon2	access:public
+__anon3::addr	cfg.h	/^    addr_t addr;$/;"	m	struct:__anon3	access:public
+__anon3::name	cfg.h	/^    char* name;$/;"	m	struct:__anon3	access:public
+__anon3::size	cfg.h	/^    int size;$/;"	m	struct:__anon3	access:public
+__anon4::low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:__anon4	access:public
+__anon4::up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:__anon4	access:public
+addr	cfg.h	/^    addr_t addr;$/;"	m	struct:__anon3	access:public
+bb_is_loop_head	cfg.c	/^bb_is_loop_head(cfg_node_t *bb)$/;"	f	signature:(cfg_node_t *bb)
+bb_is_loop_tail	cfg.c	/^bb_is_loop_tail(cfg_node_t *bb)$/;"	f	signature:(cfg_node_t *bb)
+bb_type_t	cfg.h	/^typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;$/;"	t	typeref:enum:__anon1
+build_cfgs	cfg.c	/^build_cfgs()$/;"	f
+callee	cfg.h	/^    proc_t	*callee;	\/\/ points to a callee if callee_addr not NULL$/;"	m	struct:__anon2	access:public
+cfg	cfg.h	/^    cfg_node_t	*cfg;		\/\/ cfg nodes with num_bb nodes$/;"	m	struct:proc_t	access:public
+cfg_edge_t	cfg.h	/^struct cfg_edge_t {$/;"	s
+cfg_edge_t	cfg.h	/^typedef struct cfg_edge_t   cfg_edge_t;$/;"	t	typeref:struct:cfg_edge_t
+cfg_edge_t::dst	cfg.h	/^    cfg_node_t  *src, *dst;	\/\/ src -> dst$/;"	m	struct:cfg_edge_t	access:public
+cfg_edge_t::src	cfg.h	/^    cfg_node_t  *src, *dst;	\/\/ src -> dst$/;"	m	struct:cfg_edge_t	access:public
+cfg_node_t	cfg.h	/^} cfg_node_t;$/;"	t	typeref:struct:__anon2
+code	cfg.h	/^    de_inst_t   *code;		\/\/ instructions$/;"	m	struct:proc_t	access:public
+code	cfg.h	/^    de_inst_t   *code;		\/\/ pointer to the first instruction$/;"	m	struct:__anon2	access:public
+create_cfg	cfg.c	/^create_cfg(proc_t *proc)$/;"	f	file:	signature:(proc_t *proc)
+create_cfg_edges	cfg.c	/^create_cfg_edges(proc_t *proc)$/;"	f	file:	signature:(proc_t *proc)
+d_instlist	cfg.h	/^     void   *d_instlist;$/;"	m	struct:__anon2	access:public
+dst	cfg.h	/^    cfg_node_t  *src, *dst;	\/\/ src -> dst$/;"	m	struct:cfg_edge_t	access:public
+dump_cfg	cfg.c	/^dump_cfg(FILE *fp, proc_t *proc)$/;"	f	signature:(FILE *fp, proc_t *proc)
+flags	cfg.h	/^    int		flags;		\/\/ for traverse usage$/;"	m	struct:__anon2	access:public
+flags	cfg.h	/^    int		flags;$/;"	m	struct:proc_t	access:public
+id	cfg.h	/^    int		id;		\/\/ basic block id (per procedure)$/;"	m	struct:__anon2	access:public
+id	cfg.h	/^    int		id;		\/\/ proc id$/;"	m	struct:proc_t	access:public
+identify_loops	cfg.c	/^identify_loops(proc_t *proc)$/;"	f	file:	signature:(proc_t *proc)
+in	cfg.h	/^    cfg_edge_t	**in;		\/\/ incoming edges$/;"	m	struct:__anon2	access:public
+in_abs_mem_value	cfg.h	/^	 abs_mem_p in_abs_mem_value;  \/* A data structure holding value in abstract *\/$/;"	m	struct:__anon2	access:public
+in_abs_reg_value	cfg.h	/^	 ric_p* in_abs_reg_value;	\/* values. Register numbers can directly be *\/$/;"	m	struct:__anon2	access:public
+interval	interval.h	/^} interval;$/;"	t	typeref:struct:__anon4
+interval_add	interval.c	/^void interval_add(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
+interval_add	interval.h	/^void interval_add(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
+interval_div	interval.c	/^void interval_div(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
+interval_div	interval.h	/^void interval_div(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
+interval_mul	interval.c	/^void interval_mul(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
+interval_mul	interval.h	/^void interval_mul(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
+interval_sub	interval.c	/^void interval_sub(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
+interval_sub	interval.h	/^void interval_sub(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
+interval_value_max	common.c	/^interval_value_type interval_value_max(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
+interval_value_max	common.h	/^interval_value_type interval_value_max(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
+interval_value_min	common.c	/^interval_value_type interval_value_min(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
+interval_value_min	common.h	/^interval_value_type interval_value_min(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
+interval_value_type	interval.h	22;"	d
+lookup_addr	cfg.c	/^lookup_addr(de_inst_t *code, int num, addr_t addr)$/;"	f	file:	signature:(de_inst_t *code, int num, addr_t addr)
+lookup_bb	cfg.c	/^lookup_bb(cfg_node_t *cfg, int num, addr_t addr)$/;"	f	file:	signature:(cfg_node_t *cfg, int num, addr_t addr)
+lookup_proc	cfg.c	/^lookup_proc(addr_t addr)$/;"	f	file:	signature:(addr_t addr)
+loop_check	cfg.c	/^loop_check(proc_t *proc, int start, int end)$/;"	f	file:	signature:(proc_t *proc, int start, int end)
+loop_role	cfg.h	/^    int		loop_role;	\/\/ whether it is a loop head, tail, or neither$/;"	m	struct:__anon2	access:public
+low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:__anon4	access:public
+main	main.c	/^int main(int argc, const char *argv[])$/;"	f	signature:(int argc, const char *argv[])
+name	cfg.h	/^    char* name;$/;"	m	struct:__anon3	access:public
+new_edge	cfg.c	/^new_edge(cfg_node_t *src, cfg_node_t *dst, int taken)$/;"	f	file:	signature:(cfg_node_t *src, cfg_node_t *dst, int taken)
+num_bb	cfg.h	/^    int		num_bb;		\/\/ number of basic blocks$/;"	m	struct:proc_t	access:public
+num_d_inst	cfg.h	/^     int    num_d_inst;$/;"	m	struct:__anon2	access:public
+num_in	cfg.h	/^    int		num_in;		\/\/ number of incoming edges$/;"	m	struct:__anon2	access:public
+num_inst	cfg.h	/^    int		num_inst;	\/\/ number of instructions$/;"	m	struct:__anon2	access:public
+num_inst	cfg.h	/^    int		num_inst;	\/\/ number of instructions$/;"	m	struct:proc_t	access:public
+objects	Makefile	/^objects = main.o interval.o common.o$/;"	m
+out_abs_mem_value	cfg.h	/^	 abs_mem_p out_abs_mem_value; \/*  memory locations *\/$/;"	m	struct:__anon2	access:public
+out_abs_reg_value	cfg.h	/^	 ric_p* out_abs_reg_value; \/* indexed in this structure *\/$/;"	m	struct:__anon2	access:public
+out_n	cfg.h	/^    cfg_edge_t	*out_n, *out_t;	\/\/ outgoing edges (non-taken\/taken)$/;"	m	struct:__anon2	access:public
+out_t	cfg.h	/^    cfg_edge_t	*out_n, *out_t;	\/\/ outgoing edges (non-taken\/taken)$/;"	m	struct:__anon2	access:public
+proc	cfg.h	/^    proc_t  	*proc;		\/\/ up-link to the procedure containing it$/;"	m	struct:__anon2	access:public
+proc_t	cfg.h	/^struct proc_t {$/;"	s
+proc_t	cfg.h	/^typedef struct proc_t	    proc_t;$/;"	t	typeref:struct:proc_t
+proc_t::cfg	cfg.h	/^    cfg_node_t	*cfg;		\/\/ cfg nodes with num_bb nodes$/;"	m	struct:proc_t	access:public
+proc_t::code	cfg.h	/^    de_inst_t   *code;		\/\/ instructions$/;"	m	struct:proc_t	access:public
+proc_t::flags	cfg.h	/^    int		flags;$/;"	m	struct:proc_t	access:public
+proc_t::id	cfg.h	/^    int		id;		\/\/ proc id$/;"	m	struct:proc_t	access:public
+proc_t::num_bb	cfg.h	/^    int		num_bb;		\/\/ number of basic blocks$/;"	m	struct:proc_t	access:public
+proc_t::num_inst	cfg.h	/^    int		num_inst;	\/\/ number of instructions$/;"	m	struct:proc_t	access:public
+proc_t::sa	cfg.h	/^    addr_t	sa;		\/\/ proc start addr$/;"	m	struct:proc_t	access:public
+proc_t::size	cfg.h	/^    int		size;		\/\/ size (in bytes)$/;"	m	struct:proc_t	access:public
+sa	cfg.h	/^    addr_t	sa;		\/\/ block start addr$/;"	m	struct:__anon2	access:public
+sa	cfg.h	/^    addr_t	sa;		\/\/ proc start addr$/;"	m	struct:proc_t	access:public
+scan_blocks	cfg.c	/^scan_blocks(int *bb_ent, proc_t *proc)$/;"	f	file:	signature:(int *bb_ent, proc_t *proc)
+scan_procs	cfg.c	/^scan_procs(int *proc_ent)$/;"	f	file:	signature:(int *proc_ent)
+size	cfg.h	/^    int		size;		\/\/ size (in bytes)$/;"	m	struct:__anon2	access:public
+size	cfg.h	/^    int		size;		\/\/ size (in bytes)$/;"	m	struct:proc_t	access:public
+size	cfg.h	/^    int size;$/;"	m	struct:__anon3	access:public
+src	cfg.h	/^    cfg_node_t  *src, *dst;	\/\/ src -> dst$/;"	m	struct:cfg_edge_t	access:public
+symbol_i	cfg.h	/^} symbol_i;$/;"	t	typeref:struct:__anon3
+type	cfg.h	/^    bb_type_t	type;$/;"	m	struct:__anon2	access:public
+up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:__anon4	access:public
