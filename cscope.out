@@ -1,4 +1,4 @@
-cscope 15 /home/dgy/Programming/VInterval -q 0000001605 0000128568
+cscope 15 /home/dgy/Programming/VInterval -q 0000001607 0000134046
 	@cfg.c
 
 23 
@@ -4185,10 +4185,6 @@ LONG_MIN
 
 	)
 
-27 
-	sš‹rv®
-{
-
 28 
 š‹rv®_v®ue_ty³
  
@@ -4199,6 +4195,10 @@ LONG_MIN
 š‹rv®_v®ue_ty³
  
 	mup_v®ue
+;
+
+32 } 
+	tš‹rv®
 ;
 
 35 
@@ -4262,76 +4262,6 @@ c
 26 
 š‹rv®_node
  *
-make_node
-(
-š‹rv®
- 
-™em
-);
-
-27 
-ä“_node
-(
-š‹rv®_node
- *
-p
-);
-
-28 
-š‹rv®_node
- *
-£¬ch_node
-(
-š‹rv®
- 
-key
-);
-
-29 
-š£¹_node
-(
-š‹rv®_node
- *
-p
-);
-
-30 
-d–‘e_node
-(
-š‹rv®_node
- *
-p
-);
-
-31 
-Œav”£
-((*
-vis™
-)(
-š‹rv®_node
- *));
-
-32 
-	`de¡roy_node
-();
-
-33 
-	`push_node
-(
-š‹rv®_node
- *
-p
-);
-
-34 
-š‹rv®_node
- *
-	`pÝ_node
-();
-
-38 
-š‹rv®_node
- *
 	$make_node
 (
 š‹rv®
@@ -4339,7 +4269,7 @@ p
 ™em
 )
 
-40 
+28 
 š‹rv®_node
  *
 p
@@ -4347,7 +4277,7 @@ p
 	`m®loc
 ( *p) ;
 
-41 
+29 
 p
 ->
 ™em
@@ -4355,7 +4285,7 @@ p
 low_v®ue
  = item.low_value ;
 
-42 
+30 
 p
 ->
 ™em
@@ -4363,7 +4293,7 @@ p
 up_v®ue
  = item.up_value ;
 
-43 
+31 
 p
 ->
 Ãxt
@@ -4371,15 +4301,15 @@ p
 NULL
  ;
 
-44  
+32  
 p
 ;
 
-45 
+33 
 	}
 }
 
-47 
+35 
 	$ä“_node
 (
 š‹rv®_node
@@ -4387,17 +4317,145 @@ p
 p
 )
 
-49 
+37 
 	`ä“
 (
 p
 );
 
-50 
+38 
 	}
 }
 
-52 
+40 
+	$de¡roy_£t
+(
+š‹rv®_node
+ *
+h—d
+)
+
+42 
+š‹rv®_node
+ *
+q
+, *
+p
+ = 
+h—d
+;
+
+43 
+p
+) {
+
+44 
+q
+ = 
+p
+;
+
+45 
+p
+ =…->
+Ãxt
+;
+
+46 
+	`ä“_node
+(
+q
+);
+
+48 
+	}
+}
+
+51 
+š‹rv®_node
+ *
+	$cÝy_£t
+(
+š‹rv®_node
+ *
+¤c
+)
+
+53 
+š‹rv®
+ 
+‹mp_š‹rv®
+ ;
+
+54 
+š‹rv®_node
+ *
+™”
+ = 
+¤c
+, *
+»suÉ
+ = 
+NULL
+ ;
+
+55 
+™”
+ !ð
+NULL
+) {
+
+56 
+‹mp_š‹rv®
+.
+low_v®ue
+ = 
+™”
+->
+™em
+.low_value ;
+
+57 
+‹mp_š‹rv®
+.
+up_v®ue
+ = 
+™”
+->
+™em
+.up_value ;
+
+58 
+»suÉ
+ = 
+	`make_node
+(
+‹mp_š‹rv®
+) ;
+
+59 
+»suÉ
+->
+Ãxt
+ = 
+™”
+->next ;
+
+60 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+62  
+»suÉ
+ ;
+
+63 
+	}
+}
+
+66 
 š‹rv®_node
  *
 	$£¬ch_node
@@ -4411,13 +4469,13 @@ h—d
 key
 )
 
-54 
+68 
 š‹rv®_node
  *
 p
 ;
 
-55 
+69 
 p
  = 
 h—d
@@ -4425,7 +4483,7 @@ h—d
 Ãxt
 ;…;… =…->next)
 
-56 ià(
+70 ià(
 p
 ->
 ™em
@@ -4437,46 +4495,20 @@ key
 up_v®ue
  == key.up_value)
 
-57  
+71  
 p
 ;
 
-58  
+72  
 NULL
 ;
 
-59 
+73 
 	}
 }
 
-65 
-	$š£¹
-(
-š‹rv®_node
- * 
-p
-)
-
-67 
-p
-->
-Ãxt
- = 
-h—d
-;
-
-68 
-h—d
- = 
-p
-;
-
-69 
-	}
-}
-
-71 
-	$d–‘e
+79 
+	$š£¹_node
 (
 š‹rv®_node
  *
@@ -4485,193 +4517,27 @@ h—d
 p
 )
 
-73 
-š‹rv®_node
- *
-´e
-;
-
-74 ià(
-p
- =ð
-h—d
-) {
-
-75 
-h—d
- = 
+81 
 p
 ->
 Ãxt
-;
-
-78 
-´e
  = 
 h—d
-;…»;…» =…»->
-Ãxt
-)
-
-79 ià(
-´e
-->
-Ãxt
- =ð
-p
-) {
-
-80 
-´e
-->
-Ãxt
- = 
-p
 ->next;
+
+82 
+h—d
+->
+Ãxt
+ = 
+p
+;
 
 83 
 	}
 }
 
-85 
-Œav”£
-((*
-vis™
-)(
-š‹rv®_node
- *))
-
-87 
-š‹rv®_node
- * 
-p
-;
-
-88 
-p
- = 
-h—d
-;…;… =…->
-Ãxt
-)
-
-89 
-	`vis™
-(
-p
-);
-
-90 
-	}
-}
-
-92 
-	$de¡roy_£t
-(
-š‹rv®_node
- *
-h—d
-)
-
-94 
-š‹rv®_node
- *
-q
-, 
-p
- = 
-h—d
-;
-
-95 
-h—d
- = 
-NULL
-;
-
-96 
-p
-) {
-
-97 
-q
- = 
-p
-;
-
-98 
-p
- =…->
-Ãxt
-;
-
-99 
-	`ä“_node
-(
-q
-);
-
-101 
-	}
-}
-
-103 
-	$push
-(
-š‹rv®_node
- * 
-p
-)
-
-105 
-	`š£¹
-(
-p
-);
-
-106 
-	}
-}
-
-108 
-š‹rv®_node
- * 
-	$pÝ
-()
-
-110 ià(
-h—d
- =ð
-NULL
-)
-
-111  
-NULL
-;
-
-113 
-š‹rv®_node
- * 
-p
- = 
-h—d
-;
-
-114 
-h—d
- = h—d->
-Ãxt
- ;
-
-115  
-p
-;
-
-117 
-	}
-}
-
-129 
+131 
 	$š‹rv®_£t_uniÚ
 (
 š‹rv®
@@ -4683,7 +4549,23 @@ a
 h—d
 ) {
 
-130 ià(
+132 ià(
+h—d
+ =ð
+NULL
+) {
+
+133 
+	`³¼Ü
+("input interval_set's head is NULL!") ;
+
+134 
+	`ex™
+(
+EXIT_FAILURE
+) ;
+
+136 ià(
 h—d
 ->
 Ãxt
@@ -4691,7 +4573,7 @@ h—d
 NULL
 ) {
 
-131 
+137 
 h—d
 ->
 Ãxt
@@ -4701,7 +4583,7 @@ h—d
 a
 ) ;
 
-134 
+140 
 š‹rv®_node
  *
 ™”
@@ -4715,7 +4597,7 @@ q
 ´e_p
  = NULL ;
 
-135 
+141 
 p_loc
  = 0, 
 q_loc
@@ -4723,7 +4605,7 @@ q_loc
 i
  = 1 ;
 
-136 
+142 
 ™”
  = 
 h—d
@@ -4731,7 +4613,7 @@ h—d
 Ãxt
 ; iter; iter = iter->next) {
 
-137 ià(
+143 ià(
 ™”
  =ð
 h—d
@@ -4747,25 +4629,25 @@ low_v®ue
 up_v®ue
 ) {
 
-138 
+144 
 p
  = 
 ™”
  ;
 
-139 
+145 
 ´e_p
  = 
 h—d
  ;
 
-140 
+146 
 p_loc
  = 
 i
  ;
 
-142 ià(
+148 ià(
 ™”
 ->
 Ãxt
@@ -4781,7 +4663,7 @@ low_v®ue
 up_v®ue
  &&‡.low_value <= (iter->next)->item.up_value) {
 
-143 
+149 
 p
  = 
 ™”
@@ -4789,19 +4671,19 @@ p
 Ãxt
  ;
 
-144 
+150 
 ´e_p
  = 
 ™”
  ;
 
-145 
+151 
 p_loc
  = 
 i
  + 1 ;
 
-147 ià(
+153 ià(
 ™”
 ->
 Ãxt
@@ -4817,19 +4699,19 @@ up_v®ue
 low_v®ue
 ) {
 
-148 
+154 
 q
  = 
 ™”
  ;
 
-149 
+155 
 q_loc
  = 
 i
  ;
 
-151 ià(
+157 ià(
 ™”
 ->
 Ãxt
@@ -4845,23 +4727,23 @@ up_v®ue
 low_v®ue
  &&‡.up_value < (iter->next)->item.low_value) {
 
-152 
+158 
 q
  = 
 ™”
  ;
 
-153 
+159 
 q_loc
  = 
 i
  ;
 
-155 
+161 
 i
 ++ ;
 
-158 
+164 
 š‹rv®_node
  *
 ‹mp_node
@@ -4869,7 +4751,7 @@ i
 NULL
  ;
 
-159 ià(
+165 ià(
 p
  !ð
 NULL
@@ -4877,7 +4759,7 @@ NULL
 q
  == NULL) {
 
-160 
+166 
 ‹mp_node
  = 
 	`make_node
@@ -4885,7 +4767,7 @@ q
 a
 ) ;
 
-161 
+167 
 ‹mp_node
 ->
 Ãxt
@@ -4893,7 +4775,7 @@ a
 h—d
 ->next ;
 
-162 
+168 
 h—d
 ->
 Ãxt
@@ -4901,7 +4783,7 @@ h—d
 ‹mp_node
  ;
 
-164 ià(
+170 ià(
 p
  =ð
 NULL
@@ -4909,7 +4791,7 @@ NULL
 q
  != NULL) {
 
-165 
+171 
 q
 ->
 Ãxt
@@ -4919,13 +4801,13 @@ q
 a
 ) ;
 
-167 ià(
+173 ià(
 p_loc
  > 
 q_loc
 ) {
 
-168 
+174 
 ‹mp_node
  = 
 	`make_node
@@ -4933,7 +4815,7 @@ q_loc
 a
 ) ;
 
-169 
+175 
 q
 ->
 Ãxt
@@ -4941,7 +4823,7 @@ q
 ‹mp_node
  ;
 
-170 
+176 
 ‹mp_node
 ->
 Ãxt
@@ -4949,13 +4831,13 @@ q
 p
  ;
 
-173 
+179 
 š‹rv®
  
 ‹mp_š‹rv®
  ;
 
-174 
+180 
 ‹mp_š‹rv®
 .
 low_v®ue
@@ -4969,7 +4851,7 @@ p
 a
 .low_value) ;
 
-175 
+181 
 ‹mp_š‹rv®
 .
 up_v®ue
@@ -4983,7 +4865,7 @@ q
 a
 .up_value) ;
 
-176 
+182 
 ‹mp_node
  = 
 	`make_node
@@ -4991,7 +4873,7 @@ a
 ‹mp_š‹rv®
 ) ;
 
-177 
+183 
 ´e_p
 ->
 Ãxt
@@ -4999,7 +4881,7 @@ a
 ‹mp_node
  ;
 
-178 
+184 
 ‹mp_node
 ->
 Ãxt
@@ -5007,7 +4889,7 @@ a
 q
 ->next ;
 
-179 
+185 
 q
 ->
 Ãxt
@@ -5015,17 +4897,17 @@ q
 NULL
  ;
 
-180 
+186 
 	`de¡roy_£t
 (
 p
 ) ;
 
-182 
+188 
 	}
 };
 
-185 
+191 
 	$š‹rv®_£t_š‹r£ù
 (
 š‹rv®
@@ -5034,44 +4916,994 @@ a
 , 
 š‹rv®_node
  *
-b
+h—d
 ) {
 
-187 
+196 ià(
+h—d
+ =ð
+NULL
+) {
+
+197 
+	`³¼Ü
+("input interval_set's head is NULL!") ;
+
+198 
+	`ex™
+(
+EXIT_FAILURE
+) ;
+
+200 ià(
+h—d
+->
+Ãxt
+ =ð
+NULL
+) {
+
+203 
+š‹rv®_node
+ *
+™”
+ = 
+NULL
+, *
+p
+ = NULL, *
+q
+ = NULL, *
+´e_p
+ = NULL ;
+
+204 
+p_loc
+ = 0, 
+q_loc
+ = 0, 
+i
+ = 1 ;
+
+205 
+™”
+ = 
+h—d
+->
+Ãxt
+; iter; iter = iter->next) {
+
+206 ià(
+™”
+ =ð
+h—d
+->
+Ãxt
+ && 
+a
+.
+low_v®ue
+ <ð™”->
+™em
+.
+up_v®ue
+) {
+
+207 
+p
+ = 
+™”
+ ;
+
+208 
+´e_p
+ = 
+h—d
+ ;
+
+209 
+p_loc
+ = 
+i
+ ;
+
+211 ià(
+™”
+->
+Ãxt
+ !ð
+NULL
+ && 
+a
+.
+low_v®ue
+ > i‹r->
+™em
+.
+up_v®ue
+ &&‡.low_value <= (iter->next)->item.up_value) {
+
+212 
+p
+ = 
+™”
+->
+Ãxt
+ ;
+
+213 
+´e_p
+ = 
+™”
+ ;
+
+214 
+p_loc
+ = 
+i
+ + 1 ;
+
+216 ià(
+™”
+->
+Ãxt
+ =ð
+NULL
+ && 
+a
+.
+up_v®ue
+ >ð™”->
+™em
+.
+low_v®ue
+) {
+
+217 
+q
+ = 
+™”
+ ;
+
+218 
+q_loc
+ = 
+i
+ ;
+
+220 ià(
+™”
+->
+Ãxt
+ !ð
+NULL
+ && 
+a
+.
+up_v®ue
+ >ð™”->
+™em
+.
+low_v®ue
+ &&‡.up_value < (iter->next)->item.low_value) {
+
+221 
+q
+ = 
+™”
+ ;
+
+222 
+q_loc
+ = 
+i
+ ;
+
+224 
+i
+++ ;
+
+227 ià((
+p
+ !ð
+NULL
+ && 
+q
+ =ðNULLè|| (°=ðNULL && q !ðNULLè|| (
+p_loc
+ > 
+q_loc
+)) {
+
+228 
+	`de¡roy_£t
+(
+h—d
+->
+Ãxt
+) ;
+
+229 
+h—d
+->
+Ãxt
+ = 
+NULL
+ ;
+
+232 ià(
+p
+ =ð
+q
+) {
+
+233 
+š‹rv®_node
+ *
+‹mp_node
+ = 
+NULL
+ ;
+
+234 
+š‹rv®
+ 
+‹mp_š‹rv®
+ ;
+
+235 
+‹mp_š‹rv®
+.
+low_v®ue
+ = 
+	`š‹rv®_v®ue_max
+(
+p
+->
+™em
+.low_v®ue, 
+a
+.low_value) ;
+
+236 
+‹mp_š‹rv®
+.
+up_v®ue
+ = 
+	`š‹rv®_v®ue_mš
+(
+q
+->
+™em
+.up_v®ue, 
+a
+.up_value) ;
+
+237 
+‹mp_node
+ = 
+	`make_node
+(
+‹mp_š‹rv®
+) ;
+
+238 
+	`de¡roy_£t
+(
+h—d
+->
+Ãxt
+) ;
+
+239 
+h—d
+->
+Ãxt
+ = 
+‹mp_node
+ ;
+
+243 
+š‹rv®_node
+ *
+‹mp_node_h—d
+ = 
+NULL
+, *
+‹mp_node_ž
+ = NULL ;
+
+244 
+š‹rv®
+ 
+‹mp_h—d
+, 
+‹mp_ž
+ ;
+
+245 
+‹mp_h—d
+.
+low_v®ue
+ = 
+	`š‹rv®_v®ue_max
+(
+p
+->
+™em
+.low_v®ue, 
+a
+.low_value) ;
+
+246 
+‹mp_h—d
+.
+up_v®ue
+ = 
+p
+->
+™em
+.up_value ;
+
+247 
+‹mp_ž
+.
+up_v®ue
+ = 
+	`š‹rv®_v®ue_mš
+(
+q
+->
+™em
+.up_v®ue, 
+a
+.up_value) ;
+
+248 
+‹mp_ž
+.
+low_v®ue
+ = 
+q
+->
+™em
+.low_value ;
+
+249 
+‹mp_node_h—d
+ = 
+	`make_node
+(
+‹mp_h—d
+) ;
+
+250 
+‹mp_node_ž
+ = 
+	`make_node
+(
+‹mp_ž
+) ;
+
+251 
+‹mp_node_h—d
+->
+Ãxt
+ = 
+p
+->next ;
+
+252 
+™”
+ = 
+p
+ ;
+
+253 
+™”
+->
+Ãxt
+ !ð
+q
+) {
+
+254 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+256 
+™”
+->
+Ãxt
+ = 
+‹mp_node_ž
+ ;
+
+257 
+p
+->
+Ãxt
+ = 
+NULL
+ ;
+
+258 
+	`de¡roy_£t
+(
+h—d
+->
+Ãxt
+) ;
+
+259 
+	`de¡roy_£t
+(
+q
+) ;
+
+260 
+h—d
+->
+Ãxt
+ = 
+‹mp_node_h—d
+ ;
+
+264 
 	}
 };
 
-191 
-£t_£t_uniÚ
+268 
+š‹rv®_node
+ *
+	$£t_£t_uniÚ
 (
 š‹rv®_node
  *
-a
+h—d_a
 , iÁ”v®_nod*
-b
+h—d_b
+) {
+
+269 ià(
+h—d_a
+ =ð
+NULL
+ || 
+h—d_b
+ == NULL) {
+
+270 
+	`³¼Ü
+("input interval_set's head is NULL!") ;
+
+271 
+	`ex™
+(
+EXIT_FAILURE
 ) ;
 
-194 
-£t_£t_š‹r£ù
+273 ià(
+h—d_a
+->
+Ãxt
+ =ð
+NULL
+) {
+
+274  
+	`cÝy_£t
+(
+h—d_b
+) ;
+
+276 ià(
+h—d_b
+->
+Ãxt
+ =ð
+NULL
+) {
+
+277  
+	`cÝy_£t
+(
+h—d_a
+) ;
+
+279 
+š‹rv®_node
+ *
+™”
+ = 
+NULL
+, *
+»suÉ
+ = NULL ;
+
+280 
+»suÉ
+ = 
+	`cÝy_£t
+(
+h—d_b
+) ;
+
+282 
+™”
+ = 
+h—d_a
+->
+Ãxt
+ ;
+
+283 
+™”
+ !ð
+NULL
+) {
+
+284 
+	`š‹rv®_£t_uniÚ
+(
+™”
+->
+™em
+, 
+»suÉ
+) ;
+
+285 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+287  
+»suÉ
+ ;
+
+288 
+	}
+};
+
+291 
+š‹rv®_node
+ *
+	$£t_£t_š‹r£ù
 (
 š‹rv®_node
  *
-a
+h—d_a
 , iÁ”v®_nod*
-b
+h—d_b
+) {
+
+292 ià(
+h—d_a
+ =ð
+NULL
+ || 
+h—d_b
+ == NULL) {
+
+293 
+	`³¼Ü
+("input interval_set's head is NULL!") ;
+
+294 
+	`ex™
+(
+EXIT_FAILURE
 ) ;
 
-197 
+296 
 š‹rv®_node
  *
-£t_£t_¬™hm‘ic
-(š‹rv®_nod*
-a
+™”
+ = 
+NULL
+, *
+‹mp_h—d
+ = NULL, *
+»suÉ
+ = NULL ;
+
+297 
+š‹rv®
+ 
+‹mp_š‹rv®
+ ;
+
+298 
+‹mp_š‹rv®
+.
+low_v®ue
+ = 0 ;
+
+299 
+‹mp_š‹rv®
+.
+up_v®ue
+ = 0 ;
+
+300 
+»suÉ
+ = 
+	`make_node
+(
+‹mp_š‹rv®
+) ;
+
+302 ià(
+h—d_a
+->
+Ãxt
+ =ð
+NULL
+ || 
+h—d_b
+->next == NULL) {
+
+303  
+»suÉ
+;
+
+305 
+™”
+ = 
+h—d_a
+->
+Ãxt
+ ;
+
+307 
+™”
+ !ð
+NULL
+) {
+
+308 
+‹mp_h—d
+ = 
+	`cÝy_£t
+(
+h—d_b
+) ;
+
+309 
+	`š‹rv®_£t_š‹r£ù
+(
+™”
+->
+™em
+, 
+‹mp_h—d
+) ;
+
+310 
+»suÉ
+ = 
+	`£t_£t_uniÚ
+(
+‹mp_h—d
+,„esult) ;
+
+311 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+313  
+»suÉ
+ ;
+
+314 
+	}
+};
+
+317 
+š‹rv®_node
+ *
+	$£t_£t_¬™hm‘ic
+(
+š‹rv®_node
+ *
+h—d_a
 , iÁ”v®_nod*
-b
+h—d_b
 , 
 Ý”©Ü_š
+) {
+
+318 ià(
+h—d_a
+ =ð
+NULL
+ || 
+h—d_b
+ == NULL) {
+
+319 
+	`³¼Ü
+("input interval_set's head is NULL!") ;
+
+320 
+	`ex™
+(
+EXIT_FAILURE
 ) ;
+
+322 
+š‹rv®_node
+ *
+™”_a
+ = 
+NULL
+, *
+™”_b
+ = NULL, *
+‹mp_h—d
+ = NULL, *
+»suÉ
+ = NULL ;
+
+323 
+š‹rv®
+ 
+‹mp_š‹rv®
+ ;
+
+324 ià((
+h—d_a
+->
+™em
+.
+low_v®ue
+ =ð
+MIN_VALUE
+ && h—d_a->™em.
+up_v®ue
+ =ð
+MAX_VALUE
+) ||
+
+325 (
+h—d_b
+->
+™em
+.
+low_v®ue
+ =ð
+MIN_VALUE
+ && h—d_b->™em.
+up_v®ue
+ =ð
+MAX_VALUE
+)) {
+
+326 
+‹mp_š‹rv®
+.
+low_v®ue
+ =ð
+MIN_VALUE
+ ;
+
+327 
+‹mp_š‹rv®
+.
+up_v®ue
+ =ð
+MAX_VALUE
+ ;
+
+328 
+»suÉ
+ = 
+	`make_node
+(
+‹mp_š‹rv®
+) ;
+
+329  
+»suÉ
+;
+
+331 ià(
+h—d_a
+->
+Ãxt
+ =ð
+NULL
+ || 
+h—d_b
+->next == NULL) {
+
+332 
+	`³¼Ü
+("input interval set's member is NULL, can't calculate set‡nd set‡rithmetic!") ;
+
+333 
+	`ex™
+(
+EXIT_FAILURE
+) ;
+
+335 
+‹mp_š‹rv®
+.
+low_v®ue
+ = 0 ;
+
+336 
+‹mp_š‹rv®
+.
+up_v®ue
+ = 0 ;
+
+337 
+»suÉ
+ = 
+	`make_node
+(
+‹mp_š‹rv®
+) ;
+
+339 
+™”_a
+ = 
+h—d_a
+->
+Ãxt
+ ;
+
+340 
+™”_b
+ = 
+h—d_b
+->
+Ãxt
+ ;
+
+341 
+™”_a
+ !ð
+NULL
+) {
+
+342 
+™”_b
+ !ð
+NULL
+) {
+
+343 ià(
+Ý”©Ü_š
+ == 1) {
+
+344 
+	`š‹rv®_add
+(&
+™”_a
+->
+™em
+, &
+™”_b
+->™em, &
+‹mp_š‹rv®
+) ;
+
+345 
+	`š‹rv®_£t_uniÚ
+(
+‹mp_š‹rv®
+, 
+»suÉ
+) ;
+
+347 ià(
+Ý”©Ü_š
+ == 2) {
+
+348 
+	`š‹rv®_sub
+(&
+™”_a
+->
+™em
+, &
+™”_b
+->™em, &
+‹mp_š‹rv®
+) ;
+
+349 
+	`š‹rv®_£t_uniÚ
+(
+‹mp_š‹rv®
+, 
+»suÉ
+) ;
+
+351 ià(
+Ý”©Ü_š
+ == 3) {
+
+352 
+	`š‹rv®_mul
+(&
+™”_a
+->
+™em
+, &
+™”_b
+->™em, &
+‹mp_š‹rv®
+) ;
+
+353 
+	`š‹rv®_£t_uniÚ
+(
+‹mp_š‹rv®
+, 
+»suÉ
+) ;
+
+355 ià(
+Ý”©Ü_š
+ == 4) {
+
+356 
+	`š‹rv®_sub
+(&
+™”_a
+->
+™em
+, &
+™”_b
+->™em, &
+‹mp_š‹rv®
+) ;
+
+357 
+	`š‹rv®_£t_uniÚ
+(
+‹mp_š‹rv®
+, 
+»suÉ
+) ;
+
+359 
+™”_b
+ = i‹r_b->
+Ãxt
+ ;
+
+361 
+™”_b
+ = 
+h—d_b
+->
+Ãxt
+ ;
+
+362 
+™”_a
+ = i‹r_a->
+Ãxt
+ ;
+
+364  
+»suÉ
+ ;
+
+366 
+	}
+};
 
 	@intervalset.h
 
@@ -5089,31 +5921,39 @@ INTERVALSET_H
 	~<¡dio.h
 >
 
-19 
+18 
+	~<¡dlib.h
+>
+
+20 
 	~"š‹rv®.h
 "
 
-20 
+21 
 	~"commÚ.h
 "
 
-22 
+23 
 	sš‹rv®_node
  {
 
-23 
+24 
 š‹rv®
  
 	m™em
  ;
 
-24 
-š‹rv®
+25 
+š‹rv®_node
  *
 	mÃxt
  ;
 
-29 
+26 } 
+	tš‹rv®_node
+ ;
+
+30 
 š‹rv®_node
  *
 make_node
@@ -5121,120 +5961,106 @@ make_node
 š‹rv®
  
 ™em
-);
+) ;
 
-30 
+32 
 ä“_node
 (
 š‹rv®_node
  *
 p
-);
+) ;
 
-31 
+33 
+de¡roy_£t
+(
+š‹rv®_node
+ *
+h—d
+) ;
+
+35 
+š‹rv®_node
+ *
+cÝy_£t
+(š‹rv®_nod*
+¤c
+) ;
+
+38 
 š‹rv®_node
  *
 £¬ch_node
-(
+(š‹rv®_nod*
+h—d
+, 
 š‹rv®
  
 key
-);
+) ;
 
-32 
+46 
 š£¹_node
 (
 š‹rv®_node
  *
+h—d
+, iÁ”v®_nod*
 p
-);
+) ;
 
-33 
-d–‘e_node
-(
-š‹rv®_node
- *
-p
-);
-
-34 
-Œav”£
-((*
-vis™
-)(
-š‹rv®_node
- *));
-
-35 
-	`de¡roy_£t
-();
-
-36 
-	`push_node
-(
-š‹rv®_node
- *
-p
-);
-
-37 
-š‹rv®_node
- *
-	`pÝ_node
-();
-
-41 
-š‹rv®_node
- *
-	`š‹rv®_£t_uniÚ
+55 
+š‹rv®_£t_uniÚ
 (
 š‹rv®
  
 a
-, iÁ”v®_nod*
-b
-) ;
-
-44 
+, 
 š‹rv®_node
  *
-	`š‹rv®_£t_š‹r£ù
+h—d
+) ;
+
+58 
+š‹rv®_£t_š‹r£ù
 (
 š‹rv®
  
 a
-, iÁ”v®_nod*
-b
-) ;
-
-48 
+, 
 š‹rv®_node
  *
-	`£t_£t_uniÚ
-(š‹rv®_nod*
-a
-, iÁ”v®_nod*
-b
+h—d
 ) ;
 
-51 
+62 
 š‹rv®_node
  *
-	`£t_£t_š‹r£ù
+£t_£t_uniÚ
 (š‹rv®_nod*
-a
+h—d_a
 , iÁ”v®_nod*
-b
+h—d_b
 ) ;
 
-54 
+65 
 š‹rv®_node
  *
-	`£t_£t_¬™hm‘ic
+£t_£t_š‹r£ù
 (š‹rv®_nod*
-a
+h—d_a
 , iÁ”v®_nod*
-b
+h—d_b
+) ;
+
+68 
+š‹rv®_node
+ *
+£t_£t_¬™hm‘ic
+(š‹rv®_nod*
+h—d_a
+, iÁ”v®_nod*
+h—d_b
 , 
 Ý”©Ü_š
 ) ;
@@ -5253,7 +6079,11 @@ b
 	~"š‹rv®.h
 "
 
-19 
+18 
+	~"š‹rv®£t.h
+"
+
+20 
 	$maš
 (
 ¬gc
@@ -5261,149 +6091,329 @@ b
 ¬gv
 [])
 
-21 
+22 
 fName
 [256], 
 ¡r
 [256];
 
-30 
+50 
 š‹rv®
- *
+ 
+‹mp
+ = {0, 0}, 
 a
- = (š‹rv® *)
-	`m®loc
-((interval)) ;
+ = {1, 2}, 
+b
+ = {4, 5}, 
+c
+ = {8, 12}, 
+d
+ = {14, 16} ;
 
-31 
+51 
+i
+ = 0 ;
+
+52 
+š‹rv®_node
+ *
+cÝy_h—d
+ = 
+NULL
+ ;
+
+53 
+š‹rv®_node
+ *
+h—d
+ = 
+	`make_node
+(
+‹mp
+) ;
+
+54 
+š‹rv®_node
+ *
+™”
+ = 
+	`make_node
+(
+d
+) ;
+
+55 
+	`š£¹_node
+(
+h—d
+, 
+™”
+) ;
+
+56 
+™”
+ = 
+	`make_node
+(
+c
+) ;
+
+57 
+	`š£¹_node
+(
+h—d
+, 
+™”
+) ;
+
+58 
+™”
+ = 
+	`make_node
+(
+b
+) ;
+
+59 
+	`š£¹_node
+(
+h—d
+, 
+™”
+) ;
+
+60 
+™”
+ = 
+	`make_node
+(
+a
+) ;
+
+61 
+	`š£¹_node
+(
+h—d
+, 
+™”
+) ;
+
+62 
+™”
+ = 
+h—d
+->
+Ãxt
+ ;
+
+63 
+™”
+ !ð
+NULL
+) {
+
+64 
+	`´štf
+("h—d: [%ld,%ld] ", 
+™”
+->
+™em
+.
+low_v®ue
+, i‹r->™em.
+up_v®ue
+);
+
+65 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+67 
 š‹rv®
- *
-b
- = (š‹rv® *)
-	`m®loc
-((interval)) ;
+ 
+š‹rv®_‹mp
+ = {1, 11} ;
 
-32 
-š‹rv®
- *
-c
- = (š‹rv® *)
-	`m®loc
-((interval)) ;
-
-33 
-a
-->
-low_v®ue
+72 
+cÝy_h—d
  = 
-MIN_VALUE
- ;
-
-34 
-a
-->
-up_v®ue
- = 
-MAX_VALUE
- ;
-
-35 
-b
-->
-low_v®ue
- = 
-MIN_VALUE
- ;
-
-36 
-b
-->
-up_v®ue
- = 
-MIN_VALUE
- ;
-
-37 
-	`š‹rv®_add
+	`cÝy_£t
 (
-a
-, 
-b
-, 
-c
+h—d
 ) ;
 
-38 
-	`´štf
-("add:%ld %ld\n", 
-c
+73 
+™”
+ = 
+cÝy_h—d
 ->
+Ãxt
+ ;
+
+74 
+™”
+ !ð
+NULL
+) {
+
+75 
+	`´štf
+("befÜuniÚ :[%ld,%ld] ", 
+™”
+->
+™em
+.
 low_v®ue
-, c->
+, i‹r->™em.
 up_v®ue
 );
 
-39 
-	`š‹rv®_sub
+76 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+81 
+cÝy_h—d
+ = 
+	`cÝy_£t
 (
-a
-, 
-b
-, 
-c
+h—d
 ) ;
 
-40 
-	`´štf
-("sub:%ld %ld\n", 
-c
+82 
+	`š‹rv®_£t_uniÚ
+(
+š‹rv®_‹mp
+, 
+cÝy_h—d
+) ;
+
+83 
+™”
+ = 
+cÝy_h—d
 ->
+Ãxt
+ ;
+
+84 
+™”
+ !ð
+NULL
+) {
+
+85 
+	`´štf
+("uniÚ :[%ld,%ld] ", 
+™”
+->
+™em
+.
 low_v®ue
-, c->
+, i‹r->™em.
 up_v®ue
 );
 
-41 
-	`š‹rv®_mul
+86 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+92 
+cÝy_h—d
+ = 
+	`cÝy_£t
 (
-a
-, 
-b
-, 
-c
+h—d
 ) ;
 
-42 
-	`´štf
-("mul:%ld %ld\n", 
-c
+93 
+™”
+ = 
+cÝy_h—d
 ->
+Ãxt
+ ;
+
+94 
+™”
+ !ð
+NULL
+) {
+
+95 
+	`´štf
+("befÜš‹r£ù :[%ld,%ld] ", 
+™”
+->
+™em
+.
 low_v®ue
-, c->
+, i‹r->™em.
 up_v®ue
 );
 
-43 
-	`š‹rv®_div
+96 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+101 
+cÝy_h—d
+ = 
+	`cÝy_£t
 (
-a
-, 
-b
-, 
-c
+h—d
 ) ;
 
-44 
-	`´štf
-("div:%ld %ld\n", 
-c
+102 
+	`š‹rv®_£t_š‹r£ù
+(
+š‹rv®_‹mp
+, 
+cÝy_h—d
+) ;
+
+103 
+™”
+ = 
+cÝy_h—d
 ->
+Ãxt
+ ;
+
+104 
+™”
+ !ð
+NULL
+) {
+
+105 
+	`´štf
+("š‹r£ù :[%ld,%ld] ", 
+™”
+->
+™em
+.
 low_v®ue
-, c->
+, i‹r->™em.
 up_v®ue
 );
 
-46 
+106 
+™”
+ = i‹r->
+Ãxt
+ ;
+
+110 
 	}
 }
 

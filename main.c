@@ -28,6 +28,7 @@ int main(int argc, const char *argv[])
     /*}*/
 
     //interval and interval calculate test
+    //
     /*interval *a = (interval *)malloc(sizeof(interval)) ;*/
     /*interval *b = (interval *)malloc(sizeof(interval)) ;*/
     /*interval *c = (interval *)malloc(sizeof(interval)) ;*/
@@ -46,39 +47,189 @@ int main(int argc, const char *argv[])
 
 
 
-    //intervalset and intervalset calculate test
-    interval temp = {0, 0}, a = {1, 2}, b = {4, 5}, c = {8, 12}, d = {14, 16} ;
-    int i = 0 ;
-    interval_node *copy_head = NULL ;
-    interval_node *head = make_node(temp) ;
+    //interval_set calculate test
+    //
+    /*interval temp = {0, 0}, a = {0, 2}, b = {4, 6}, c = {8, 12}, d = {14, 17} ;*/
+    /*int i = 0 ;*/
+    /*interval_node *copy_head = NULL ;*/
+    /*interval_node *head = make_node(temp) ;*/
+    /*interval_node *iter = make_node(d) ;*/
+    /*insert_node(head, iter) ;*/
+    /*iter = make_node(c) ;*/
+    /*insert_node(head, iter) ;*/
+    /*iter = make_node(b) ;*/
+    /*insert_node(head, iter) ;*/
+    /*iter = make_node(a) ;*/
+    /*insert_node(head, iter) ;*/
+    /*iter = head->next ;*/
+    /*printf("head: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+    /*interval interval_temp = {18, 19} ;*/
+    /*printf("interval :[%ld, %ld]\n", interval_temp.low_value, interval_temp.up_value);*/
+
+    /*copy_head = copy_set(head) ;*/
+    /*interval_set_union(interval_temp, copy_head) ;*/
+    /*iter = copy_head->next ;*/
+    /*printf("union: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+    /*copy_head = copy_set(head) ;*/
+    /*interval_set_intersect(interval_temp, copy_head) ;*/
+    /*iter = copy_head->next ;*/
+    /*printf("intersect: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("intersect :[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+
+    //set and set calculate test
+
+    /*interval temp_a = {0, 0}, a = {1, 6}, b = {7, 9}, c = {11, 13}, d = {14, 19} ;*/
+    /*interval temp_b = {0, 0}, aa = {0, 2}, bb = {4, 6}, cc = {8, 12}, dd = {14, 17} ;*/
+    /*interval_node *result_head = NULL ;*/
+    /*interval_node *head_a = make_node(temp_a) ;*/
+    /*interval_node *head_b = make_node(temp_b) ;*/
+    /*interval_node *iter = make_node(d) ;*/
+    /*insert_node(head_a, iter) ;*/
+    /*iter = make_node(c) ;*/
+    /*insert_node(head_a, iter) ;*/
+    /*iter = make_node(b) ;*/
+    /*insert_node(head_a, iter) ;*/
+    /*iter = make_node(a) ;*/
+    /*insert_node(head_a, iter) ;*/
+    /*iter = head_a->next ;*/
+    /*printf("head_a: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+    /*iter = make_node(dd) ;*/
+    /*insert_node(head_b, iter) ;*/
+    /*iter = make_node(cc) ;*/
+    /*insert_node(head_b, iter) ;*/
+    /*iter = make_node(bb) ;*/
+    /*insert_node(head_b, iter) ;*/
+    /*iter = make_node(aa) ;*/
+    /*insert_node(head_b, iter) ;*/
+    /*iter = head_b->next ;*/
+    /*printf("head_b: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+
+    /*result_head = set_set_union(head_a, head_b) ;*/
+    /*iter = result_head->next ;*/
+    /*printf("union: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+    /*result_head = set_set_intersect(head_a, head_b) ;*/
+    /*iter = result_head->next ;*/
+    /*printf("intersect: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+
+    //set and set arithmetic -- add, sub, mul, div text
+    //
+    interval temp_a = {0, 0}, a = {1, 6}, b = {7, 9}, c = {11, 13}, d = {14, 19} ;
+    interval temp_b = {0, 0}, aa = {1, 2}, bb = {2, 2}, cc = {2, 2}, dd = {14, 17} ;
+    interval_node *result_head = NULL ;
+    interval_node *head_a = make_node(temp_a) ;
+    interval_node *head_b = make_node(temp_b) ;
     interval_node *iter = make_node(d) ;
-    insert_node(head, iter) ;
+    insert_node(head_a, iter) ;
     iter = make_node(c) ;
-    insert_node(head, iter) ;
+    insert_node(head_a, iter) ;
     iter = make_node(b) ;
-    insert_node(head, iter) ;
+    insert_node(head_a, iter) ;
     iter = make_node(a) ;
-    insert_node(head, iter) ;
-    iter = head->next ;
+    insert_node(head_a, iter) ;
+    iter = head_a->next ;
+    printf("head_a: ") ;
     while (iter != NULL) {
-        printf("head: [%ld,%ld] ", iter->item.low_value, iter->item.up_value);
+        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
         iter = iter->next ;
     }
-   interval interval_temp = {1, 11} ;
-    copy_head = copy_set(head) ;
-    interval_set_union(interval_temp, copy_head) ;
-    iter = copy_head->next ;
+    printf("\n") ;
+
+    iter = make_node(dd) ;
+    insert_node(head_b, iter) ;
+    iter = make_node(cc) ;
+    insert_node(head_b, iter) ;
+    iter = make_node(bb) ;
+    insert_node(head_b, iter) ;
+    iter = make_node(aa) ;
+    insert_node(head_b, iter) ;
+    iter = head_b->next ;
+    printf("head_b: ") ;
     while (iter != NULL) {
-        printf("union :[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
+        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
         iter = iter->next ;
     }
-    copy_head = copy_set(head) ;
-    interval_set_intersect(interval_temp, copy_head) ;
-    iter = copy_head->next ;
+    printf("\n") ;
+
+
+    result_head = set_set_arithmetic(head_a, head_b, 1) ;
+    iter = result_head->next ;
+    printf("add: ") ;
     while (iter != NULL) {
-        printf("intersect :[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
+        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
         iter = iter->next ;
     }
+    printf("\n") ;
+
+    result_head = set_set_arithmetic(head_a, head_b, 2) ;
+    iter = result_head->next ;
+    printf("sub: ") ;
+    while (iter != NULL) {
+        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
+        iter = iter->next ;
+    }
+    printf("\n") ;
+
+
+    result_head = set_set_arithmetic(head_a, head_b, 3) ;
+    iter = result_head->next ;
+    printf("mul: ") ;
+    while (iter != NULL) {
+        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
+        iter = iter->next ;
+    }
+    printf("\n") ;
+
+
+    result_head = set_set_arithmetic(head_a, head_b, 4) ;
+    iter = result_head->next ;
+    printf("div: ") ;
+    while (iter != NULL) {
+        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
+        iter = iter->next ;
+    }
+    printf("\n") ;
+
+
 
     return 0;
 }
