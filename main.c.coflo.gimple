@@ -1,0 +1,166 @@
+main (int argc, const char * * argv)
+[./main.c : 21:1] {
+  long int D.2362;
+  long int D.2363;
+  long int D.2364;
+  long int D.2365;
+  long int D.2366;
+  long int D.2367;
+  long int D.2368;
+  long int D.2369;
+  long int D.2370;
+  long int D.2371;
+  long int D.2372;
+  long int D.2373;
+  int D.2374;
+  struct interval temp_a;
+  struct interval a;
+  struct interval b;
+  struct interval c;
+  struct interval d;
+  struct interval temp_b;
+  struct interval aa;
+  struct interval bb;
+  struct interval cc;
+  struct interval dd;
+  struct interval_node * result_head;
+  struct interval_node * head_a;
+  struct interval_node * head_b;
+  struct interval_node * iter;
+
+  try
+    {
+      [./main.c : 156:14] temp_a.low_value = 0;
+      [./main.c : 156:14] temp_a.up_value = 0;
+      [./main.c : 156:31] a.low_value = 1;
+      [./main.c : 156:31] a.up_value = 6;
+      [./main.c : 156:43] b.low_value = 7;
+      [./main.c : 156:43] b.up_value = 9;
+      [./main.c : 156:55] c.low_value = 11;
+      [./main.c : 156:55] c.up_value = 13;
+      [./main.c : 156:69] d.low_value = 14;
+      [./main.c : 156:69] d.up_value = 19;
+      [./main.c : 157:14] temp_b.low_value = 0;
+      [./main.c : 157:14] temp_b.up_value = 0;
+      [./main.c : 157:31] aa.low_value = 1;
+      [./main.c : 157:31] aa.up_value = 2;
+      [./main.c : 157:44] bb.low_value = 2;
+      [./main.c : 157:44] bb.up_value = 2;
+      [./main.c : 157:57] cc.low_value = 2;
+      [./main.c : 157:57] cc.up_value = 2;
+      [./main.c : 157:70] dd.low_value = 14;
+      [./main.c : 157:70] dd.up_value = 17;
+      [./main.c : 158:20] result_head = 0B;
+      [./main.c : 159:20] head_a = make_node (temp_a);
+      [./main.c : 160:20] head_b = make_node (temp_b);
+      [./main.c : 161:20] iter = make_node (d);
+      [./main.c : 162:16] insert_node (head_a, iter);
+      [./main.c : 163:10] iter = make_node (c);
+      [./main.c : 164:16] insert_node (head_a, iter);
+      [./main.c : 165:10] iter = make_node (b);
+      [./main.c : 166:16] insert_node (head_a, iter);
+      [./main.c : 167:10] iter = make_node (a);
+      [./main.c : 168:16] insert_node (head_a, iter);
+      [./main.c : 169:10] iter = [./main.c : 169] head_a->next;
+      [./main.c : 170:11] printf ([./main.c : 170] "head_a: ");
+      [./main.c : 171:11] goto <D.2344>;
+      <D.2343>:
+      [./main.c : 172:15] D.2362 = [./main.c : 172] [./main.c : 172] iter->item.up_value;
+      [./main.c : 172:15] D.2363 = [./main.c : 172] [./main.c : 172] iter->item.low_value;
+      [./main.c : 172:15] printf ([./main.c : 172] "[%ld,%ld] ", D.2363, D.2362);
+      [./main.c : 173:14] iter = [./main.c : 173] iter->next;
+      <D.2344>:
+      [./main.c : 171:11] if (iter != 0B) goto <D.2343>; else goto <D.2345>;
+      <D.2345>:
+      [./main.c : 175:11] printf ([./main.c : 175] "\n");
+      [./main.c : 177:10] iter = make_node (dd);
+      [./main.c : 178:16] insert_node (head_b, iter);
+      [./main.c : 179:10] iter = make_node (cc);
+      [./main.c : 180:16] insert_node (head_b, iter);
+      [./main.c : 181:10] iter = make_node (bb);
+      [./main.c : 182:16] insert_node (head_b, iter);
+      [./main.c : 183:10] iter = make_node (aa);
+      [./main.c : 184:16] insert_node (head_b, iter);
+      [./main.c : 185:10] iter = [./main.c : 185] head_b->next;
+      [./main.c : 186:11] printf ([./main.c : 186] "head_b: ");
+      [./main.c : 187:11] goto <D.2347>;
+      <D.2346>:
+      [./main.c : 188:15] D.2364 = [./main.c : 188] [./main.c : 188] iter->item.up_value;
+      [./main.c : 188:15] D.2365 = [./main.c : 188] [./main.c : 188] iter->item.low_value;
+      [./main.c : 188:15] printf ([./main.c : 188] "[%ld,%ld] ", D.2365, D.2364);
+      [./main.c : 189:14] iter = [./main.c : 189] iter->next;
+      <D.2347>:
+      [./main.c : 187:11] if (iter != 0B) goto <D.2346>; else goto <D.2348>;
+      <D.2348>:
+      [./main.c : 191:11] printf ([./main.c : 191] "\n");
+      [./main.c : 194:17] result_head = set_set_arithmetic (head_a, head_b, 1);
+      [./main.c : 195:10] iter = [./main.c : 195] result_head->next;
+      [./main.c : 196:11] printf ([./main.c : 196] "add: ");
+      [./main.c : 197:11] goto <D.2350>;
+      <D.2349>:
+      [./main.c : 198:15] D.2366 = [./main.c : 198] [./main.c : 198] iter->item.up_value;
+      [./main.c : 198:15] D.2367 = [./main.c : 198] [./main.c : 198] iter->item.low_value;
+      [./main.c : 198:15] printf ([./main.c : 198] "[%ld,%ld] ", D.2367, D.2366);
+      [./main.c : 199:14] iter = [./main.c : 199] iter->next;
+      <D.2350>:
+      [./main.c : 197:11] if (iter != 0B) goto <D.2349>; else goto <D.2351>;
+      <D.2351>:
+      [./main.c : 201:11] printf ([./main.c : 201] "\n");
+      [./main.c : 203:17] result_head = set_set_arithmetic (head_a, head_b, 2);
+      [./main.c : 204:10] iter = [./main.c : 204] result_head->next;
+      [./main.c : 205:11] printf ([./main.c : 205] "sub: ");
+      [./main.c : 206:11] goto <D.2353>;
+      <D.2352>:
+      [./main.c : 207:15] D.2368 = [./main.c : 207] [./main.c : 207] iter->item.up_value;
+      [./main.c : 207:15] D.2369 = [./main.c : 207] [./main.c : 207] iter->item.low_value;
+      [./main.c : 207:15] printf ([./main.c : 207] "[%ld,%ld] ", D.2369, D.2368);
+      [./main.c : 208:14] iter = [./main.c : 208] iter->next;
+      <D.2353>:
+      [./main.c : 206:11] if (iter != 0B) goto <D.2352>; else goto <D.2354>;
+      <D.2354>:
+      [./main.c : 210:11] printf ([./main.c : 210] "\n");
+      [./main.c : 213:17] result_head = set_set_arithmetic (head_a, head_b, 3);
+      [./main.c : 214:10] iter = [./main.c : 214] result_head->next;
+      [./main.c : 215:11] printf ([./main.c : 215] "mul: ");
+      [./main.c : 216:11] goto <D.2356>;
+      <D.2355>:
+      [./main.c : 217:15] D.2370 = [./main.c : 217] [./main.c : 217] iter->item.up_value;
+      [./main.c : 217:15] D.2371 = [./main.c : 217] [./main.c : 217] iter->item.low_value;
+      [./main.c : 217:15] printf ([./main.c : 217] "[%ld,%ld] ", D.2371, D.2370);
+      [./main.c : 218:14] iter = [./main.c : 218] iter->next;
+      <D.2356>:
+      [./main.c : 216:11] if (iter != 0B) goto <D.2355>; else goto <D.2357>;
+      <D.2357>:
+      [./main.c : 220:11] printf ([./main.c : 220] "\n");
+      [./main.c : 223:17] result_head = set_set_arithmetic (head_a, head_b, 4);
+      [./main.c : 224:10] iter = [./main.c : 224] result_head->next;
+      [./main.c : 225:11] printf ([./main.c : 225] "div: ");
+      [./main.c : 226:11] goto <D.2359>;
+      <D.2358>:
+      [./main.c : 227:15] D.2372 = [./main.c : 227] [./main.c : 227] iter->item.up_value;
+      [./main.c : 227:15] D.2373 = [./main.c : 227] [./main.c : 227] iter->item.low_value;
+      [./main.c : 227:15] printf ([./main.c : 227] "[%ld,%ld] ", D.2373, D.2372);
+      [./main.c : 228:14] iter = [./main.c : 228] iter->next;
+      <D.2359>:
+      [./main.c : 226:11] if (iter != 0B) goto <D.2358>; else goto <D.2360>;
+      <D.2360>:
+      [./main.c : 230:11] printf ([./main.c : 230] "\n");
+      [./main.c : 236:5] D.2374 = 0;
+      [./main.c : 236:5] return D.2374;
+    }
+  finally
+    {
+      temp_a = {CLOBBER};
+      a = {CLOBBER};
+      b = {CLOBBER};
+      c = {CLOBBER};
+      d = {CLOBBER};
+      temp_b = {CLOBBER};
+      aa = {CLOBBER};
+      bb = {CLOBBER};
+      cc = {CLOBBER};
+      dd = {CLOBBER};
+    }
+}
+
+

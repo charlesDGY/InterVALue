@@ -1,0 +1,24 @@
+main (int argc, const char * * argv)
+[iwannatest.c : 4:1] {
+  int D.1738;
+  int D.1739;
+  int a;
+  int * p;
+
+  try
+    {
+      [iwannatest.c : 5:9] a = 5;
+      [iwannatest.c : 6:10] p = 0B;
+      [iwannatest.c : 8:7] p = [iwannatest.c : 8] &a;
+      [iwannatest.c : 9:11] D.1738 = [iwannatest.c : 9] *p;
+      [iwannatest.c : 9:11] printf ([iwannatest.c : 9] "%d\n", D.1738);
+      [iwannatest.c : 10:5] D.1739 = 0;
+      [iwannatest.c : 10:5] return D.1739;
+    }
+  finally
+    {
+      a = {CLOBBER};
+    }
+}
+
+

@@ -1,0 +1,586 @@
+interval_add (struct interval * a, struct interval * b, struct interval * c)
+[interval.c : 22:58] {
+  long int D.2849;
+  long int D.2851;
+  long int D.2853;
+  long int D.2855;
+  long int D.2857;
+  long int D.2859;
+  long int D.2861;
+  long int D.2863;
+  long int D.2865;
+  long int D.2866;
+  long int D.2867;
+  long int D.2868;
+  long int D.2869;
+  long int D.2870;
+  long int D.2876;
+  long int D.2878;
+  long int D.2879;
+  long int D.2881;
+  long int D.2882;
+  long int D.2884;
+  long int D.2885;
+  long int D.2886;
+  long int D.2887;
+  long int D.2893;
+  long int D.2895;
+  long int D.2896;
+  long int D.2898;
+  long int D.2899;
+  long int D.2901;
+  long int D.2902;
+  long int D.2903;
+  long int D.2904;
+
+  [interval.c : 23:10] D.2849 = [interval.c : 23] a->low_value;
+  [interval.c : 23:8] if (D.2849 != -9223372036854775808) goto <D.2850>; else goto <D.2847>;
+  <D.2850>:
+  [interval.c : 23:38] D.2851 = [interval.c : 23] a->up_value;
+  [interval.c : 23:34] if (D.2851 != -9223372036854775808) goto <D.2852>; else goto <D.2847>;
+  <D.2852>:
+  [interval.c : 23:65] D.2853 = [interval.c : 23] b->low_value;
+  [interval.c : 23:61] if (D.2853 != -9223372036854775808) goto <D.2854>; else goto <D.2847>;
+  <D.2854>:
+  [interval.c : 23:93] D.2855 = [interval.c : 23] b->up_value;
+  [interval.c : 23:89] if (D.2855 != -9223372036854775808) goto <D.2856>; else goto <D.2847>;
+  <D.2856>:
+  [interval.c : 24:14] D.2857 = [interval.c : 24] a->low_value;
+  [interval.c : 23:116] if (D.2857 != 9223372036854775807) goto <D.2858>; else goto <D.2847>;
+  <D.2858>:
+  [interval.c : 24:42] D.2859 = [interval.c : 24] a->up_value;
+  [interval.c : 24:38] if (D.2859 != 9223372036854775807) goto <D.2860>; else goto <D.2847>;
+  <D.2860>:
+  [interval.c : 24:69] D.2861 = [interval.c : 24] b->low_value;
+  [interval.c : 24:65] if (D.2861 != 9223372036854775807) goto <D.2862>; else goto <D.2847>;
+  <D.2862>:
+  [interval.c : 24:97] D.2863 = [interval.c : 24] b->up_value;
+  [interval.c : 24:93] if (D.2863 != 9223372036854775807) goto <D.2864>; else goto <D.2847>;
+  <D.2864>:
+  [interval.c : 25:31] D.2865 = [interval.c : 25] b->low_value;
+  [interval.c : 25:31] D.2866 = [interval.c : 25] a->low_value;
+  [interval.c : 25:31] D.2867 = add_inf (D.2866, D.2865);
+  [interval.c : 25:22] [interval.c : 25] c->low_value = D.2867;
+  [interval.c : 26:30] D.2868 = [interval.c : 26] b->up_value;
+  [interval.c : 26:30] D.2869 = [interval.c : 26] a->up_value;
+  [interval.c : 26:30] D.2870 = add_inf (D.2869, D.2868);
+  [interval.c : 26:21] [interval.c : 26] c->up_value = D.2870;
+  [interval.c : 26:21] goto <D.2848>;
+  <D.2847>:
+  [interval.c : 28:16] D.2876 = [interval.c : 28] a->up_value;
+  [interval.c : 28:13] if (D.2876 == 9223372036854775807) goto <D.2871>; else goto <D.2877>;
+  <D.2877>:
+  [interval.c : 28:44] D.2878 = [interval.c : 28] b->up_value;
+  [interval.c : 28:40] if (D.2878 == 9223372036854775807) goto <D.2871>; else goto <D.2872>;
+  <D.2871>:
+  [interval.c : 29:17] D.2879 = [interval.c : 29] a->low_value;
+  [interval.c : 28:69] if (D.2879 != -9223372036854775808) goto <D.2873>; else goto <D.2880>;
+  <D.2880>:
+  [interval.c : 29:46] D.2881 = [interval.c : 29] b->low_value;
+  [interval.c : 29:42] if (D.2881 != 9223372036854775807) goto <D.2873>; else goto <D.2872>;
+  <D.2873>:
+  [interval.c : 29:77] D.2882 = [interval.c : 29] a->low_value;
+  [interval.c : 29:13] if (D.2882 != 9223372036854775807) goto <D.2874>; else goto <D.2883>;
+  <D.2883>:
+  [interval.c : 29:106] D.2884 = [interval.c : 29] b->low_value;
+  [interval.c : 29:102] if (D.2884 != -9223372036854775808) goto <D.2874>; else goto <D.2872>;
+  <D.2874>:
+  [interval.c : 30:31] D.2885 = [interval.c : 30] b->low_value;
+  [interval.c : 30:31] D.2886 = [interval.c : 30] a->low_value;
+  [interval.c : 30:31] D.2887 = add_inf (D.2886, D.2885);
+  [interval.c : 30:22] [interval.c : 30] c->low_value = D.2887;
+  [interval.c : 31:21] [interval.c : 31] c->up_value = 9223372036854775807;
+  [interval.c : 31:21] goto <D.2875>;
+  <D.2872>:
+  [interval.c : 33:16] D.2893 = [interval.c : 33] a->low_value;
+  [interval.c : 33:13] if (D.2893 == -9223372036854775808) goto <D.2888>; else goto <D.2894>;
+  <D.2894>:
+  [interval.c : 33:45] D.2895 = [interval.c : 33] b->low_value;
+  [interval.c : 33:41] if (D.2895 == -9223372036854775808) goto <D.2888>; else goto <D.2889>;
+  <D.2888>:
+  [interval.c : 34:17] D.2896 = [interval.c : 34] a->up_value;
+  [interval.c : 33:71] if (D.2896 != -9223372036854775808) goto <D.2890>; else goto <D.2897>;
+  <D.2897>:
+  [interval.c : 34:45] D.2898 = [interval.c : 34] b->up_value;
+  [interval.c : 34:41] if (D.2898 != 9223372036854775807) goto <D.2890>; else goto <D.2889>;
+  <D.2890>:
+  [interval.c : 34:75] D.2899 = [interval.c : 34] a->up_value;
+  [interval.c : 34:13] if (D.2899 != 9223372036854775807) goto <D.2891>; else goto <D.2900>;
+  <D.2900>:
+  [interval.c : 34:103] D.2901 = [interval.c : 34] b->up_value;
+  [interval.c : 34:99] if (D.2901 != -9223372036854775808) goto <D.2891>; else goto <D.2889>;
+  <D.2891>:
+  [interval.c : 35:22] [interval.c : 35] c->low_value = -9223372036854775808;
+  [interval.c : 36:30] D.2902 = [interval.c : 36] b->up_value;
+  [interval.c : 36:30] D.2903 = [interval.c : 36] a->up_value;
+  [interval.c : 36:30] D.2904 = add_inf (D.2903, D.2902);
+  [interval.c : 36:21] [interval.c : 36] c->up_value = D.2904;
+  [interval.c : 36:21] goto <D.2892>;
+  <D.2889>:
+  [interval.c : 39:22] [interval.c : 39] c->low_value = -9223372036854775808;
+  [interval.c : 40:21] [interval.c : 40] c->up_value = 9223372036854775807;
+  <D.2892>:
+  <D.2875>:
+  <D.2848>:
+}
+
+
+interval_sub (struct interval * a, struct interval * b, struct interval * c)
+[interval.c : 44:58] {
+  long int D.2907;
+  long int D.2909;
+  long int D.2911;
+  long int D.2913;
+  long int D.2915;
+  long int D.2917;
+  long int D.2919;
+  long int D.2921;
+  long int D.2923;
+  long int D.2924;
+  long int D.2925;
+  long int D.2926;
+  long int D.2927;
+  long int D.2928;
+  long int D.2934;
+  long int D.2936;
+  long int D.2937;
+  long int D.2939;
+  long int D.2940;
+  long int D.2942;
+  long int D.2943;
+  long int D.2944;
+  long int D.2945;
+  long int D.2951;
+  long int D.2953;
+  long int D.2954;
+  long int D.2956;
+  long int D.2957;
+  long int D.2959;
+  long int D.2960;
+  long int D.2961;
+  long int D.2962;
+
+  [interval.c : 45:10] D.2907 = [interval.c : 45] a->low_value;
+  [interval.c : 45:8] if (D.2907 != -9223372036854775808) goto <D.2908>; else goto <D.2905>;
+  <D.2908>:
+  [interval.c : 45:38] D.2909 = [interval.c : 45] a->up_value;
+  [interval.c : 45:34] if (D.2909 != -9223372036854775808) goto <D.2910>; else goto <D.2905>;
+  <D.2910>:
+  [interval.c : 45:65] D.2911 = [interval.c : 45] b->low_value;
+  [interval.c : 45:61] if (D.2911 != -9223372036854775808) goto <D.2912>; else goto <D.2905>;
+  <D.2912>:
+  [interval.c : 45:93] D.2913 = [interval.c : 45] b->up_value;
+  [interval.c : 45:89] if (D.2913 != -9223372036854775808) goto <D.2914>; else goto <D.2905>;
+  <D.2914>:
+  [interval.c : 46:14] D.2915 = [interval.c : 46] a->low_value;
+  [interval.c : 45:116] if (D.2915 != 9223372036854775807) goto <D.2916>; else goto <D.2905>;
+  <D.2916>:
+  [interval.c : 46:42] D.2917 = [interval.c : 46] a->up_value;
+  [interval.c : 46:38] if (D.2917 != 9223372036854775807) goto <D.2918>; else goto <D.2905>;
+  <D.2918>:
+  [interval.c : 46:69] D.2919 = [interval.c : 46] b->low_value;
+  [interval.c : 46:65] if (D.2919 != 9223372036854775807) goto <D.2920>; else goto <D.2905>;
+  <D.2920>:
+  [interval.c : 46:97] D.2921 = [interval.c : 46] b->up_value;
+  [interval.c : 46:93] if (D.2921 != 9223372036854775807) goto <D.2922>; else goto <D.2905>;
+  <D.2922>:
+  [interval.c : 47:31] D.2923 = [interval.c : 47] b->up_value;
+  [interval.c : 47:31] D.2924 = [interval.c : 47] a->low_value;
+  [interval.c : 47:31] D.2925 = sub_inf (D.2924, D.2923);
+  [interval.c : 47:22] [interval.c : 47] c->low_value = D.2925;
+  [interval.c : 48:30] D.2926 = [interval.c : 48] b->low_value;
+  [interval.c : 48:30] D.2927 = [interval.c : 48] a->up_value;
+  [interval.c : 48:30] D.2928 = sub_inf (D.2927, D.2926);
+  [interval.c : 48:21] [interval.c : 48] c->up_value = D.2928;
+  [interval.c : 48:21] goto <D.2906>;
+  <D.2905>:
+  [interval.c : 50:16] D.2934 = [interval.c : 50] a->up_value;
+  [interval.c : 50:13] if (D.2934 == 9223372036854775807) goto <D.2929>; else goto <D.2935>;
+  <D.2935>:
+  [interval.c : 50:44] D.2936 = [interval.c : 50] b->low_value;
+  [interval.c : 50:40] if (D.2936 == -9223372036854775808) goto <D.2929>; else goto <D.2930>;
+  <D.2929>:
+  [interval.c : 51:17] D.2937 = [interval.c : 51] a->low_value;
+  [interval.c : 50:70] if (D.2937 != 9223372036854775807) goto <D.2931>; else goto <D.2938>;
+  <D.2938>:
+  [interval.c : 51:46] D.2939 = [interval.c : 51] b->up_value;
+  [interval.c : 51:42] if (D.2939 != 9223372036854775807) goto <D.2931>; else goto <D.2930>;
+  <D.2931>:
+  [interval.c : 51:76] D.2940 = [interval.c : 51] a->low_value;
+  [interval.c : 51:13] if (D.2940 != -9223372036854775808) goto <D.2932>; else goto <D.2941>;
+  <D.2941>:
+  [interval.c : 51:105] D.2942 = [interval.c : 51] b->up_value;
+  [interval.c : 51:101] if (D.2942 != -9223372036854775808) goto <D.2932>; else goto <D.2930>;
+  <D.2932>:
+  [interval.c : 52:31] D.2943 = [interval.c : 52] b->up_value;
+  [interval.c : 52:31] D.2944 = [interval.c : 52] a->low_value;
+  [interval.c : 52:31] D.2945 = sub_inf (D.2944, D.2943);
+  [interval.c : 52:22] [interval.c : 52] c->low_value = D.2945;
+  [interval.c : 53:21] [interval.c : 53] c->up_value = 9223372036854775807;
+  [interval.c : 53:21] goto <D.2933>;
+  <D.2930>:
+  [interval.c : 55:16] D.2951 = [interval.c : 55] a->low_value;
+  [interval.c : 55:13] if (D.2951 == -9223372036854775808) goto <D.2946>; else goto <D.2952>;
+  <D.2952>:
+  [interval.c : 55:45] D.2953 = [interval.c : 55] b->up_value;
+  [interval.c : 55:41] if (D.2953 == 9223372036854775807) goto <D.2946>; else goto <D.2947>;
+  <D.2946>:
+  [interval.c : 56:17] D.2954 = [interval.c : 56] a->up_value;
+  [interval.c : 55:70] if (D.2954 != 9223372036854775807) goto <D.2948>; else goto <D.2955>;
+  <D.2955>:
+  [interval.c : 56:45] D.2956 = [interval.c : 56] b->low_value;
+  [interval.c : 56:41] if (D.2956 != 9223372036854775807) goto <D.2948>; else goto <D.2947>;
+  <D.2948>:
+  [interval.c : 56:76] D.2957 = [interval.c : 56] a->up_value;
+  [interval.c : 56:13] if (D.2957 != -9223372036854775808) goto <D.2949>; else goto <D.2958>;
+  <D.2958>:
+  [interval.c : 56:104] D.2959 = [interval.c : 56] b->low_value;
+  [interval.c : 56:100] if (D.2959 != -9223372036854775808) goto <D.2949>; else goto <D.2947>;
+  <D.2949>:
+  [interval.c : 57:22] [interval.c : 57] c->low_value = -9223372036854775808;
+  [interval.c : 58:30] D.2960 = [interval.c : 58] b->low_value;
+  [interval.c : 58:30] D.2961 = [interval.c : 58] a->up_value;
+  [interval.c : 58:30] D.2962 = sub_inf (D.2961, D.2960);
+  [interval.c : 58:21] [interval.c : 58] c->up_value = D.2962;
+  [interval.c : 58:21] goto <D.2950>;
+  <D.2947>:
+  [interval.c : 61:22] [interval.c : 61] c->low_value = -9223372036854775808;
+  [interval.c : 62:21] [interval.c : 62] c->up_value = 9223372036854775807;
+  <D.2950>:
+  <D.2933>:
+  <D.2906>:
+}
+
+
+interval_mul (struct interval * a, struct interval * b, struct interval * c)
+[interval.c : 66:58] {
+  long int D.2970;
+  long int D.2972;
+  long int D.2973;
+  long int D.2975;
+  long int D.2976;
+  long int D.2978;
+  long int D.2979;
+  long int D.2981;
+  long int D.2982;
+  long int D.2984;
+  long int D.2986;
+  long int D.2988;
+  long int D.2990;
+  long int D.2992;
+  long int D.2994;
+  long int D.2996;
+  long int D.2997;
+  long int D.2998;
+  long int D.2999;
+  long int D.3000;
+  long int D.3001;
+  long int D.3002;
+  long int D.3003;
+  long int D.3004;
+  long int D.3005;
+  long int D.3006;
+  long int D.3007;
+  long int D.3008;
+  long int D.3009;
+  long int D.3010;
+  long int D.3011;
+  long int D.3012;
+  long int D.3013;
+  long int D.3014;
+  long int D.3015;
+  long int D.3016;
+  long int D.3017;
+  long int D.3018;
+  long int D.3019;
+  long int D.3020;
+
+  [interval.c : 67:11] D.2970 = [interval.c : 67] a->up_value;
+  [interval.c : 67:8] if (D.2970 < 0) goto <D.2971>; else goto <D.2963>;
+  <D.2971>:
+  [interval.c : 67:30] D.2972 = [interval.c : 67] b->low_value;
+  [interval.c : 67:26] if (D.2972 > 0) goto <D.2964>; else goto <D.2963>;
+  <D.2963>:
+  [interval.c : 67:52] D.2973 = [interval.c : 67] a->up_value;
+  [interval.c : 67:47] if (D.2973 < 0) goto <D.2974>; else goto <D.2965>;
+  <D.2974>:
+  [interval.c : 67:71] D.2975 = [interval.c : 67] b->up_value;
+  [interval.c : 67:67] if (D.2975 < 0) goto <D.2964>; else goto <D.2965>;
+  <D.2965>:
+  [interval.c : 68:15] D.2976 = [interval.c : 68] a->low_value;
+  [interval.c : 67:87] if (D.2976 > 0) goto <D.2977>; else goto <D.2966>;
+  <D.2977>:
+  [interval.c : 68:35] D.2978 = [interval.c : 68] b->low_value;
+  [interval.c : 68:31] if (D.2978 > 0) goto <D.2964>; else goto <D.2966>;
+  <D.2966>:
+  [interval.c : 68:57] D.2979 = [interval.c : 68] a->low_value;
+  [interval.c : 68:52] if (D.2979 > 0) goto <D.2980>; else goto <D.2967>;
+  <D.2980>:
+  [interval.c : 68:77] D.2981 = [interval.c : 68] b->up_value;
+  [interval.c : 68:73] if (D.2981 < 0) goto <D.2964>; else goto <D.2967>;
+  <D.2967>:
+  [interval.c : 69:15] D.2982 = [interval.c : 69] a->low_value;
+  [interval.c : 68:93] if (D.2982 != -9223372036854775808) goto <D.2983>; else goto <D.2968>;
+  <D.2983>:
+  [interval.c : 69:43] D.2984 = [interval.c : 69] a->up_value;
+  [interval.c : 69:39] if (D.2984 != -9223372036854775808) goto <D.2985>; else goto <D.2968>;
+  <D.2985>:
+  [interval.c : 69:70] D.2986 = [interval.c : 69] b->low_value;
+  [interval.c : 69:66] if (D.2986 != -9223372036854775808) goto <D.2987>; else goto <D.2968>;
+  <D.2987>:
+  [interval.c : 69:98] D.2988 = [interval.c : 69] b->up_value;
+  [interval.c : 69:94] if (D.2988 != -9223372036854775808) goto <D.2989>; else goto <D.2968>;
+  <D.2989>:
+  [interval.c : 70:15] D.2990 = [interval.c : 70] a->low_value;
+  [interval.c : 69:121] if (D.2990 != 9223372036854775807) goto <D.2991>; else goto <D.2968>;
+  <D.2991>:
+  [interval.c : 70:43] D.2992 = [interval.c : 70] a->up_value;
+  [interval.c : 70:39] if (D.2992 != 9223372036854775807) goto <D.2993>; else goto <D.2968>;
+  <D.2993>:
+  [interval.c : 70:70] D.2994 = [interval.c : 70] b->low_value;
+  [interval.c : 70:66] if (D.2994 != 9223372036854775807) goto <D.2995>; else goto <D.2968>;
+  <D.2995>:
+  [interval.c : 70:98] D.2996 = [interval.c : 70] b->up_value;
+  [interval.c : 70:94] if (D.2996 != 9223372036854775807) goto <D.2964>; else goto <D.2968>;
+  <D.2964>:
+  [interval.c : 70:123] {
+    long int temp_max;
+    long int temp_min;
+    long int temp_mid;
+
+    [interval.c : 72:38] D.2997 = [interval.c : 72] b->up_value;
+    [interval.c : 72:38] D.2998 = [interval.c : 72] a->low_value;
+    [interval.c : 72:38] D.2999 = mul_inf (D.2998, D.2997);
+    [interval.c : 72:38] D.3000 = [interval.c : 72] b->low_value;
+    [interval.c : 72:38] D.3001 = [interval.c : 72] a->low_value;
+    [interval.c : 72:38] D.3002 = mul_inf (D.3001, D.3000);
+    [interval.c : 72:18] temp_min = interval_value_min (D.3002, D.2999);
+    [interval.c : 73:38] D.3003 = [interval.c : 73] b->up_value;
+    [interval.c : 73:38] D.3004 = [interval.c : 73] a->up_value;
+    [interval.c : 73:38] D.3005 = mul_inf (D.3004, D.3003);
+    [interval.c : 73:38] D.3006 = [interval.c : 73] b->low_value;
+    [interval.c : 73:38] D.3007 = [interval.c : 73] a->up_value;
+    [interval.c : 73:38] D.3008 = mul_inf (D.3007, D.3006);
+    [interval.c : 73:18] temp_mid = interval_value_min (D.3008, D.3005);
+    [interval.c : 74:18] temp_min = interval_value_min (temp_min, temp_mid);
+    [interval.c : 75:38] D.3009 = [interval.c : 75] b->up_value;
+    [interval.c : 75:38] D.3010 = [interval.c : 75] a->low_value;
+    [interval.c : 75:38] D.3011 = mul_inf (D.3010, D.3009);
+    [interval.c : 75:38] D.3012 = [interval.c : 75] b->low_value;
+    [interval.c : 75:38] D.3013 = [interval.c : 75] a->low_value;
+    [interval.c : 75:38] D.3014 = mul_inf (D.3013, D.3012);
+    [interval.c : 75:18] temp_max = interval_value_max (D.3014, D.3011);
+    [interval.c : 76:38] D.3015 = [interval.c : 76] b->up_value;
+    [interval.c : 76:38] D.3016 = [interval.c : 76] a->up_value;
+    [interval.c : 76:38] D.3017 = mul_inf (D.3016, D.3015);
+    [interval.c : 76:38] D.3018 = [interval.c : 76] b->low_value;
+    [interval.c : 76:38] D.3019 = [interval.c : 76] a->up_value;
+    [interval.c : 76:38] D.3020 = mul_inf (D.3019, D.3018);
+    [interval.c : 76:18] temp_mid = interval_value_max (D.3020, D.3017);
+    [interval.c : 77:18] temp_max = interval_value_max (temp_max, temp_mid);
+    [interval.c : 78:22] [interval.c : 78] c->low_value = temp_min;
+    [interval.c : 79:21] [interval.c : 79] c->up_value = temp_max;
+  }
+  [interval.c : 70:123] goto <D.2969>;
+  <D.2968>:
+  [interval.c : 82:22] [interval.c : 82] c->low_value = -9223372036854775808;
+  [interval.c : 83:21] [interval.c : 83] c->up_value = 9223372036854775807;
+  <D.2969>:
+}
+
+
+interval_div (struct interval * a, struct interval * b, struct interval * c)
+[interval.c : 88:58] {
+  long int D.3025;
+  long int D.3027;
+  long int D.3028;
+  long int D.3030;
+  long int D.3031;
+  double D.3032;
+  long int D.3033;
+  double D.3034;
+  double D.3035;
+  double D.3036;
+  long int D.3037;
+  long int D.3038;
+  double D.3039;
+  long int D.3040;
+  double D.3041;
+  double D.3042;
+  double D.3043;
+  long int D.3044;
+  long int D.3045;
+  double D.3046;
+  long int D.3047;
+  double D.3048;
+  double D.3049;
+  double D.3050;
+  long int D.3051;
+  long int D.3052;
+  double D.3053;
+  long int D.3054;
+  double D.3055;
+  double D.3056;
+  double D.3057;
+  long int D.3058;
+  long int D.3059;
+  double D.3060;
+  long int D.3061;
+  double D.3062;
+  double D.3063;
+  double D.3064;
+  long int D.3065;
+  long int D.3066;
+  double D.3067;
+  long int D.3068;
+  double D.3069;
+  double D.3070;
+  double D.3071;
+  long int D.3072;
+  long int D.3073;
+  double D.3074;
+  long int D.3075;
+  double D.3076;
+  double D.3077;
+  double D.3078;
+  long int D.3079;
+  long int D.3080;
+  double D.3081;
+  long int D.3082;
+  double D.3083;
+  double D.3084;
+  double D.3085;
+  long int D.3086;
+  long int D.3089;
+  long int D.3091;
+  long int D.3093;
+  long int D.3095;
+  long int D.3096;
+  long int D.3099;
+  long int D.3101;
+  long int D.3103;
+  long int D.3105;
+  long int D.3106;
+
+  [interval.c : 89:11] D.3025 = [interval.c : 89] b->low_value;
+  [interval.c : 89:8] if (D.3025 != -9223372036854775808) goto <D.3026>; else goto <D.3021>;
+  <D.3026>:
+  [interval.c : 89:39] D.3027 = [interval.c : 89] b->up_value;
+  [interval.c : 89:35] if (D.3027 < 0) goto <D.3022>; else goto <D.3021>;
+  <D.3021>:
+  [interval.c : 89:60] D.3028 = [interval.c : 89] b->low_value;
+  [interval.c : 89:55] if (D.3028 > 0) goto <D.3029>; else goto <D.3023>;
+  <D.3029>:
+  [interval.c : 89:80] D.3030 = [interval.c : 89] b->up_value;
+  [interval.c : 89:76] if (D.3030 != 9223372036854775807) goto <D.3022>; else goto <D.3023>;
+  <D.3022>:
+  [interval.c : 89:105] {
+    long int temp_max;
+    long int temp_min;
+    long int temp_mid;
+
+    [interval.c : 92:53] D.3031 = [interval.c : 92] a->low_value;
+    [interval.c : 92:44] D.3032 = (double) D.3031;
+    [interval.c : 92:68] D.3033 = [interval.c : 92] b->up_value;
+    [interval.c : 92:43] D.3034 = (double) D.3033;
+    [interval.c : 92:43] D.3035 = D.3032 / D.3034;
+    [interval.c : 92:43] D.3036 = floor (D.3035);
+    [interval.c : 91:38] D.3037 = (long int) D.3036;
+    [interval.c : 91:75] D.3038 = [interval.c : 91] a->low_value;
+    [interval.c : 91:66] D.3039 = (double) D.3038;
+    [interval.c : 91:90] D.3040 = [interval.c : 91] b->low_value;
+    [interval.c : 91:65] D.3041 = (double) D.3040;
+    [interval.c : 91:65] D.3042 = D.3039 / D.3041;
+    [interval.c : 91:65] D.3043 = floor (D.3042);
+    [interval.c : 91:38] D.3044 = (long int) D.3043;
+    [interval.c : 91:18] temp_min = interval_value_min (D.3044, D.3037);
+    [interval.c : 94:53] D.3045 = [interval.c : 94] a->up_value;
+    [interval.c : 94:44] D.3046 = (double) D.3045;
+    [interval.c : 94:67] D.3047 = [interval.c : 94] b->up_value;
+    [interval.c : 94:43] D.3048 = (double) D.3047;
+    [interval.c : 94:43] D.3049 = D.3046 / D.3048;
+    [interval.c : 94:43] D.3050 = floor (D.3049);
+    [interval.c : 93:38] D.3051 = (long int) D.3050;
+    [interval.c : 93:75] D.3052 = [interval.c : 93] a->up_value;
+    [interval.c : 93:66] D.3053 = (double) D.3052;
+    [interval.c : 93:89] D.3054 = [interval.c : 93] b->low_value;
+    [interval.c : 93:65] D.3055 = (double) D.3054;
+    [interval.c : 93:65] D.3056 = D.3053 / D.3055;
+    [interval.c : 93:65] D.3057 = floor (D.3056);
+    [interval.c : 93:38] D.3058 = (long int) D.3057;
+    [interval.c : 93:18] temp_mid = interval_value_min (D.3058, D.3051);
+    [interval.c : 95:18] temp_min = interval_value_min (temp_min, temp_mid);
+    [interval.c : 97:52] D.3059 = [interval.c : 97] a->low_value;
+    [interval.c : 97:43] D.3060 = (double) D.3059;
+    [interval.c : 97:67] D.3061 = [interval.c : 97] b->up_value;
+    [interval.c : 97:42] D.3062 = (double) D.3061;
+    [interval.c : 97:42] D.3063 = D.3060 / D.3062;
+    [interval.c : 97:42] D.3064 = ceil (D.3063);
+    [interval.c : 96:38] D.3065 = (long int) D.3064;
+    [interval.c : 96:74] D.3066 = [interval.c : 96] a->low_value;
+    [interval.c : 96:65] D.3067 = (double) D.3066;
+    [interval.c : 96:89] D.3068 = [interval.c : 96] b->low_value;
+    [interval.c : 96:64] D.3069 = (double) D.3068;
+    [interval.c : 96:64] D.3070 = D.3067 / D.3069;
+    [interval.c : 96:64] D.3071 = ceil (D.3070);
+    [interval.c : 96:38] D.3072 = (long int) D.3071;
+    [interval.c : 96:18] temp_max = interval_value_max (D.3072, D.3065);
+    [interval.c : 99:52] D.3073 = [interval.c : 99] a->up_value;
+    [interval.c : 99:43] D.3074 = (double) D.3073;
+    [interval.c : 99:66] D.3075 = [interval.c : 99] b->up_value;
+    [interval.c : 99:42] D.3076 = (double) D.3075;
+    [interval.c : 99:42] D.3077 = D.3074 / D.3076;
+    [interval.c : 99:42] D.3078 = ceil (D.3077);
+    [interval.c : 98:38] D.3079 = (long int) D.3078;
+    [interval.c : 98:74] D.3080 = [interval.c : 98] a->up_value;
+    [interval.c : 98:65] D.3081 = (double) D.3080;
+    [interval.c : 98:88] D.3082 = [interval.c : 98] b->low_value;
+    [interval.c : 98:64] D.3083 = (double) D.3082;
+    [interval.c : 98:64] D.3084 = D.3081 / D.3083;
+    [interval.c : 98:64] D.3085 = ceil (D.3084);
+    [interval.c : 98:38] D.3086 = (long int) D.3085;
+    [interval.c : 98:18] temp_mid = interval_value_max (D.3086, D.3079);
+    [interval.c : 100:18] temp_max = interval_value_max (temp_max, temp_mid);
+    [interval.c : 101:22] [interval.c : 101] c->low_value = temp_min;
+    [interval.c : 102:21] [interval.c : 102] c->up_value = temp_max;
+  }
+  [interval.c : 89:105] goto <D.3024>;
+  <D.3023>:
+  [interval.c : 104:15] D.3089 = [interval.c : 104] b->low_value;
+  [interval.c : 104:13] if (D.3089 <= 0) goto <D.3090>; else goto <D.3087>;
+  <D.3090>:
+  [interval.c : 104:36] D.3091 = [interval.c : 104] b->up_value;
+  [interval.c : 104:32] if (D.3091 >= 0) goto <D.3092>; else goto <D.3087>;
+  <D.3092>:
+  [interval.c : 104:56] D.3093 = [interval.c : 104] a->up_value;
+  [interval.c : 104:52] if (D.3093 < 0) goto <D.3094>; else goto <D.3087>;
+  <D.3094>:
+  [interval.c : 105:22] [interval.c : 105] c->low_value = -9223372036854775808;
+  [interval.c : 106:25] D.3095 = [interval.c : 106] a->low_value;
+  [interval.c : 106:23] D.3096 = -D.3095;
+  [interval.c : 106:21] [interval.c : 106] c->up_value = D.3096;
+  [interval.c : 106:21] goto <D.3088>;
+  <D.3087>:
+  [interval.c : 108:15] D.3099 = [interval.c : 108] b->low_value;
+  [interval.c : 108:13] if (D.3099 <= 0) goto <D.3100>; else goto <D.3097>;
+  <D.3100>:
+  [interval.c : 108:36] D.3101 = [interval.c : 108] b->up_value;
+  [interval.c : 108:32] if (D.3101 >= 0) goto <D.3102>; else goto <D.3097>;
+  <D.3102>:
+  [interval.c : 108:55] D.3103 = [interval.c : 108] a->low_value;
+  [interval.c : 108:51] if (D.3103 > 0) goto <D.3104>; else goto <D.3097>;
+  <D.3104>:
+  [interval.c : 109:26] D.3105 = [interval.c : 109] a->up_value;
+  [interval.c : 109:24] D.3106 = -D.3105;
+  [interval.c : 109:22] [interval.c : 109] c->low_value = D.3106;
+  [interval.c : 110:21] [interval.c : 110] c->up_value = 9223372036854775807;
+  [interval.c : 110:21] goto <D.3098>;
+  <D.3097>:
+  [interval.c : 113:22] [interval.c : 113] c->low_value = -9223372036854775808;
+  [interval.c : 114:21] [interval.c : 114] c->up_value = 9223372036854775807;
+  <D.3098>:
+  <D.3088>:
+  <D.3024>:
+}
+
+

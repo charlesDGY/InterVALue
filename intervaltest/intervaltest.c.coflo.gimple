@@ -1,0 +1,98 @@
+add (int a, int b)
+[intervaltest.h : 26:23] {
+  [intervaltest.h : 27:11] printf ([intervaltest.h : 27] "\n");
+}
+
+
+main (int i)
+[intervaltest.c : 79:1] {
+  int D.1773;
+  int D.1774;
+  int D.1781;
+  long int D.1782;
+  int D.1783;
+  int D.1788;
+  int D.1789;
+  int val;
+  int val2;
+  int j;
+  struct node2 * node44;
+  int * kk;
+  extern int malloc ();
+  int * point;
+  extern int sub ();
+
+  [intervaltest.c : 80:9] val = 12;
+  [intervaltest.c : 80:19] val2 = 6;
+  [intervaltest.c : 81:9] j = 32767;
+  [intervaltest.c : 82:14] D.1773 = val + val2;
+  [intervaltest.c : 82:22] D.1774 = D.1773 * val2;
+  [intervaltest.c : 82:7] j = D.1774 - val;
+  [intervaltest.c : 83:8] if (i > 0) goto <D.1777>; else goto <D.1775>;
+  <D.1777>:
+  [intervaltest.c : 83:15] if (j <= 49) goto <D.1778>; else goto <D.1775>;
+  <D.1778>:
+  [intervaltest.c : 84:15] goto <D.1752>;
+  <D.1751>:
+  [intervaltest.c : 85:15] j = j + 5;
+  <D.1752>:
+  [intervaltest.c : 84:15] if (j <= 99) goto <D.1751>; else goto <D.1753>;
+  <D.1753>:
+  [intervaltest.c : 83:8] goto <D.1776>;
+  <D.1775>:
+  [intervaltest.c : 89:10] j = j + -1;
+  <D.1776>:
+  [intervaltest.c : 92:8] if (val == 5) goto <D.1779>; else goto <D.1780>;
+  <D.1779>:
+  [intervaltest.c : 93:12] val = val + 1;
+  [intervaltest.c : 94:14] val2 = val % 2;
+  <D.1780>:
+  [intervaltest.c : 97:12] node44 = 0B;
+  [intervaltest.c : 98:15] [intervaltest.c : 98] node44->p = 5;
+  [intervaltest.c : 99:15] [intervaltest.c : 99] node44->j = 10;
+  [intervaltest.c : 101:28] D.1781 = malloc (4);
+  [intervaltest.c : 101:28] D.1782 = (long int) D.1781;
+  [intervaltest.c : 101:10] kk = (int *) D.1782;
+  [intervaltest.c : 103:10] point = kk;
+  [intervaltest.c : 105:9] D.1783 = [intervaltest.c : 105] *point;
+  [intervaltest.c : 105:8] if (D.1783 != 5) goto <D.1784>; else goto <D.1785>;
+  <D.1784>:
+  [intervaltest.c : 106:15] printf ([intervaltest.c : 106] "\n");
+  <D.1785>:
+  [intervaltest.c : 109:5] {
+    int j;
+    int haha;
+    int k;
+    char ma;
+
+    [intervaltest.c : 110:9] j = 5;
+    [intervaltest.c : 111:9] haha = 10;
+    [intervaltest.c : 114:8] if (k == 4) goto <D.1786>; else goto <D.1787>;
+    <D.1786>:
+    [intervaltest.c : 115:15] printf ([intervaltest.c : 115] "\n");
+    <D.1787>:
+  }
+  [intervaltest.c : 118:14] D.1788 = add (i, j);
+  [intervaltest.c : 118:9] val = sub (D.1788, val);
+  [intervaltest.c : 119:10] goto <D.1768>;
+  <D.1767>:
+  [intervaltest.c : 120:9] switch (val) <[intervaltest.c : 128] default: <D.1766>, [intervaltest.c : 121] case 3: <D.1763>, [intervaltest.c : 124] case 8: <D.1765>>
+  <D.1763>:
+  [intervaltest.c : 122:20] sub (i, j);
+  [intervaltest.c : 123:17] goto <D.1764>;
+  <D.1765>:
+  [intervaltest.c : 125:20] add (i, j);
+  [intervaltest.c : 126:19] j = 6;
+  [intervaltest.c : 127:17] goto <D.1764>;
+  <D.1766>:
+  [intervaltest.c : 129:19] i = 5;
+  <D.1764>:
+  <D.1768>:
+  [intervaltest.c : 119:10] if (i > 0) goto <D.1767>; else goto <D.1769>;
+  <D.1769>:
+  [intervaltest.c : 133:11] printf ([intervaltest.c : 133] "%d\n", j);
+  [intervaltest.c : 134:5] D.1789 = 0;
+  [intervaltest.c : 134:5] return D.1789;
+}
+
+

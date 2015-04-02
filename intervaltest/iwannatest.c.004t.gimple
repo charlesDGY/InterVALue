@@ -1,0 +1,17 @@
+main (int argc, const char * * argv)
+{
+  int D.2693;
+  int D.2694;
+  int * a;
+  int * p;
+
+  a = malloc (4);
+  p = 5B;
+  a = p;
+  D.2693 = *p;
+  printf ("%d\n", D.2693);
+  D.2694 = 0;
+  return D.2694;
+}
+
+

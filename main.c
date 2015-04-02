@@ -19,7 +19,7 @@
 
 int main(int argc, const char *argv[])
 {
-	char fName[256], str[256];
+//	char fName[256], str[256];
     /*strcpy(fName, argv[argc - 1]);*/
     /*if (argc <= 1) {*/
         /*fprintf(stderr, "parameter error!!\n");*/
@@ -224,7 +224,7 @@ int main(int argc, const char *argv[])
     iter = result_head->next ;
     printf("div: ") ;
     while (iter != NULL) {
-        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
+        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value) ;
         iter = iter->next ;
     }
     printf("\n") ;

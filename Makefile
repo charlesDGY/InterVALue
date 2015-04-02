@@ -1,7 +1,7 @@
 objects = main.o interval.o common.o intervalset.o
 
 edit : $(objects)
-	gcc -o edit $(objects) -lm
+	gcc -fdump-tree-vcg-lineno $(objects) -o edit -lm
 
 main.o : interval.h intervalset.h
 interval.o : common.h
