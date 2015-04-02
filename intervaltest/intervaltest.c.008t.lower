@@ -3,10 +3,8 @@
 
 add (int a, int b)
 {
-  <bb 2>:
   __builtin_putchar (10);
   return;
-
 }
 
 
@@ -18,13 +16,11 @@ sub (int a, int b)
   int d;
   int D.2729;
 
-  <bb 2>:
   d = a - b;
   D.2729 = d;
-
-<L0>:
+  goto <D.2730>;
+  <D.2730>:
   return D.2729;
-
 }
 
 
@@ -49,53 +45,31 @@ main (int i)
   int D.2732;
   int D.2731;
 
-  <bb 2>:
   val = 12;
   val2 = 6;
   j = 32767;
   D.2731 = val + val2;
   D.2732 = D.2731 * val2;
   j = D.2732 - val;
-  if (i > 0)
-    goto <bb 3>;
-  else
-    goto <bb 8>;
-
-  <bb 3>:
-  if (j <= 49)
-    goto <bb 4>;
-  else
-    goto <bb 8>;
-
-  <bb 4>:
-  goto <bb 6>;
-
-  <bb 5>:
+  if (i > 0) goto <D.2735>; else goto <D.2733>;
+  <D.2735>:
+  if (j <= 49) goto <D.2736>; else goto <D.2733>;
+  <D.2736>:
+  goto <D.2712>;
+  <D.2711>:
   j = j + 5;
-
-  <bb 6>:
-  if (j <= 99)
-    goto <bb 5>;
-  else
-    goto <bb 7>;
-
-  <bb 7>:
-  goto <bb 9>;
-
-  <bb 8>:
+  <D.2712>:
+  if (j <= 99) goto <D.2711>; else goto <D.2713>;
+  <D.2713>:
+  goto <D.2734>;
+  <D.2733>:
   j = j + -1;
-
-  <bb 9>:
-  if (val == 5)
-    goto <bb 10>;
-  else
-    goto <bb 11>;
-
-  <bb 10>:
+  <D.2734>:
+  if (val == 5) goto <D.2737>; else goto <D.2738>;
+  <D.2737>:
   val = val + 1;
   val2 = val % 2;
-
-  <bb 11>:
+  <D.2738>:
   node44 = 0B;
   node44->p = 5;
   node44->j = 10;
@@ -103,58 +77,39 @@ main (int i)
   *kk = 5;
   point = kk;
   D.2739 = *point;
-  if (D.2739 != 5)
-    goto <bb 12>;
-  else
-    goto <bb 13>;
-
-  <bb 12>:
+  if (D.2739 != 5) goto <D.2740>; else goto <D.2741>;
+  <D.2740>:
   __builtin_putchar (10);
-
-  <bb 13>:
+  <D.2741>:
   j = 5;
   haha = 10;
-  if (k == 4)
-    goto <bb 14>;
-  else
-    goto <bb 15>;
-
-  <bb 14>:
+  if (k == 4) goto <D.2742>; else goto <D.2743>;
+  <D.2742>:
   __builtin_putchar (10);
-
-  <bb 15>:
+  <D.2743>:
   D.2744 = add (i, j);
   val = sub (D.2744, val);
-  goto <bb 20>;
-
-  <bb 16>:
-  switch (val) <default: <L16>, case 3: <L14>, case 8: <L15>>
-
-<L14>:
+  goto <D.2726>;
+  <D.2725>:
+  switch (val) <default: <D.2724>, case 3: <D.2721>, case 8: <D.2723>>
+  <D.2721>:
   sub (i, j);
-  goto <bb 20>;
-
-<L15>:
+  goto <D.2722>;
+  <D.2723>:
   add (i, j);
   j = 6;
-  goto <bb 20>;
-
-<L16>:
+  goto <D.2722>;
+  <D.2724>:
   i = 5;
-
-  <bb 20>:
-  if (i > 0)
-    goto <bb 16>;
-  else
-    goto <bb 21>;
-
-  <bb 21>:
+  <D.2722>:
+  <D.2726>:
+  if (i > 0) goto <D.2725>; else goto <D.2727>;
+  <D.2727>:
   printf ("%d\n", j);
   D.2745 = 0;
-
-<L20>:
+  goto <D.2746>;
+  <D.2746>:
   return D.2745;
-
 }
 
 

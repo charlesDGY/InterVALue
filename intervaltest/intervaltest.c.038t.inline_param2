@@ -1,0 +1,231 @@
+
+;; Function add (add, funcdef_no=2, decl_uid=2693, cgraph_uid=2)
+
+
+Analyzing function body size: add
+
+Inline summary for add/2
+  self time:       13
+  global time:     0
+  self size:       5
+  global size:     0
+  self stack:      0
+  global stack:    0
+    size:1.000000, time:2.000000, predicate:(true)
+    size:2.000000, time:0.000000, predicate:(not inlined)
+  calls:
+    __builtin_putchar/5 function body not available
+      loop depth: 0 freq:1000 size: 2 time: 11 callee size: 0 stack: 0
+
+add (int a, int b)
+{
+  <bb 2>:
+  __builtin_putchar (10);
+  return;
+
+}
+
+
+
+;; Function sub (sub, funcdef_no=3, decl_uid=2702, cgraph_uid=3)
+
+
+Analyzing function body size: sub
+
+Inline summary for sub/3
+  self time:       3
+  global time:     0
+  self size:       4
+  global size:     0
+  self stack:      0
+  global stack:    0
+    size:2.000000, time:3.000000, predicate:(true)
+    size:2.000000, time:0.000000, predicate:(not inlined)
+  calls:
+
+sub (int a, int b)
+{
+  int d;
+  int D.2729;
+  int _4;
+
+  <bb 2>:
+  d_3 = a_1(D) - b_2(D);
+  _4 = d_3;
+
+<L0>:
+  return _4;
+
+}
+
+
+
+;; Function main (main, funcdef_no=4, decl_uid=2706, cgraph_uid=4)
+
+
+Analyzing function body size: main
+
+Inline summary for main/4
+  self time:       125
+  global time:     0
+  self size:       58
+  global size:     0
+  self stack:      0
+  global stack:    0
+    size:32.000000, time:29.000000, predicate:(true)
+    size:2.000000, time:0.000000, predicate:(not inlined)
+  calls:
+    printf/7 function body not available
+      loop depth: 0 freq:1000 size: 3 time: 12 callee size: 0 stack: 0
+    add/2 function not considered for inlining
+      loop depth: 0 freq:1000 size: 3 time: 12 callee size: 2 stack: 0
+    sub/3 function not considered for inlining
+      loop depth: 0 freq:1000 size: 3 time: 12 callee size: 2 stack: 0
+    sub/3 function not considered for inlining
+      loop depth: 0 freq:1000 size: 4 time: 13 callee size: 2 stack: 0
+    add/2 function not considered for inlining
+      loop depth: 0 freq:1000 size: 4 time: 13 callee size: 2 stack: 0
+    __builtin_putchar/5 function body not available
+      loop depth: 0 freq:1000 size: 2 time: 11 callee size: 0 stack: 0
+    __builtin_putchar/5 function body not available
+      loop depth: 0 freq:1000 size: 2 time: 11 callee size: 0 stack: 0
+    malloc/6 function body not available
+      loop depth: 0 freq:1000 size: 3 time: 12 callee size: 0 stack: 0
+
+main (int i)
+{
+  char ma;
+  int k;
+  int haha;
+  int j;
+  int * point;
+  int * kk;
+  struct node2 * node44;
+  int j;
+  int val2;
+  int val;
+  int D.2745;
+  int D.2744;
+  int D.2739;
+  int D.2732;
+  int D.2731;
+  int _9;
+  int _10;
+  int _20;
+  int _24;
+  int _28;
+
+  <bb 2>:
+  val_6 = 12;
+  val2_7 = 6;
+  j_8 = 32767;
+  _9 = val_6 + val2_7;
+  _10 = _9 * val2_7;
+  j_11 = _10 - val_6;
+  if (i_12(D) > 0)
+    goto <bb 3>;
+  else
+    goto <bb 8>;
+
+  <bb 3>:
+  if (j_11 <= 49)
+    goto <bb 4>;
+  else
+    goto <bb 8>;
+
+  <bb 4>:
+  goto <bb 6>;
+
+  <bb 5>:
+  j_13 = j_3 + 5;
+
+  <bb 6>:
+  # j_3 = PHI <j_11(4), j_13(5)>
+  if (j_3 <= 99)
+    goto <bb 5>;
+  else
+    goto <bb 7>;
+
+  <bb 7>:
+  goto <bb 9>;
+
+  <bb 8>:
+  j_14 = j_11 + -1;
+
+  <bb 9>:
+  # j_4 = PHI <j_3(7), j_14(8)>
+  if (val_6 == 5)
+    goto <bb 10>;
+  else
+    goto <bb 11>;
+
+  <bb 10>:
+  val_15 = val_6 + 1;
+  val2_16 = val_15 % 2;
+
+  <bb 11>:
+  # val_2 = PHI <val_6(9), val_15(10)>
+  node44_17 = 0B;
+  node44_17->p = 5;
+  node44_17->j = 10;
+  kk_18 = malloc (4);
+  *kk_18 = 5;
+  point_19 = kk_18;
+  _20 = *point_19;
+  if (_20 != 5)
+    goto <bb 12>;
+  else
+    goto <bb 13>;
+
+  <bb 12>:
+  __builtin_putchar (10);
+
+  <bb 13>:
+  j_21 = 5;
+  haha_22 = 10;
+  if (k_23(D) == 4)
+    goto <bb 14>;
+  else
+    goto <bb 15>;
+
+  <bb 14>:
+  __builtin_putchar (10);
+
+  <bb 15>:
+  _24 = add (i_12(D), j_4);
+  val_25 = sub (_24, val_2);
+  goto <bb 20>;
+
+  <bb 16>:
+  switch (val_25) <default: <L16>, case 3: <L14>, case 8: <L15>>
+
+<L14>:
+  sub (i_1, j_5);
+  goto <bb 20>;
+
+<L15>:
+  add (i_1, j_5);
+  j_26 = 6;
+  goto <bb 20>;
+
+<L16>:
+  i_27 = 5;
+
+  <bb 20>:
+  # i_1 = PHI <i_12(D)(15), i_1(17), i_1(18), i_27(19)>
+  # j_5 = PHI <j_4(15), j_5(17), j_26(18), j_5(19)>
+  if (i_1 > 0)
+    goto <bb 16>;
+  else
+    goto <bb 21>;
+
+  <bb 21>:
+  printf ("%d\n", j_5);
+  _28 = 0;
+
+<L20>:
+  return _28;
+
+}
+
+

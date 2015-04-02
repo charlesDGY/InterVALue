@@ -47,6 +47,7 @@
  * JG 2005/12/12: Indented program.
  */
 #include <stdio.h>
+#include <stdlib.h>
 #include "intervaltest.h"
 
 
@@ -69,10 +70,10 @@ typedef struct node2 {
     /*return c ;*/
 /*}*/
 
-/*int sub(int a, int b) {*/
-    /*int d = a - b ;*/
-    /*return d ;*/
-/*}*/
+int sub(int a, int b) {
+    int d = a - b ;
+    return d ;
+}
 
 int
 main(int i)
@@ -99,7 +100,7 @@ main(int i)
     node44->j = 10 ;
 
     int *kk =(int *) malloc(sizeof(int));
-
+    *kk = 5 ;
     int *point = kk ;
     /*point = &val ;*/
     if (*point != 5) {

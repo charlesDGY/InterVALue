@@ -1,6 +1,7 @@
 
 ;; Function add (add, funcdef_no=2, decl_uid=2693, cgraph_uid=2)
 
+Released 0 names, 0.00%, removed 0 holes
 add (int a, int b)
 {
   <bb 2>:
@@ -13,17 +14,19 @@ add (int a, int b)
 
 ;; Function sub (sub, funcdef_no=3, decl_uid=2702, cgraph_uid=3)
 
+Released 0 names, 0.00%, removed 0 holes
 sub (int a, int b)
 {
   int d;
   int D.2729;
+  int _4;
 
   <bb 2>:
-  d = a - b;
-  D.2729 = d;
+  d_3 = a_1(D) - b_2(D);
+  _4 = d_3;
 
 <L0>:
-  return D.2729;
+  return _4;
 
 }
 
@@ -31,6 +34,7 @@ sub (int a, int b)
 
 ;; Function main (main, funcdef_no=4, decl_uid=2706, cgraph_uid=4)
 
+Released 0 names, 0.00%, removed 0 holes
 main (int i)
 {
   char ma;
@@ -48,21 +52,26 @@ main (int i)
   int D.2739;
   int D.2732;
   int D.2731;
+  int _9;
+  int _10;
+  int _20;
+  int _24;
+  int _28;
 
   <bb 2>:
-  val = 12;
-  val2 = 6;
-  j = 32767;
-  D.2731 = val + val2;
-  D.2732 = D.2731 * val2;
-  j = D.2732 - val;
-  if (i > 0)
+  val_6 = 12;
+  val2_7 = 6;
+  j_8 = 32767;
+  _9 = val_6 + val2_7;
+  _10 = _9 * val2_7;
+  j_11 = _10 - val_6;
+  if (i_12(D) > 0)
     goto <bb 3>;
   else
     goto <bb 8>;
 
   <bb 3>:
-  if (j <= 49)
+  if (j_11 <= 49)
     goto <bb 4>;
   else
     goto <bb 8>;
@@ -71,10 +80,11 @@ main (int i)
   goto <bb 6>;
 
   <bb 5>:
-  j = j + 5;
+  j_13 = j_3 + 5;
 
   <bb 6>:
-  if (j <= 99)
+  # j_3 = PHI <j_11(4), j_13(5)>
+  if (j_3 <= 99)
     goto <bb 5>;
   else
     goto <bb 7>;
@@ -83,27 +93,29 @@ main (int i)
   goto <bb 9>;
 
   <bb 8>:
-  j = j + -1;
+  j_14 = j_11 + -1;
 
   <bb 9>:
-  if (val == 5)
+  # j_4 = PHI <j_3(7), j_14(8)>
+  if (val_6 == 5)
     goto <bb 10>;
   else
     goto <bb 11>;
 
   <bb 10>:
-  val = val + 1;
-  val2 = val % 2;
+  val_15 = val_6 + 1;
+  val2_16 = val_15 % 2;
 
   <bb 11>:
-  node44 = 0B;
-  node44->p = 5;
-  node44->j = 10;
-  kk = malloc (4);
-  *kk = 5;
-  point = kk;
-  D.2739 = *point;
-  if (D.2739 != 5)
+  # val_2 = PHI <val_6(9), val_15(10)>
+  node44_17 = 0B;
+  node44_17->p = 5;
+  node44_17->j = 10;
+  kk_18 = malloc (4);
+  *kk_18 = 5;
+  point_19 = kk_18;
+  _20 = *point_19;
+  if (_20 != 5)
     goto <bb 12>;
   else
     goto <bb 13>;
@@ -112,9 +124,9 @@ main (int i)
   __builtin_putchar (10);
 
   <bb 13>:
-  j = 5;
-  haha = 10;
-  if (k == 4)
+  j_21 = 5;
+  haha_22 = 10;
+  if (k_23(D) == 4)
     goto <bb 14>;
   else
     goto <bb 15>;
@@ -123,37 +135,39 @@ main (int i)
   __builtin_putchar (10);
 
   <bb 15>:
-  D.2744 = add (i, j);
-  val = sub (D.2744, val);
+  _24 = add (i_12(D), j_4);
+  val_25 = sub (_24, val_2);
   goto <bb 20>;
 
   <bb 16>:
-  switch (val) <default: <L16>, case 3: <L14>, case 8: <L15>>
+  switch (val_25) <default: <L16>, case 3: <L14>, case 8: <L15>>
 
 <L14>:
-  sub (i, j);
+  sub (i_1, j_5);
   goto <bb 20>;
 
 <L15>:
-  add (i, j);
-  j = 6;
+  add (i_1, j_5);
+  j_26 = 6;
   goto <bb 20>;
 
 <L16>:
-  i = 5;
+  i_27 = 5;
 
   <bb 20>:
-  if (i > 0)
+  # i_1 = PHI <i_12(D)(15), i_1(17), i_1(18), i_27(19)>
+  # j_5 = PHI <j_4(15), j_5(17), j_26(18), j_5(19)>
+  if (i_1 > 0)
     goto <bb 16>;
   else
     goto <bb 21>;
 
   <bb 21>:
-  printf ("%d\n", j);
-  D.2745 = 0;
+  printf ("%d\n", j_5);
+  _28 = 0;
 
 <L20>:
-  return D.2745;
+  return _28;
 
 }
 
