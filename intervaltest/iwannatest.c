@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int main(int argc, const char *argv[])
 {
-    int *a = (int *)malloc(sizeof(int)) ;
-    printf("%d\n", *p);
-    return 0;
+    int *a, b ;
+    b = 5 ;
+    a = &b ;
+    printf("%d\n", *a);
+    return 0 ;
 }

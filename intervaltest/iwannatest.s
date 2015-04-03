@@ -17,7 +17,6 @@ main:
 	movl	%edi, -20(%rbp)
 	movq	%rsi, -32(%rbp)
 	movl	$5, -12(%rbp)
-	movq	$0, -8(%rbp)
 	leaq	-12(%rbp), %rax
 	movq	%rax, -8(%rbp)
 	movq	-8(%rbp), %rax

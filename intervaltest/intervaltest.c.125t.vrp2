@@ -1,0 +1,142 @@
+
+;; Function add (add, funcdef_no=39, decl_uid=3022, cgraph_uid=39)
+
+;; 1 loops found
+;;
+;; Loop 0
+;;  header 0, latch 1
+;;  depth 0, outer -1
+;;  nodes: 0 1 2
+;; 2 succs { 1 }
+
+Value ranges after VRP:
+
+a_3(D): VARYING
+b_4(D): VARYING
+_5: VARYING
+
+
+add (int a, int b)
+{
+  int _5;
+
+  <bb 2>:
+  __printf_chk (1, "\n");
+  _5 = a_3(D) + b_4(D);
+  return _5;
+
+}
+
+
+
+;; Function sub (sub, funcdef_no=40, decl_uid=3031, cgraph_uid=40)
+
+;; 1 loops found
+;;
+;; Loop 0
+;;  header 0, latch 1
+;;  depth 0, outer -1
+;;  nodes: 0 1 2
+;; 2 succs { 1 }
+
+Value ranges after VRP:
+
+a_1(D): VARYING
+b_2(D): VARYING
+d_3: VARYING
+
+
+sub (int a, int b)
+{
+  int d;
+
+  <bb 2>:
+  d_3 = a_1(D) - b_2(D);
+  return d_3;
+
+}
+
+
+
+;; Function main (main, funcdef_no=41, decl_uid=3035, cgraph_uid=41) (executed once)
+
+;; 1 loops found
+;;
+;; Loop 0
+;;  header 0, latch 1
+;;  depth 0, outer -1
+;;  nodes: 0 1 2 3 4 5 6 7 8
+;; 2 succs { 3 4 }
+;; 3 succs { 4 }
+;; 4 succs { 5 8 }
+;; 5 succs { 8 6 7 }
+;; 6 succs { 7 }
+;; 7 succs { 8 }
+;; 8 succs { 1 }
+
+SSA replacement table
+N_i -> { O_1 ... O_j } means that N_i replaces O_1, ..., O_j
+
+node44_28 -> { node44_10 }
+Incremental SSA update started at block: 2
+Number of blocks in CFG: 9
+Number of blocks to update: 1 ( 11%)
+
+
+
+Value ranges after VRP:
+
+.MEM_3: VARYING
+i_7(D): VARYING
+j_8: [2, 95]
+node44_10: VARYING
+k_14(D): UNDEFINED
+j_21: [2, 6]
+val_22: VARYING
+node44_28: ~[0B, 0B]  EQUIVALENCES: { node44_10 } (1 elements)
+
+
+main (int i)
+{
+  int k;
+  struct node2 * node44;
+  int j;
+  int val;
+
+  <bb 2>:
+  node44_10 = malloc (16);
+  node44_10->p = 5;
+  node44_10->j = 10;
+  __printf_chk (1, "\n");
+  if (k_14(D) == 4)
+    goto <bb 3>;
+  else
+    goto <bb 4>;
+
+  <bb 3>:
+  __printf_chk (1, "\n");
+
+  <bb 4>:
+  __builtin_putchar (10);
+  val_22 = i_7(D) + 83;
+  if (i_7(D) > 0)
+    goto <bb 5>;
+  else
+    goto <bb 8> (<L31>);
+
+  <bb 5>:
+  switch (val_22) <default: <L31>, case 3: <L33>, case 8: <L28>>
+
+<L33>:
+
+  # j_21 = PHI <6(5), 2(6)>
+<L28>:
+
+  # j_8 = PHI <95(5), 95(4), j_21(7)>
+<L31>:
+  __printf_chk (1, "%d\n", j_8);
+  return 0;
+
+}
+
+

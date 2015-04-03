@@ -61,7 +61,7 @@ int             cnt1, cnt2;
 typedef struct node2 {
     int p;
     int j;
-    struct node *next;
+    struct node2 *next;
 } node2;
 
 
@@ -95,14 +95,22 @@ main(int i)
         val2 = val % 2 ;
     }
 
-    node2 *node44 = NULL ;
+
+    int a[50] ;
+    a[10] = 100 ;
+    a[39] = 23 ;
+    a[val] = 4 ;
+    if (a[10] == 100) {
+        a[32] = 3 ;
+    }
+
+    node2 *node44 = (node2 *)malloc(sizeof(node2)) ;
     node44->p = 5 ;
     node44->j = 10 ;
 
     int *kk =(int *) malloc(sizeof(int));
-    *kk = 5 ;
+    kk = &j ;
     int *point = kk ;
-    /*point = &val ;*/
     if (*point != 5) {
         printf("\n");
     }
@@ -120,16 +128,17 @@ main(int i)
     while(i > 0) {
         switch (val) {
             case 3:
-                sub(i, j) ;
+                i = j ;
+                j = 2 ;
                 break ;
             case 8:
-                add(i, j) ;
+                i = i + 1 ;
                 j = 6 ;
                 break ;
             default:
-                i = 5 ;
+                i = 0 ;
         }
-
+        i = -2 ;
     }
     printf("%d\n", j) ;
     return 0 ;
