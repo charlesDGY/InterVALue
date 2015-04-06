@@ -1,62 +1,80 @@
+
+;; Function add (add, funcdef_no=2, decl_uid=2693, cgraph_uid=2)
+
 add (int a, int b)
 {
   int D.2739;
 
   __builtin_putchar (10);
   D.2739 = a + b;
+  goto <D.2740>;
+  <D.2740>:
   return D.2739;
 }
 
 
+
+;; Function sub (sub, funcdef_no=3, decl_uid=2704, cgraph_uid=3)
+
 sub (int a, int b)
 {
-  int D.2741;
-  int D.2742;
   long int d;
+  int D.2742;
+  int D.2741;
 
   D.2741 = a - b;
   d = (long int) D.2741;
   D.2742 = (int) d;
+  goto <D.2743>;
+  <D.2743>:
   return D.2742;
 }
 
 
+
+;; Function main (main, funcdef_no=4, decl_uid=2708, cgraph_uid=4)
+
 main (int i)
 {
-  float glob2.0;
-  int D.2747;
-  int D.2748;
-  int j.1;
-  int j.2;
-  int j.3;
-  int j.4;
-  int j.5;
-  int j.6;
-  int j.7;
-  int D.2762;
-  int D.2765;
-  int j.8;
-  int D.2771;
-  int j.9;
-  int D.2773;
-  int val;
-  int val2;
-  int j;
-  int a[50];
-  struct node2 * node44;
-  int * kk;
-  int * point;
+  char ma;
+  unsigned char pio;
+  long unsigned int poi;
+  unsigned int pp;
+  float noha;
+  short unsigned int k;
+  float haha;
+  double j;
+  long int cao;
+  int woca;
   float noteasy;
+  int * point;
+  int * kk;
+  struct node2 * node44;
+  int a[50];
+  int j;
+  int val2;
+  int val;
+  int D.2773;
+  int j.9;
+  int D.2771;
+  int j.8;
+  int D.2765;
+  int D.2762;
+  int j.7;
+  int j.6;
+  int j.5;
+  int j.4;
+  int j.3;
+  int j.2;
+  int j.1;
+  int D.2748;
+  int D.2747;
+  float glob2.0;
 
   try
     {
-      {
-        int woca;
-        long int cao;
-
-        woca = 9;
-        cao = 32;
-      }
+      woca = 9;
+      cao = 32;
       glob = 1;
       glob2.0 = glob2;
       if (glob2.0 == 4.5e+0) goto <D.2745>; else goto <D.2746>;
@@ -115,27 +133,16 @@ main (int i)
       __builtin_putchar (10);
       <D.2767>:
       noteasy = 5.77999986708164215087890625e-2;
-      {
-        double j;
-        float haha;
-        short unsigned int k;
-        float noha;
-        unsigned int pp;
-        long unsigned int poi;
-        unsigned char pio;
-        char ma;
-
-        j = 5.0e+0;
-        haha = 1.0e+1;
-        noha = 5.00000007450580596923828125e-2;
-        pp = 9;
-        poi = 3;
-        pio = 106;
-        if (k == 4) goto <D.2768>; else goto <D.2769>;
-        <D.2768>:
-        __builtin_putchar (10);
-        <D.2769>:
-      }
+      j = 5.0e+0;
+      haha = 1.0e+1;
+      noha = 5.00000007450580596923828125e-2;
+      pp = 9;
+      poi = 3;
+      pio = 106;
+      if (k == 4) goto <D.2768>; else goto <D.2769>;
+      <D.2768>:
+      __builtin_putchar (10);
+      <D.2769>:
       j.8 = j;
       D.2771 = add (i, j.8);
       val = sub (D.2771, val);
@@ -160,13 +167,15 @@ main (int i)
       j.9 = j;
       printf ("%d\n", j.9);
       D.2773 = 0;
-      return D.2773;
+      goto <D.2774>;
     }
   finally
     {
       j = {CLOBBER};
       a = {CLOBBER};
     }
+  <D.2774>:
+  return D.2773;
 }
 
 

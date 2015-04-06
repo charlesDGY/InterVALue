@@ -1,0 +1,152 @@
+
+;; Function __bswap_32 (null)
+;; enabled by -tree-original
+
+
+{
+  return __builtin_bswap32 (__bsx);
+}
+
+
+;; Function __bswap_64 (null)
+;; enabled by -tree-original
+
+{
+  return (__uint64_t) __builtin_bswap64 (__bsx);
+}
+
+
+;; Function add (null)
+;; enabled by -tree-original
+
+{
+  printf ((const char * restrict) "\n");
+  return a + b;
+}
+
+
+;; Function sub (null)
+;; enabled by -tree-original
+
+{
+  long int d = (long int) (a - b);
+
+    long int d = (long int) (a - b);
+  return (int) d;
+}
+
+
+;; Function main (null)
+;; enabled by -tree-original
+
+{
+  int val = 12;
+  int val2 = 6;
+  int j = 32767;
+  int a[50];
+  struct node2 * node44 = (struct node2 *) malloc (16);
+  int * kk = (int *) malloc (4);
+  int * point = kk;
+  float noteasy = 5.77999986708164215087890625e-2;
+
+  {
+    int woca = 9;
+    long int cao = 32;
+
+        int woca = 9;
+        long int cao = 32;
+  }
+  glob = 1;
+  if (glob2 == 4.5e+0)
+    {
+      glob2 = 4.0e+0;
+    }
+    int val = 12;
+    int val2 = 6;
+    int j = 32767;
+  j = (val + val2) * val2 - val;
+  if (i > 0 && j <= 49)
+    {
+      goto <D.2716>;
+      <D.2715>:;
+      j = j + 5;
+      <D.2716>:;
+      if (j <= 99) goto <D.2715>; else goto <D.2717>;
+      <D.2717>:;
+    }
+  else
+    {
+      j-- ;
+    }
+  if (val == 5)
+    {
+      val++ ;
+      val2 = val % 2;
+    }
+    int a[50];
+  a[10] = 100;
+  a[39] = 23;
+  a[val] = 4;
+  if (a[10] == 100)
+    {
+      a[32] = 3;
+    }
+    struct node2 * node44 = (struct node2 *) malloc (16);
+  node44->p = 5;
+  node44->j = 10;
+    int * kk = (int *) malloc (4);
+  kk = &j;
+    int * point = kk;
+  if (*point != 5)
+    {
+      printf ((const char * restrict) "\n");
+    }
+    float noteasy = 5.77999986708164215087890625e-2;
+  {
+    double j = 5.0e+0;
+    float haha = 1.0e+1;
+    short unsigned int k;
+    float noha = 5.00000007450580596923828125e-2;
+    unsigned int pp = 9;
+    long unsigned int poi = 3;
+    unsigned char pio = 106;
+    char ma;
+
+        double j = 5.0e+0;
+        float haha = 1.0e+1;
+        short unsigned int k;
+        float noha = 5.00000007450580596923828125e-2;
+        unsigned int pp = 9;
+        long unsigned int poi = 3;
+        unsigned char pio = 106;
+        char ma;
+    if (k == 4)
+      {
+        printf ((const char * restrict) "\n");
+      }
+  }
+  val = sub (add (i, j), val);
+  goto <D.2736>;
+  <D.2735>:;
+  switch (val)
+    {
+      case 3:;
+      i = j;
+      j = 2;
+      goto <D.2732>;
+      case 8:;
+      i = i + 1;
+      j = 6;
+      goto <D.2732>;
+      default:;
+      i = 0;
+    }
+  <D.2732>:;
+  i = -2;
+  <D.2736>:;
+  if (i > 0) goto <D.2735>; else goto <D.2737>;
+  <D.2737>:;
+  printf ((const char * restrict) "%d\n", j);
+  return 0;
+}
+

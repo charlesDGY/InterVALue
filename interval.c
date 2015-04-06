@@ -88,15 +88,15 @@ void interval_mul(interval *a, interval *b, interval *c) {
 void interval_div(interval *a, interval *b, interval *c) {
     if ((b->low_value > MIN_VALUE && b->up_value < 0) || (b->low_value > 0 && b->up_value < MAX_VALUE)) {
         interval_value_type temp_max, temp_min, temp_mid;
-        temp_min = interval_value_min((interval_value_type)floor((double)a->low_value / b->low_value),
-                (interval_value_type)floor((double)a->low_value / b->up_value)) ;
-        temp_mid = interval_value_min((interval_value_type)floor((double)a->up_value / b->low_value),
-                (interval_value_type)floor((double)a->up_value / b->up_value)) ;
+        temp_min = interval_value_min((interval_value_type)((double)a->low_value / b->low_value),
+                (interval_value_type)((double)a->low_value / b->up_value)) ;
+        temp_mid = interval_value_min((interval_value_type)((double)a->up_value / b->low_value),
+                (interval_value_type)((double)a->up_value / b->up_value)) ;
         temp_min = interval_value_min(temp_min, temp_mid) ;
-        temp_max = interval_value_max((interval_value_type)ceil((double)a->low_value / b->low_value),
-                (interval_value_type)ceil((double)a->low_value / b->up_value)) ;
-        temp_mid = interval_value_max((interval_value_type)ceil((double)a->up_value / b->low_value),
-                (interval_value_type)ceil((double)a->up_value / b->up_value)) ;
+        temp_max = interval_value_max((interval_value_type)((double)a->low_value / b->low_value),
+                (interval_value_type)((double)a->low_value / b->up_value)) ;
+        temp_mid = interval_value_max((interval_value_type)((double)a->up_value / b->low_value),
+                (interval_value_type)((double)a->up_value / b->up_value)) ;
         temp_max = interval_value_max(temp_max, temp_mid) ;
         c->low_value = temp_min ;
         c->up_value = temp_max ;

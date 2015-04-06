@@ -1,0 +1,243 @@
+
+;; Function add (add, funcdef_no=2, decl_uid=2693, cgraph_uid=2)
+
+add (int a, int b)
+{
+  int D.2739;
+  int _3;
+
+  <bb 2>:
+  __builtin_putchar (10);
+  _3 = a_1(D) + b_2(D);
+
+<L0>:
+  return _3;
+
+}
+
+
+
+;; Function sub (sub, funcdef_no=3, decl_uid=2704, cgraph_uid=3)
+
+sub (int a, int b)
+{
+  long int d;
+  int D.2742;
+  int D.2741;
+  int _3;
+  int _5;
+
+  <bb 2>:
+  _3 = a_1(D) - b_2(D);
+  d_4 = (long int) _3;
+  _5 = (int) d_4;
+
+<L0>:
+  return _5;
+
+}
+
+
+
+;; Function main (main, funcdef_no=4, decl_uid=2708, cgraph_uid=4)
+
+main (int i)
+{
+  char ma;
+  unsigned char pio;
+  long unsigned int poi;
+  unsigned int pp;
+  float noha;
+  short unsigned int k;
+  float haha;
+  double j;
+  long int cao;
+  int woca;
+  float noteasy;
+  int * point;
+  int * kk;
+  struct node2 * node44;
+  int a[50];
+  int j;
+  int val2;
+  int val;
+  int D.2773;
+  int j.9;
+  int D.2771;
+  int j.8;
+  int D.2765;
+  int D.2762;
+  int j.7;
+  int j.6;
+  int j.5;
+  int j.4;
+  int j.3;
+  int j.2;
+  int j.1;
+  int D.2748;
+  int D.2747;
+  float glob2.0;
+  int _8;
+  int _9;
+  int _20;
+  int _25;
+  int _35;
+  int _42;
+
+  <bb 2>:
+  woca_3 = 9;
+  cao_4 = 32;
+  glob = 1;
+  glob2.0_5 = glob2;
+  if (glob2.0_5 == 4.5e+0)
+    goto <bb 3>;
+  else
+    goto <bb 4>;
+
+  <bb 3>:
+  glob2 = 4.0e+0;
+
+  <bb 4>:
+  val_6 = 12;
+  val2_7 = 6;
+  j = 32767;
+  _8 = val_6 + val2_7;
+  _9 = _8 * val2_7;
+  j.1_10 = _9 - val_6;
+  j = j.1_10;
+  if (i_11(D) > 0)
+    goto <bb 5>;
+  else
+    goto <bb 10>;
+
+  <bb 5>:
+  j.2_12 = j;
+  if (j.2_12 <= 49)
+    goto <bb 6>;
+  else
+    goto <bb 10>;
+
+  <bb 6>:
+  goto <bb 8>;
+
+  <bb 7>:
+  j.3_14 = j;
+  j.4_15 = j.3_14 + 5;
+  j = j.4_15;
+
+  <bb 8>:
+  j.5_13 = j;
+  if (j.5_13 <= 99)
+    goto <bb 7>;
+  else
+    goto <bb 9>;
+
+  <bb 9>:
+  goto <bb 11>;
+
+  <bb 10>:
+  j.6_16 = j;
+  j.7_17 = j.6_16 + -1;
+  j = j.7_17;
+
+  <bb 11>:
+  if (val_6 == 5)
+    goto <bb 12>;
+  else
+    goto <bb 13>;
+
+  <bb 12>:
+  val_18 = val_6 + 1;
+  val2_19 = val_18 % 2;
+
+  <bb 13>:
+  # val_2 = PHI <val_6(11), val_18(12)>
+  a[10] = 100;
+  a[39] = 23;
+  a[val_2] = 4;
+  _20 = a[10];
+  if (_20 == 100)
+    goto <bb 14>;
+  else
+    goto <bb 15>;
+
+  <bb 14>:
+  a[32] = 3;
+
+  <bb 15>:
+  node44_21 = malloc (16);
+  node44_21->p = 5;
+  node44_21->j = 10;
+  kk_22 = malloc (4);
+  kk_23 = &j;
+  point_24 = kk_23;
+  _25 = *point_24;
+  if (_25 != 5)
+    goto <bb 16>;
+  else
+    goto <bb 17>;
+
+  <bb 16>:
+  __builtin_putchar (10);
+
+  <bb 17>:
+  noteasy_26 = 5.77999986708164215087890625e-2;
+  j_27 = 5.0e+0;
+  haha_28 = 1.0e+1;
+  noha_29 = 5.00000007450580596923828125e-2;
+  pp_30 = 9;
+  poi_31 = 3;
+  pio_32 = 106;
+  if (k_33(D) == 4)
+    goto <bb 18>;
+  else
+    goto <bb 19>;
+
+  <bb 18>:
+  __builtin_putchar (10);
+
+  <bb 19>:
+  j.8_34 = j;
+  _35 = add (i_11(D), j.8_34);
+  val_36 = sub (_35, val_2);
+  goto <bb 25>;
+
+  <bb 20>:
+  switch (val_36) <default: <L20>, case 3: <L18>, case 8: <L19>>
+
+<L18>:
+  i_37 = j;
+  j = 2;
+  goto <bb 24>;
+
+<L19>:
+  i_38 = i_1 + 1;
+  j = 6;
+  goto <bb 24>;
+
+<L20>:
+  i_39 = 0;
+
+  <bb 24>:
+  i_40 = -2;
+
+  <bb 25>:
+  # i_1 = PHI <i_11(D)(19), i_40(24)>
+  if (i_1 > 0)
+    goto <bb 20>;
+  else
+    goto <bb 26>;
+
+  <bb 26>:
+  j.9_41 = j;
+  printf ("%d\n", j.9_41);
+  _42 = 0;
+  j ={v} {CLOBBER};
+  a ={v} {CLOBBER};
+
+<L25>:
+  return _42;
+
+}
+
+

@@ -1,3 +1,6 @@
+
+;; Function add (add, funcdef_no=2, decl_uid=2693, cgraph_uid=2)
+
 add (int a, int b)
 {
   int D.2739;
@@ -7,6 +10,9 @@ add (int a, int b)
   return D.2739;
 }
 
+
+
+;; Function sub (sub, funcdef_no=3, decl_uid=2704, cgraph_uid=3)
 
 sub (int a, int b)
 {
@@ -20,6 +26,9 @@ sub (int a, int b)
   return D.2742;
 }
 
+
+
+;; Function main (main, funcdef_no=4, decl_uid=2708, cgraph_uid=4)
 
 main (int i)
 {

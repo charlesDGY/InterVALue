@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-#define interval_value_type long
+#define interval_value_type double
 #define MAX_VALUE LONG_MAX
 #define MIN_VALUE LONG_MIN
 
