@@ -24,7 +24,7 @@
 
 
 #include <stdio.h>
-#include "isa.h"
+#include "edgecontext.h"
 
 
 #define NOT_TAKEN	0
@@ -34,11 +34,44 @@
 #define LOOP_TAIL	2
 
 
-typedef enum {CTRL_SEQ, CTRL_COND, CTRL_UNCOND, CTRL_CALL, CTRL_RET} bb_type_t;
+typedef enum {DECLARATION, ASSIGNMENT, IF_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;
+
+typedef struct declaration_t declaration_t ;
+typedef struct assignment_t assignment_t ;
+typedef struct if_test_t if_test_t ;
+typedef struct junction_t junction_t ;
+typedef struct call_t call_t ;
+
+struct declaration_t {
+    char *name ;
+    char *variable_type ;
+    bool is_pointer ;
+
+}
+
+typedef struct cfg_edge_t cfg_edge_t ;
+typedef struct cfg_node_t cfg_node_t ;
+typedef struct cfg_func_t cfg_func_t ;
+
+struct cfg_edge_t {
+    int edge_id ;
+    cfg_node_t *start_node ;
+    cfg_node_t *end_node ;
+    edge_context *context_set ;
+    cfg_edge_t *next ;
+} ;
 
 
-typedef struct cfg_edge_t   cfg_edge_t;
-typedef struct proc_t	    proc_t;
+struct cfg_node_t {
+    int node_id ;
+    int pre_edges_num ;
+    int succ_edges_num ;
+    cfg_edge_t *pre_edges ;
+    cfg_edge_t *succ_edges ;
+    node_type_t node_type ;
+
+}
+
 
 // control flow graph node (basic block) type
 typedef struct {
@@ -60,17 +93,17 @@ typedef struct {
 
     int		flags;		// for traverse usage
 
-              						/* A data structure holding abstract register */
-	 ric_p* in_abs_reg_value;	/* values. Register numbers can directly be */
-	 ric_p* out_abs_reg_value; /* indexed in this structure */
+    /* A data structure holding abstract register */
+    ric_p* in_abs_reg_value;	/* values. Register numbers can directly be */
+    ric_p* out_abs_reg_value; /* indexed in this structure */
 
-	 abs_mem_p in_abs_mem_value;  /* A data structure holding value in abstract */
-	 abs_mem_p out_abs_mem_value; /*  memory locations */
+    abs_mem_p in_abs_mem_value;  /* A data structure holding value in abstract */
+    abs_mem_p out_abs_mem_value; /*  memory locations */
 
 
-     /*** HBK: for scope-aware data cache analysis ***/
-     void   *d_instlist;
-     int    num_d_inst;
+    /*** HBK: for scope-aware data cache analysis ***/
+    void   *d_instlist;
+    int    num_d_inst;
 
 } cfg_node_t;
 
@@ -105,18 +138,18 @@ typedef struct {
 } symbol_i;
 
 
- /*//program type*/
+/*//program type*/
 /*typedef struct {*/
-    /*de_inst_t	*code;		// decoded program text*/
-    /*int		    code_size;	// code size (in bytes)*/
-    /*int		    num_inst;	// number of instructions*/
-    /*addr_t	    start_addr, end_addr, main_addr;*/
-    /*proc_t	    *procs;		// procedures*/
-    /*symbol_i    *p_info;    // procedure symbol info*/
-    /*symbol_i    *v_info;    // global variable symbol info*/
-    /*int         num_vars;   // number of global variables*/
-    /*int		    num_procs;	// number of procedures*/
-    /*int		    main_proc;	// index of the main proc*/
+/*de_inst_t	*code;		// decoded program text*/
+/*int		    code_size;	// code size (in bytes)*/
+/*int		    num_inst;	// number of instructions*/
+/*addr_t	    start_addr, end_addr, main_addr;*/
+/*proc_t	    *procs;		// procedures*/
+/*symbol_i    *p_info;    // procedure symbol info*/
+/*symbol_i    *v_info;    // global variable symbol info*/
+/*int         num_vars;   // number of global variables*/
+/*int		    num_procs;	// number of procedures*/
+/*int		    main_proc;	// index of the main proc*/
 /*} prog_t;*/
 
 /*#define MAX_OVRL_NODES 1024*/
@@ -124,12 +157,12 @@ typedef struct {
 
 /*struct col_data*/
 /*{*/
-    /*union {*/
-         /*proc_t* proc;*/
-         /*de_inst_t* inst;*/
-    /*}u;*/
-    /*int type;*/
-    /*struct col_data* next;*/
+/*union {*/
+/*proc_t* proc;*/
+/*de_inst_t* inst;*/
+/*}u;*/
+/*int type;*/
+/*struct col_data* next;*/
 /*};*/
 
 /*typedef struct col_data* col_data_p;*/
@@ -137,16 +170,16 @@ typedef struct {
 
 /*[> Describes the data structures used for layout formation <]*/
 /*struct ovrl_graph {*/
-    /*union {*/
-         /*proc_t* proc;*/
-         /*de_inst_t* inst;*/
-         /*col_data_p pref;*/
-    /*}u;*/
-    /*int type;*/
-    /*int invalid;*/
-    /*[> execution count by WCET <]*/
-    /*int freq;*/
-    /*struct ovrl_graph* next;*/
+/*union {*/
+/*proc_t* proc;*/
+/*de_inst_t* inst;*/
+/*col_data_p pref;*/
+/*}u;*/
+/*int type;*/
+/*int invalid;*/
+/*[> execution count by WCET <]*/
+/*int freq;*/
+/*struct ovrl_graph* next;*/
 /*};*/
 /*typedef struct ovrl_graph* ovrl_graph_p;*/
 /*typedef struct ovrl_graph ovrl_graph_s;*/

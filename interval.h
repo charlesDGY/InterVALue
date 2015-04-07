@@ -17,11 +17,11 @@
 
 
 #include <stdio.h>
-#include <limits.h>
+#include <float.h>
 
 #define interval_value_type double
-#define MAX_VALUE LONG_MAX
-#define MIN_VALUE LONG_MIN
+#define MAX_VALUE DBL_MAX_10_EXP
+#define MIN_VALUE DBL_MIN_10_EXP
 
 //basic interval type
 typedef struct {

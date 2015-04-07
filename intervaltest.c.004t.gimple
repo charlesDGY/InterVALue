@@ -1,31 +1,31 @@
 add (int a, int b)
 {
-  int D.2739;
+  int D.3785;
 
   __builtin_putchar (10);
-  D.2739 = a + b;
-  return D.2739;
+  D.3785 = a + b;
+  return D.3785;
 }
 
 
 sub (int a, int b)
 {
-  int D.2741;
-  int D.2742;
+  int D.3787;
+  int D.3788;
   long int d;
 
-  D.2741 = a - b;
-  d = (long int) D.2741;
-  D.2742 = (int) d;
-  return D.2742;
+  D.3787 = a - b;
+  d = (long int) D.3787;
+  D.3788 = (int) d;
+  return D.3788;
 }
 
 
-main (int i)
+hoho (int i)
 {
   float glob2.0;
-  int D.2747;
-  int D.2748;
+  int D.3793;
+  int D.3794;
   int j.1;
   int j.2;
   int j.3;
@@ -33,20 +33,28 @@ main (int i)
   int j.5;
   int j.6;
   int j.7;
-  int D.2762;
-  int D.2765;
+  int D.3808;
+  int D.3811;
   int j.8;
-  int D.2771;
+  int D.3817;
   int j.9;
-  int D.2773;
+  double D.3819;
+  double D.3820;
+  double D.3821;
+  int j.10;
+  int D.3823;
+  int D;
   int val;
   int val2;
   int j;
   int a[50];
+  struct node3 newnode;
   struct node2 * node44;
   int * kk;
   int * point;
   float noteasy;
+  int vv;
+  double ss;
 
   try
     {
@@ -57,63 +65,65 @@ main (int i)
         woca = 9;
         cao = 32;
       }
+      D = 3;
       glob = 1;
       glob2.0 = glob2;
-      if (glob2.0 == 4.5e+0) goto <D.2745>; else goto <D.2746>;
-      <D.2745>:
+      if (glob2.0 == 4.5e+0) goto <D.3791>; else goto <D.3792>;
+      <D.3791>:
       glob2 = 4.0e+0;
-      <D.2746>:
+      <D.3792>:
       val = 12;
       val2 = 6;
       j = 32767;
-      D.2747 = val + val2;
-      D.2748 = D.2747 * val2;
-      j.1 = D.2748 - val;
+      D.3793 = val + val2;
+      D.3794 = D.3793 * val2;
+      j.1 = D.3794 - val;
       j = j.1;
-      if (i > 0) goto <D.2752>; else goto <D.2750>;
-      <D.2752>:
+      if (i > 0) goto <D.3798>; else goto <D.3796>;
+      <D.3798>:
       j.2 = j;
-      if (j.2 <= 49) goto <D.2754>; else goto <D.2750>;
-      <D.2754>:
-      goto <D.2716>;
-      <D.2715>:
+      if (j.2 <= 49) goto <D.3800>; else goto <D.3796>;
+      <D.3800>:
+      goto <D.3759>;
+      <D.3758>:
       j.3 = j;
       j.4 = j.3 + 5;
       j = j.4;
-      <D.2716>:
+      <D.3759>:
       j.5 = j;
-      if (j.5 <= 99) goto <D.2715>; else goto <D.2717>;
-      <D.2717>:
-      goto <D.2751>;
-      <D.2750>:
+      if (j.5 <= 99) goto <D.3758>; else goto <D.3760>;
+      <D.3760>:
+      goto <D.3797>;
+      <D.3796>:
       j.6 = j;
       j.7 = j.6 + -1;
       j = j.7;
-      <D.2751>:
-      if (val == 5) goto <D.2760>; else goto <D.2761>;
-      <D.2760>:
+      <D.3797>:
+      if (val == 5) goto <D.3806>; else goto <D.3807>;
+      <D.3806>:
       val = val + 1;
       val2 = val % 2;
-      <D.2761>:
+      <D.3807>:
       a[10] = 100;
       a[39] = 23;
       a[val] = 4;
-      D.2762 = a[10];
-      if (D.2762 == 100) goto <D.2763>; else goto <D.2764>;
-      <D.2763>:
+      D.3808 = a[10];
+      if (D.3808 == 100) goto <D.3809>; else goto <D.3810>;
+      <D.3809>:
       a[32] = 3;
-      <D.2764>:
+      <D.3810>:
+      newnode.a = 4;
       node44 = malloc (16);
       node44->p = 5;
       node44->j = 10;
       kk = malloc (4);
       kk = &j;
       point = kk;
-      D.2765 = *point;
-      if (D.2765 != 5) goto <D.2766>; else goto <D.2767>;
-      <D.2766>:
+      D.3811 = *point;
+      if (D.3811 != 5) goto <D.3812>; else goto <D.3813>;
+      <D.3812>:
       __builtin_putchar (10);
-      <D.2767>:
+      <D.3813>:
       noteasy = 5.77999986708164215087890625e-2;
       {
         double j;
@@ -131,41 +141,50 @@ main (int i)
         pp = 9;
         poi = 3;
         pio = 106;
-        if (k == 4) goto <D.2768>; else goto <D.2769>;
-        <D.2768>:
+        if (k == 4) goto <D.3814>; else goto <D.3815>;
+        <D.3814>:
         __builtin_putchar (10);
-        <D.2769>:
+        <D.3815>:
       }
       j.8 = j;
-      D.2771 = add (i, j.8);
-      val = sub (D.2771, val);
-      goto <D.2736>;
-      <D.2735>:
-      switch (val) <default: <D.2734>, case 3: <D.2731>, case 8: <D.2733>>
-      <D.2731>:
+      D.3817 = add (i, j.8);
+      val = sub (D.3817, val);
+      goto <D.3780>;
+      <D.3779>:
+      switch (val) <default: <D.3778>, case 3: <D.3775>, case 8: <D.3777>>
+      <D.3775>:
       i = j;
       j = 2;
-      goto <D.2732>;
-      <D.2733>:
+      goto <D.3776>;
+      <D.3777>:
       i = i + 1;
       j = 6;
-      goto <D.2732>;
-      <D.2734>:
+      goto <D.3776>;
+      <D.3778>:
       i = 0;
-      <D.2732>:
+      <D.3776>:
       i = -2;
-      <D.2736>:
-      if (i > 0) goto <D.2735>; else goto <D.2737>;
-      <D.2737>:
+      <D.3780>:
+      if (i > 0) goto <D.3779>; else goto <D.3781>;
+      <D.3781>:
       j.9 = j;
-      printf ("%d\n", j.9);
-      D.2773 = 0;
-      return D.2773;
+      D.3819 = (double) j.9;
+      D.3820 = sqrt (D.3819);
+      i = (int) D.3820;
+      vv = 4;
+      ss = 2.29999999999999982236431605997495353221893310546875e+0;
+      D.3821 = floor (ss);
+      vv = (int) D.3821;
+      j.10 = j;
+      printf ("%d\n", j.10);
+      D.3823 = 0;
+      return D.3823;
     }
   finally
     {
       j = {CLOBBER};
       a = {CLOBBER};
+      newnode = {CLOBBER};
     }
 }
 

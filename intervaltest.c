@@ -48,6 +48,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "intervaltest.h"
 
 
@@ -77,14 +78,18 @@ int sub(int a, int b) {
     return d ;
 }
 
+typedef struct node3{
+    int a ;
+} node3 ;
 
 int
-main(int i)
+hoho(int i)
 {
     {
         int woca = 9 ;
         long cao = 32 ;
     }
+    int D = 3 ;
     glob = 1 ;
     if (glob2 == 4.5) {
         glob2 = 4 ;
@@ -115,6 +120,8 @@ main(int i)
         a[32] = 3 ;
     }
 
+    node3 newnode ;
+    newnode.a = 4 ;
     node2 *node44 = (node2 *)malloc(sizeof(node2)) ;
     node44->p = 5 ;
     node44->j = 10 ;
@@ -156,6 +163,10 @@ main(int i)
         }
         i = -2 ;
     }
+    i = sqrt(j) ;
+    int vv = 4 ;
+    double ss = 2.3 ;
+    vv = floor(ss) ;
     printf("%d\n", j) ;
     return 0 ;
 }

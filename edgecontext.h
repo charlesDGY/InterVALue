@@ -12,4 +12,50 @@
  *
  *****************************************************************************/
 
+#ifndef EDGECONTEXT_H
+#define EDGECONTEXT_H
 
+#include <stdio.h>
+#include "intervalset.h"
+
+typedef enum {NUM, BOOL} value_t ;
+
+typedef struct edge_context edge_context ;
+
+
+
+struct edge_context {
+    char *name ;
+    interval_node *value_set ;
+    value_t value_type ;
+    edge_context *next ;
+} ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif
