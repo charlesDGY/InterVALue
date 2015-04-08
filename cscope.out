@@ -1,4 +1,4 @@
-cscope 15 /home/dgy/Programming/VInterval -q 0000001635 0000139497
+cscope 15 /home/dgy/Programming/VInterval -q 0000001656 0000139292
 	@cfg.c
 
 23 
@@ -2352,7 +2352,7 @@ CFG_H
 >
 
 27 
-	~"i§.h
+	~"edgecÚ‹xt.h
 "
 
 30 
@@ -2386,68 +2386,232 @@ CFG_H
 	)
 
 37 ’um {
-	mCTRL_SEQ
+	mDECLARATION
 , 
-	mCTRL_COND
+	mASSIGNMENT
 , 
-	mCTRL_UNCOND
+	mIF_TEST
 , 
-	mCTRL_CALL
+	mJUNCTION
 , 
-	mCTRL_RET
+	mCALL
+, 
+	mUNKNOWN_CALL
 } 
-	tbb_ty³_t
-;
+	tnode_ty³_t
+ ;
+
+39 
+deþ¬©iÚ_t
+ 
+	tdeþ¬©iÚ_t
+ ;
 
 40 
+assignm’t_t
+ 
+	tassignm’t_t
+ ;
+
+41 
+if_‹¡_t
+ 
+	tif_‹¡_t
+ ;
+
+42 
+junùiÚ_t
+ 
+	tjunùiÚ_t
+ ;
+
+43 
+ÿÎ_t
+ 
+	tÿÎ_t
+ ;
+
+45 
+	sdeþ¬©iÚ_t
+ {
+
+46 *
+	mÇme
+ ;
+
+47 *
+	mv¬ŸbË_ty³
+ ;
+
+48 
+boÞ
+ 
+	mis_poš‹r
+ ;
+
+49 
+boÞ
+ 
+	mis_¬¿y
+ ;
+
+50 
+boÞ
+ 
+	mis_¡ruù
+ ;
+
+51 
+	m¬¿y_Ën
+ ;
+
+54 
+	sassignm’t_t
+ {
+
+55 *
+	md¡_Çme
+ ;
+
+56 *
+	mÝ”©Ü_a
+ ;
+
+57 *
+	mÝ”©Ü_b
+ ;
+
+58 
+boÞ
+ 
+	mis_ty³_cÚv”t
+ ;
+
+59 
+	mboÞ
+
+
+62 
 cfg_edge_t
  
 	tcfg_edge_t
-;
+ ;
 
-41 
-´oc_t
+63 
+cfg_node_t
  
-	t´oc_t
-;
+	tcfg_node_t
+ ;
 
-45 
+64 
+cfg_func_t
+ 
+	tcfg_func_t
+ ;
+
+66 
+	scfg_edge_t
+ {
+
+67 
+	medge_id
+ ;
+
+68 
+cfg_node_t
+ *
+	m¡¬t_node
+ ;
+
+69 
+cfg_node_t
+ *
+	m’d_node
+ ;
+
+70 
+edge_cÚ‹xt
+ *
+	mcÚ‹xt_£t
+ ;
+
+71 
+cfg_edge_t
+ *
+	mÃxt
+ ;
+
+75 
+	scfg_node_t
+ {
+
+76 
+	mnode_id
+ ;
+
+77 
+	m´e_edges_num
+ ;
+
+78 
+	msucc_edges_num
+ ;
+
+79 
+cfg_edge_t
+ *
+	m´e_edges
+ ;
+
+80 
+cfg_edge_t
+ *
+	msucc_edges
+ ;
+
+81 
+node_ty³_t
+ 
+	mnode_ty³
+ ;
+
+88 
 	mid
 ;
 
-46 
+89 
 ´oc_t
  *
 	m´oc
 ;
 
-47 
+90 
 addr_t
  
 	m§
 ;
 
-48 
+91 
 	msize
 ;
 
-49 
+92 
 	mnum_š¡
 ;
 
-50 
+93 
 de_š¡_t
  *
 	mcode
 ;
 
-52 
+95 
 bb_ty³_t
  
 	mty³
 ;
 
-53 
+96 
 cfg_edge_t
  *
 	mout_n
@@ -2455,71 +2619,71 @@ cfg_edge_t
 	mout_t
 ;
 
-54 
+97 
 	mnum_š
 ;
 
-55 
+98 
 cfg_edge_t
  **
 	mš
 ;
 
-57 
+100 
 ´oc_t
  *
 	mÿÎ“
 ;
 
-59 
+102 
 	mloÝ_rÞe
 ;
 
-61 
+104 
 	mæags
 ;
 
-64 
+107 
 ric_p
 * 
 	mš_abs_»g_v®ue
 ;
 
-65 
+108 
 ric_p
 * 
 	mout_abs_»g_v®ue
 ;
 
-67 
+110 
 abs_mem_p
  
 	mš_abs_mem_v®ue
 ;
 
-68 
+111 
 abs_mem_p
  
 	mout_abs_mem_v®ue
 ;
 
-72 *
+115 *
 	md_š¡li¡
 ;
 
-73 
+116 
 	mnum_d_š¡
 ;
 
-75 } 
+118 } 
 	tcfg_node_t
 ;
 
-80 
+123 
 	scfg_edge_t
  {
 
-81 
+124 
 cfg_node_t
  *
 	m¤c
@@ -2527,63 +2691,63 @@ cfg_node_t
 	md¡
 ;
 
-87 
+130 
 	s´oc_t
  {
 
-88 
+131 
 	mid
 ;
 
-89 
+132 
 addr_t
  
 	m§
 ;
 
-90 
+133 
 	msize
 ;
 
-91 
+134 
 	mnum_š¡
 ;
 
-92 
+135 
 de_š¡_t
  *
 	mcode
 ;
 
-94 
+137 
 	mnum_bb
 ;
 
-95 
+138 
 cfg_node_t
  *
 	mcfg
 ;
 
-97 
+140 
 	mæags
 ;
 
-102 * 
+145 * 
 	mÇme
 ;
 
-103 
+146 
 addr_t
  
 	maddr
 ;
 
-104 
+147 
 	msize
 ;
 
-105 } 
+148 } 
 	tsymbÞ_i
 ;
 
@@ -3337,6 +3501,64 @@ b
 
 	@edgecontext.h
 
+15 #iâdeà
+EDGECONTEXT_H
+
+
+16 
+	#EDGECONTEXT_H
+
+
+	)
+
+18 
+	~<¡dio.h
+>
+
+19 
+	~"š‹rv®£t.h
+"
+
+21 ’um {
+	mNUM
+, 
+	mBOOL
+} 
+	tv®ue_t
+ ;
+
+23 
+edge_cÚ‹xt
+ 
+	tedge_cÚ‹xt
+ ;
+
+27 
+	sedge_cÚ‹xt
+ {
+
+28 *
+	mÇme
+ ;
+
+29 
+š‹rv®_node
+ *
+	mv®ue_£t
+ ;
+
+30 
+v®ue_t
+ 
+	mv®ue_ty³
+ ;
+
+31 
+edge_cÚ‹xt
+ *
+	mÃxt
+ ;
+
 	@interval.c
 
 16 
@@ -3925,9 +4147,7 @@ MAX_VALUE
 	`š‹rv®_v®ue_mš
 ((
 š‹rv®_v®ue_ty³
-)
-	`æoÜ
-(()
+)(()
 a
 ->
 low_v®ue
@@ -3937,9 +4157,7 @@ b
 
 92 (
 š‹rv®_v®ue_ty³
-)
-	`æoÜ
-(()
+)(()
 a
 ->
 low_v®ue
@@ -3955,9 +4173,7 @@ up_v®ue
 	`š‹rv®_v®ue_mš
 ((
 š‹rv®_v®ue_ty³
-)
-	`æoÜ
-(()
+)(()
 a
 ->
 up_v®ue
@@ -3969,9 +4185,7 @@ low_v®ue
 
 94 (
 š‹rv®_v®ue_ty³
-)
-	`æoÜ
-(()
+)(()
 a
 ->
 up_v®ue
@@ -3993,9 +4207,7 @@ b
 	`š‹rv®_v®ue_max
 ((
 š‹rv®_v®ue_ty³
-)
-	`ûž
-(()
+)(()
 a
 ->
 low_v®ue
@@ -4005,9 +4217,7 @@ b
 
 97 (
 š‹rv®_v®ue_ty³
-)
-	`ûž
-(()
+)(()
 a
 ->
 low_v®ue
@@ -4023,9 +4233,7 @@ up_v®ue
 	`š‹rv®_v®ue_max
 ((
 š‹rv®_v®ue_ty³
-)
-	`ûž
-(()
+)(()
 a
 ->
 up_v®ue
@@ -4037,9 +4245,7 @@ low_v®ue
 
 99 (
 š‹rv®_v®ue_ty³
-)
-	`ûž
-(()
+)(()
 a
 ->
 up_v®ue
@@ -4164,7 +4370,7 @@ INTERVAL_H
 >
 
 20 
-	~<lim™s.h
+	~<æßt.h
 >
 
 22 
@@ -4176,7 +4382,7 @@ INTERVAL_H
 23 
 	#MAX_VALUE
  
-LONG_MAX
+DBL_MAX_10_EXP
 
 
 	)
@@ -4184,7 +4390,7 @@ LONG_MAX
 24 
 	#MIN_VALUE
  
-LONG_MIN
+DBL_MIN_10_EXP
 
 
 	)
@@ -6240,56 +6446,60 @@ h—d_b
 >
 
 51 
+	~<m©h.h
+>
+
+52 
 	~"š‹rv®‹¡.h
 "
 
-54 #ifdeà
+55 #ifdeà
 DEBUG
 
 
-55 
+56 
 	gút1
 , 
 	gút2
 ;
 
-58 
+59 
 	#MAX
  32767
 
 	)
 
-60 
+61 
 	gglob
  ;
 
-61 
+62 
 	gglob2
  = 4.5 ;
 
-63 
+64 
 	snode2
  {
 
-64 
+65 
 	mp
 ;
 
-65 
+66 
 	mj
 ;
 
-66 
+67 
 node2
  *
 	mÃxt
 ;
 
-67 } 
+68 } 
 	tnode2
 ;
 
-75 
+76 
 	$sub
 (
 a
@@ -6297,7 +6507,7 @@ a
 b
 ) {
 
-76 
+77 
 d
  = 
 a
@@ -6305,53 +6515,69 @@ a
 b
  ;
 
-77  
+78  
 d
  ;
 
-78 
+79 
 	}
 }
 
-82 
-	$maš
+81 
+	snode3
+{
+
+82 
+	ma
+ ;
+
+83 } 
+	tnode3
+ ;
+
+86 
+	$hoho
 (
 i
 )
 
-85 
+89 
 woÿ
  = 9 ;
 
-86 
+90 
 ÿo
  = 32 ;
 
-88 
+92 
+D
+ = 3 ;
+
+93 
 glob
  = 1 ;
 
-89 ià(
+94 ià(
 glob2
  == 4.5) {
 
-90 
+95 
 glob2
  = 4 ;
 
-92 
+97 
 v®
  = 12, 
 v®2
  = 6;
 
-93 
+98 
 j
  = 
 MAX
 ;
 
-94 
+99 
 j
  = (
 v®
@@ -6359,65 +6585,77 @@ v®
 v®2
 ) * val2 - val ;
 
-95 ià(
+100 ià(
 i
  > 0 && 
 j
 <50) {
 
-96 
+101 
 j
  < 100) {
 
-97 
+102 
 j
  = j + 5;
 
-101 
+106 
 j
 --;
 
-104 ià(
+109 ià(
 v®
  == 5) {
 
-105 
+110 
 v®
 ++ ;
 
-106 
+111 
 v®2
  = 
 v®
  % 2 ;
 
-110 
+115 
 a
 [50] ;
 
-111 
+116 
 a
 [10] = 100 ;
 
-112 
+117 
 a
 [39] = 23 ;
 
-113 
+118 
 a
 [
 v®
 ] = 4 ;
 
-114 ià(
+119 ià(
 a
 [10] == 100) {
 
-115 
+120 
 a
 [32] = 3 ;
 
-118 
+123 
+node3
+ 
+Ãwnode
+ ;
+
+124 
+Ãwnode
+.
+a
+ = 4 ;
+
+125 
 node2
  *
 node44
@@ -6425,89 +6663,103 @@ node44
 	`m®loc
 ((node2)) ;
 
-119 
+126 
 node44
 ->
 p
  = 5 ;
 
-120 
+127 
 node44
 ->
 j
  = 10 ;
 
-122 *
+129 *
 kk
  =(*è
 	`m®loc
 (());
 
-123 
+130 
 kk
  = &
 j
  ;
 
-124 *
+131 *
 pošt
  = 
 kk
  ;
 
-125 ià(*
+132 ià(*
 pošt
  != 5) {
 
-126 
+133 
 	`´štf
 ("\n");
 
-129 
+136 
 nÙ—sy
  = 0.0578 ;
 
-131 
+138 
 j
  = 5 ;
 
-132 
+139 
 haha
  = 10 ;
 
-133 
+140 
 k
- ;
+ = 5u ;
 
-134 
+141 
+kj
+ = 2ul ;
+
+142 
+	ehhh
+ {
+
+143 
+MONDAY
+, 
+THURSDAY
+
+
+145 
 noha
  = 0.05 ;
 
-135 
+146 
 µ
 = 9 ;
 
-136 
+147 
 poi
 = 3 ;
 
-137 
+148 
 pio
 = 'j' ;
 
-138 
+149 
 ma
  ;
 
-139 ià(
+150 ià(
 k
  == 4) {
 
-140 
+151 
 	`´štf
 ("\n");
 
-143 
+154 
 v®
  = 
 	`sub
@@ -6519,47 +6771,71 @@ i
 j
 ), val) ;
 
-144 
+155 
 i
  > 0) {
 
-145 
+156 
 v®
 ) {
 
-147 
+158 
 i
  = 
 j
  ;
 
-148 
+159 
 j
  = 2 ;
 
-151 
+162 
 i
  = i + 1 ;
 
-152 
+163 
 j
  = 6 ;
 
-155 
+166 
 i
  = 0 ;
 
-157 
+168 
 i
  = -2 ;
 
-159 
+170 
+i
+ = 
+	`sq¹
+(
+j
+) ;
+
+171 
+vv
+ = 4 ;
+
+172 
+ss
+ = 2.3 ;
+
+173 
+vv
+ = 
+	`æoÜ
+(
+ss
+) ;
+
+174 
 	`´štf
 ("%d\n", 
 j
 ) ;
 
-161 
+176 
 	}
 }
 
@@ -7582,290 +7858,6 @@ up_v®ue
 237 
 	}
 }
-
-	@/usr/include/limits.h
-
-22 #iâdeà
-_LIBC_LIMITS_H_
-
-
-23 
-	#_LIBC_LIMITS_H_
- 1
-
-	)
-
-25 
-	~<ã©u»s.h
->
-
-31 
-	#MB_LEN_MAX
- 16
-
-	)
-
-36 #ià!
-defšed
- 
-__GNUC__
- || __GNUC__ < 2
-
-41 #iâdeà
-_LIMITS_H
-
-
-42 
-	#_LIMITS_H
- 1
-
-	)
-
-44 
-	~<b™s/wÜdsize.h
->
-
-53 
-	#CHAR_BIT
- 8
-
-	)
-
-56 
-	#SCHAR_MIN
- (-128)
-
-	)
-
-57 
-	#SCHAR_MAX
- 127
-
-	)
-
-60 
-	#UCHAR_MAX
- 255
-
-	)
-
-63 #ifdeà
-__CHAR_UNSIGNED__
-
-
-64 
-	#CHAR_MIN
- 0
-
-	)
-
-65 
-	#CHAR_MAX
- 
-UCHAR_MAX
-
-
-	)
-
-67 
-	#CHAR_MIN
- 
-SCHAR_MIN
-
-
-	)
-
-68 
-	#CHAR_MAX
- 
-SCHAR_MAX
-
-
-	)
-
-72 
-	#SHRT_MIN
- (-32768)
-
-	)
-
-73 
-	#SHRT_MAX
- 32767
-
-	)
-
-76 
-	#USHRT_MAX
- 65535
-
-	)
-
-79 
-	#INT_MIN
- (-
-INT_MAX
- - 1)
-
-	)
-
-80 
-	#INT_MAX
- 2147483647
-
-	)
-
-83 
-	#UINT_MAX
- 4294967295U
-
-	)
-
-86 #ià
-__WORDSIZE
- == 64
-
-87 
-	#LONG_MAX
- 9223372036854775807L
-
-	)
-
-89 
-	#LONG_MAX
- 2147483647L
-
-	)
-
-91 
-	#LONG_MIN
- (-
-LONG_MAX
- - 1L)
-
-	)
-
-94 #ià
-__WORDSIZE
- == 64
-
-95 
-	#ULONG_MAX
- 18446744073709551615UL
-
-	)
-
-97 
-	#ULONG_MAX
- 4294967295UL
-
-	)
-
-100 #ifdeà
-__USE_ISOC99
-
-
-103 
-	#LLONG_MAX
- 9223372036854775807LL
-
-	)
-
-104 
-	#LLONG_MIN
- (-
-LLONG_MAX
- - 1LL)
-
-	)
-
-107 
-	#ULLONG_MAX
- 18446744073709551615ULL
-
-	)
-
-121 #ià
-defšed
- 
-__GNUC__
- && !defšed 
-_GCC_LIMITS_H_
-
-
-123 #šþude_Ãxˆ<
-lim™s
-.
-h
->
-
-129 #ià
-defšed
- 
-__USE_ISOC99
- && defšed 
-__GNUC__
-
-
-130 #iâdeà
-LLONG_MIN
-
-
-131 
-	#LLONG_MIN
- (-
-LLONG_MAX
--1)
-
-	)
-
-133 #iâdeà
-LLONG_MAX
-
-
-134 
-	#LLONG_MAX
- 
-__LONG_LONG_MAX__
-
-
-	)
-
-136 #iâdeà
-ULLONG_MAX
-
-
-137 
-	#ULLONG_MAX
- (
-LLONG_MAX
- * 2ULL + 1)
-
-	)
-
-141 #ifdef 
-__USE_POSIX
-
-
-143 
-	~<b™s/posix1_lim.h
->
-
-146 #ifdef 
-__USE_POSIX2
-
-
-147 
-	~<b™s/posix2_lim.h
->
-
-150 #ifdef 
-__USE_XOPEN
-
-
-151 
-	~<b™s/xÝ’_lim.h
->
 
 	@/usr/include/math.h
 
@@ -25776,8 +25768,8 @@ __END_DECLS
 .
 1
 /usr/include
-33
-603
+32
+581
 cfg.c
 cfg.h
 common.c
@@ -25795,7 +25787,6 @@ intervaltest/intervaltest.h
 intervaltest/iwannatest.c
 intervaltest/ohno.c
 main.c
-/usr/include/limits.h
 /usr/include/math.h
 /usr/include/stdio.h
 /usr/include/stdlib.h

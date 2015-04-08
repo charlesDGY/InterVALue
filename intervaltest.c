@@ -89,9 +89,13 @@ hoho(int i)
         int woca = 9 ;
         long cao = 32 ;
     }
+    char ee = 's', as = 'c';
+    if (ee == as) {
+        ee = 'c' ;
+    }
     int D = 3 ;
     glob = 1 ;
-    if (glob2 == 4.5) {
+    if (glob2 - 10 == glob) {
         glob2 = 4 ;
     }
     int val = 12, val2 = 6;
@@ -137,7 +141,12 @@ hoho(int i)
     {
     double j = 5 ;
     float haha = 10 ;
-    unsigned short k ;
+    unsigned short k = 5u ;
+    unsigned long kj = 2ul ;
+    enum hhh {
+        MONDAY, THURSDAY
+    };
+    enum hhh hoes = THURSDAY ;
     float noha = 0.05 ;
     unsigned int pp= 9 ;
     unsigned long poi= 3 ;
