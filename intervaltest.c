@@ -85,10 +85,12 @@ typedef struct node3{
 int
 hoho(int i)
 {
-    {
-        int woca = 9 ;
-        long cao = 32 ;
-    }
+/*    {*/
+        /*int woca = 9 ;*/
+        /*long cao = 32 ;*/
+    /*}*/
+    long long youma = 4 ;
+    unsigned long long youmei = 2 ;
     char ee = 's', as = 'c';
     if (ee == as) {
         ee = 'c' ;
@@ -99,6 +101,7 @@ hoho(int i)
         glob2 = 4 ;
     }
     int val = 12, val2 = 6;
+    int gg = 2 - val ;
     int j = MAX;
     j = (val + val2) * val2 - val ;
     if (i > 0 && j<50) {
@@ -138,11 +141,19 @@ hoho(int i)
     }
 
     float noteasy = 0.0578 ;
-    {
-    double j = 5 ;
+
+    double t = 5 ;
     float haha = 10 ;
     unsigned short k = 5u ;
     unsigned long kj = 2ul ;
+
+
+    typedef struct cang cang ;
+    struct cang {
+        int l ;
+    } ;
+
+    cang zzz = {10} ;
     enum hhh {
         MONDAY, THURSDAY
     };
@@ -155,7 +166,7 @@ hoho(int i)
     if (k == 4) {
         printf("\n");
     }
-    }
+
     val = sub(add(i, j), val) ;
     while(i > 0) {
         switch (val) {
