@@ -22,14 +22,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "common.h"
 #include "cfg.h"
 
 
+#define MAX_FUNC 200
 
+#define MAX_FUNC_NAME 60
 
-
+#define MAX_TYPE_NAME 60
 /*// lookup addr in code, return the index if found, otherwise return -1*/
+
 /*// since instr. addresses are in sorted order, we can use binary search*/
 /*static int*/
 /*lookup_addr(de_inst_t *code, int num, addr_t addr)*/
@@ -572,10 +576,162 @@
 
 
 
+
+typedef enum {DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;
+
+typedef struct declaration_t declaration_t ;
+typedef struct assignment_t assignment_t ;
+typedef struct if_test_t if_test_t ;
+typedef struct switch_test_t switch_test_t ;
+typedef struct junction_t junction_t ;
+typedef struct call_t call_t ;
+//typedef struct switch_chain switch_chain ;
+typedef struct call_argument call_argument ;
+
+struct declaration_t {
+    char *name ;
+    char *variable_type ;
+    bool is_pointer ;
+    bool is_array ;
+    bool is_struct ;
+    int array_len ;
+}
+
+struct assignment_t {
+    char *dst_name ;
+    char *operator_a ;
+    char *operator_b ;
+    char *operand ;
+    bool is_type_convert ;     //if is_type_convert is true, operator_a saves the type to convert, operator_b saves the src variable.
+}
+
+struct if_test_t {
+    char *cmp_a ;
+    char *cmp_b ;
+    char *cmp_operand ;
+}
+
+/*struct switch_chain {*/
+    /*int case_num ;*/
+    /*switch_chain *next ;*/
+/*}*/
+
+struct switch_test_t {
+    char *switch_value ;
+//    switch_chain *case_chain ;     //the first case_chain member corresponding to the first succ_edges, default branch corresponding to the last succ_edges.
+    int *case_chain ;
+}
+
+struct junction_t {
+    bool is_simple_junction ;
+}
+
+struct call_argument {
+    char *arg_name ;
+    int arg_type ;
+    bool is_pointer ;
+    call_argument *next ;
+}
+
+struct call_t {
+    char *dst_name ;
+    char *call_name ;
+    call_argument *input_chain ;
+}
+
+
+
+
+typedef struct cfg_edge_t cfg_edge_t ;
+typedef struct cfg_node_t cfg_node_t ;
+typedef struct cfg_func_t cfg_func_t ;
+
+struct cfg_edge_t {
+    int edge_id ;
+    cfg_node_t *start_node ;
+    cfg_node_t *end_node ;
+    edge_context *context_set ;
+//    cfg_edge_t *next ;
+}
+
+
+struct cfg_node_t {
+    int node_id ;
+    int pre_edges_num ;
+    int succ_edges_num ;
+    cfg_edge_t **pre_edges ;
+    cfg_edge_t **succ_edges ;
+    node_type_t node_type ;
+    declaration_t *declaration_i ;
+    assignment_t *assignment_i ;
+    if_test_t *if_test_i ;
+    switch_test_t *switch_test_i ;
+    junction_t *junction_t ;
+    call_t *call_i ;
+
+}
+
+struct cfg_func_t {
+    char *func_name ;
+    int func_num ;
+    call_argument *input_argument ;
+    cfg_edge_t *pre_entry ;
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //dgy
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+void *new_func(cfg_func_t *item)
+{
+	item = (cfg_func_t *)malloc(sizeof *item) ;
+    if (item == NULL) {
+        perror("out of memory!") ;
+        exit(EXIT_FAILURE) ;
+    }
+
+}
+
+void free_node(interval_node *p)
+{
+	free(p);
+}
+
+char *get_string_f(FILE *fp) {
+    char buffer[MAX_FUNC_NAME] ;
+}
+
+void build_func_cfg(FILE *fp, cfg_func_t *function) {
+    char func_name_buffer[MAX_FUNC_NAME] ;
+    char var_type_buffer[MAX_TYPE_NAME] ;
+
+    //get function name
+    fscanf(fp,"%s", func_name_buffer) ;
+    char *func_name = strdup(func_name_buffer) ;
+    if (func_name == NULL) {
+        perror("function name get error") ;
+        exit(EXIT_FAILURE) ;
+    }
+    function->name = func_name ;
+
+    //get function input arg_nameument
+    char ch ;
+    ch = fgetc(fp) ;
+    ch = fgetc(fp) ;
+
+    int type_token = 0 ;
+    while ((ch = fgetc(fp)) != '\n') {
+        if (ch == ',' || ch == ')') {
+
+        }
+        var_type_buffer[type_token] = ch ;
+
+    }
+    fscanf(fp," (%s", var_type_buffer) ;
+
+}
 
 
 cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) {
@@ -587,12 +743,25 @@ cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) {
     }
 
     cfg_func_t **result_cfgs = NULL ;
+    cfg_func_t *functions[MAX_FUNC] ;
+    int func_num = 0 ;
+
     fseek(fp, 0, SEEK_SET);
     char *oneline = NULL ;
+    char ch ;
+    while ((ch = fgetc(fp)) != EOF && ch != ' ') {
+        ungetc(ch, fp) ;
+        new_func(functions[func_num]) ;
+        functions[func_num]->func_num = func_num ;
+        build_func_cfg(fp, functions[func_num]) ;
+        func_num++ ;
+    }
 
 
 
 
+    functions[func_num] = NULL ;
+    result = functions ;
     return result ;
 }
 

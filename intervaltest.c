@@ -78,6 +78,14 @@ int sub(int a, int b) {
     return d ;
 }
 
+int mul(int *a, long b[]) {
+    printf("\n");
+}
+
+int cdiv(const node2 a, node2 const *b) {
+    printf("\n");
+}
+
 typedef struct node3{
     int a ;
 } node3 ;
@@ -89,6 +97,11 @@ hoho(int i)
         /*int woca = 9 ;*/
         /*long cao = 32 ;*/
     /*}*/
+    static int stac = 2 ;
+    int hae = stac + 3 ;
+    extern long q2h4 ;
+    const short shieg = 3 ;
+    hae = shieg - 4 ;
     long long youma = 4 ;
     unsigned long long youmei = 2 ;
     char ee = 's', as = 'c';
@@ -116,6 +129,7 @@ hoho(int i)
     if (val == 5) {
         val++ ;
         val2 = val % 2 ;
+        return 0 ;
     }
 
 

@@ -47,10 +47,12 @@ typedef struct call_argument call_argument ;
 
 struct declaration_t {
     char *name ;
-    char *variable_type ;
+    int variable_type ;
     bool is_pointer ;
     bool is_array ;
-    bool is_struct ;
+//    bool is_struct ;      if is struct, variable type is 13
+    char *struct_name ;
+    bool is_static ;
     int array_len ;
 }
 
@@ -85,7 +87,10 @@ struct junction_t {
 
 struct call_argument {
     char *arg_name ;
-    char *arg_type ;
+    int arg_type ;
+    bool is_pointer ;
+//    bool is_struct ;        if is struct, arg_type = 13 ;
+    char *struct_name ;
     call_argument *next ;
 }
 
@@ -129,6 +134,7 @@ struct cfg_node_t {
 
 struct cfg_func_t {
     char *func_name ;
+    int func_num ;
     call_argument *input_argument ;
     cfg_edge_t *pre_entry ;
 }

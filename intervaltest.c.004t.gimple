@@ -1,51 +1,69 @@
 add (int a, int b)
 {
-  int D.3797;
+  int D.3810;
 
   __builtin_putchar (10);
-  D.3797 = a + b;
-  return D.3797;
+  D.3810 = a + b;
+  return D.3810;
 }
 
 
 sub (int a, int b)
 {
-  int D.3799;
-  int D.3800;
+  int D.3812;
+  int D.3813;
   long int d;
 
-  D.3799 = a - b;
-  d = (long int) D.3799;
-  D.3800 = (int) d;
-  return D.3800;
+  D.3812 = a - b;
+  d = (long int) D.3812;
+  D.3813 = (int) d;
+  return D.3813;
+}
+
+
+mul (int * a, long int * b)
+{
+  __builtin_putchar (10);
+}
+
+
+cdiv (const struct node2 a, const struct node2 * b)
+{
+  __builtin_putchar (10);
 }
 
 
 hoho (int i)
 {
-  float glob2.0;
-  float D.3805;
-  int glob.1;
-  float D.3807;
-  int D.3810;
-  int D.3811;
-  int j.2;
+  int stac.0;
+  int D.3816;
+  float glob2.1;
+  float D.3820;
+  int glob.2;
+  float D.3822;
+  int D.3825;
+  int D.3826;
   int j.3;
   int j.4;
   int j.5;
   int j.6;
   int j.7;
   int j.8;
-  int D.3825;
-  int D.3828;
   int j.9;
-  int D.3834;
-  int j.10;
-  double D.3836;
-  double D.3837;
-  double D.3838;
-  int j.11;
   int D.3840;
+  int D.3841;
+  int D.3844;
+  int j.10;
+  int D.3850;
+  int j.11;
+  double D.3852;
+  double D.3853;
+  double D.3854;
+  int j.12;
+  static int stac = 2;
+  int hae;
+  extern long int q2h4;
+  const short int shieg;
   long long int youma;
   long long unsigned int youmei;
   char ee;
@@ -82,65 +100,72 @@ hoho (int i)
 
   try
     {
+      stac.0 = stac;
+      hae = stac.0 + 3;
+      shieg = 3;
+      D.3816 = (int) shieg;
+      hae = D.3816 + -4;
       youma = 4;
       youmei = 2;
       ee = 115;
       as = 99;
-      if (ee == as) goto <D.3802>; else goto <D.3803>;
-      <D.3802>:
+      if (ee == as) goto <D.3817>; else goto <D.3818>;
+      <D.3817>:
       ee = 99;
-      <D.3803>:
+      <D.3818>:
       D = 3;
       glob = 1;
-      glob2.0 = glob2;
-      D.3805 = glob2.0 - 1.0e+1;
-      glob.1 = glob;
-      D.3807 = (float) glob.1;
-      if (D.3805 == D.3807) goto <D.3808>; else goto <D.3809>;
-      <D.3808>:
+      glob2.1 = glob2;
+      D.3820 = glob2.1 - 1.0e+1;
+      glob.2 = glob;
+      D.3822 = (float) glob.2;
+      if (D.3820 == D.3822) goto <D.3823>; else goto <D.3824>;
+      <D.3823>:
       glob2 = 4.0e+0;
-      <D.3809>:
+      <D.3824>:
       val = 12;
       val2 = 6;
       gg = 2 - val;
       j = 32767;
-      D.3810 = val + val2;
-      D.3811 = D.3810 * val2;
-      j.2 = D.3811 - val;
-      j = j.2;
-      if (i > 0) goto <D.3815>; else goto <D.3813>;
-      <D.3815>:
-      j.3 = j;
-      if (j.3 <= 49) goto <D.3817>; else goto <D.3813>;
-      <D.3817>:
-      goto <D.3762>;
-      <D.3761>:
+      D.3825 = val + val2;
+      D.3826 = D.3825 * val2;
+      j.3 = D.3826 - val;
+      j = j.3;
+      if (i > 0) goto <D.3830>; else goto <D.3828>;
+      <D.3830>:
       j.4 = j;
-      j.5 = j.4 + 5;
-      j = j.5;
-      <D.3762>:
-      j.6 = j;
-      if (j.6 <= 99) goto <D.3761>; else goto <D.3763>;
-      <D.3763>:
-      goto <D.3814>;
-      <D.3813>:
+      if (j.4 <= 49) goto <D.3832>; else goto <D.3828>;
+      <D.3832>:
+      goto <D.3774>;
+      <D.3773>:
+      j.5 = j;
+      j.6 = j.5 + 5;
+      j = j.6;
+      <D.3774>:
       j.7 = j;
-      j.8 = j.7 + -1;
-      j = j.8;
-      <D.3814>:
-      if (val == 5) goto <D.3823>; else goto <D.3824>;
-      <D.3823>:
+      if (j.7 <= 99) goto <D.3773>; else goto <D.3775>;
+      <D.3775>:
+      goto <D.3829>;
+      <D.3828>:
+      j.8 = j;
+      j.9 = j.8 + -1;
+      j = j.9;
+      <D.3829>:
+      if (val == 5) goto <D.3838>; else goto <D.3839>;
+      <D.3838>:
       val = val + 1;
       val2 = val % 2;
-      <D.3824>:
+      D.3840 = 0;
+      return D.3840;
+      <D.3839>:
       a[10] = 100;
       a[39] = 23;
       a[val] = 4;
-      D.3825 = a[10];
-      if (D.3825 == 100) goto <D.3826>; else goto <D.3827>;
-      <D.3826>:
+      D.3841 = a[10];
+      if (D.3841 == 100) goto <D.3842>; else goto <D.3843>;
+      <D.3842>:
       a[32] = 3;
-      <D.3827>:
+      <D.3843>:
       newnode.a = 4;
       node44 = malloc (16);
       node44->p = 5;
@@ -148,11 +173,11 @@ hoho (int i)
       kk = malloc (4);
       kk = &j;
       point = kk;
-      D.3828 = *point;
-      if (D.3828 != 5) goto <D.3829>; else goto <D.3830>;
-      <D.3829>:
+      D.3844 = *point;
+      if (D.3844 != 5) goto <D.3845>; else goto <D.3846>;
+      <D.3845>:
       __builtin_putchar (10);
-      <D.3830>:
+      <D.3846>:
       noteasy = 5.77999986708164215087890625e-2;
       t = 5.0e+0;
       haha = 1.0e+1;
@@ -164,41 +189,41 @@ hoho (int i)
       pp = 9;
       poi = 3;
       pio = 106;
-      if (k == 4) goto <D.3831>; else goto <D.3832>;
-      <D.3831>:
+      if (k == 4) goto <D.3847>; else goto <D.3848>;
+      <D.3847>:
       __builtin_putchar (10);
-      <D.3832>:
-      j.9 = j;
-      D.3834 = add (i, j.9);
-      val = sub (D.3834, val);
-      goto <D.3792>;
-      <D.3791>:
-      switch (val) <default: <D.3790>, case 3: <D.3787>, case 8: <D.3789>>
-      <D.3787>:
+      <D.3848>:
+      j.10 = j;
+      D.3850 = add (i, j.10);
+      val = sub (D.3850, val);
+      goto <D.3804>;
+      <D.3803>:
+      switch (val) <default: <D.3802>, case 3: <D.3799>, case 8: <D.3801>>
+      <D.3799>:
       i = j;
       j = 2;
-      goto <D.3788>;
-      <D.3789>:
+      goto <D.3800>;
+      <D.3801>:
       i = i + 1;
       j = 6;
-      goto <D.3788>;
-      <D.3790>:
+      goto <D.3800>;
+      <D.3802>:
       i = 0;
-      <D.3788>:
+      <D.3800>:
       i = -2;
-      <D.3792>:
-      if (i > 0) goto <D.3791>; else goto <D.3793>;
-      <D.3793>:
-      j.10 = j;
-      D.3836 = (double) j.10;
-      D.3837 = sqrt (D.3836);
-      i = (int) D.3837;
+      <D.3804>:
+      if (i > 0) goto <D.3803>; else goto <D.3805>;
+      <D.3805>:
+      j.11 = j;
+      D.3852 = (double) j.11;
+      D.3853 = sqrt (D.3852);
+      i = (int) D.3853;
       vv = 4;
       ss = 2.29999999999999982236431605997495353221893310546875e+0;
-      D.3838 = floor (ss);
-      vv = (int) D.3838;
-      j.11 = j;
-      printf ("%d\n", j.11);
+      D.3854 = floor (ss);
+      vv = (int) D.3854;
+      j.12 = j;
+      printf ("%d\n", j.12);
       D.3840 = 0;
       return D.3840;
     }
