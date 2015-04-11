@@ -1,11 +1,10 @@
-objects = main.o interval.o common.o intervalset.o
+objects = main.o interval.o common.o intervalset.o cfg.o edgecontext.o
 
 edit : $(objects)
-	gcc -fdump-tree-vcg-lineno $(objects) -o edit -lm
+	gcc -Wall -g $(objects) -o edit -lm
 
-main.o : interval.h intervalset.h
+main.o : interval.h intervalset.h edgecontext.h cfg.h
 interval.o : common.h
-
 
 .PHONY : clean link
 clean:

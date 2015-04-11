@@ -16,6 +16,8 @@
 #include <stdlib.h>
 #include "interval.h"
 #include "intervalset.h"
+#include "edgecontext.h"
+#include "cfg.h"
 
 int main(int argc, const char *argv[])
 {
@@ -153,85 +155,98 @@ int main(int argc, const char *argv[])
 
     //set and set arithmetic -- add, sub, mul, div text
     //
-    interval temp_a = {0, 0}, a = {1, 6}, b = {7, 9}, c = {11, 13}, d = {14, 19} ;
-    interval temp_b = {0, 0}, aa = {1, 2}, bb = {2, 2}, cc = {2, 2}, dd = {14, 17} ;
-    interval_node *result_head = NULL ;
-    interval_node *head_a = make_node(temp_a) ;
-    interval_node *head_b = make_node(temp_b) ;
-    interval_node *iter = make_node(d) ;
-    insert_node(head_a, iter) ;
-    iter = make_node(c) ;
-    insert_node(head_a, iter) ;
-    iter = make_node(b) ;
-    insert_node(head_a, iter) ;
-    iter = make_node(a) ;
-    insert_node(head_a, iter) ;
-    iter = head_a->next ;
-    printf("head_a: ") ;
-    while (iter != NULL) {
-        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
-        iter = iter->next ;
+/*    interval temp_a = {0, 0}, a = {1, 6}, b = {7, 9}, c = {11, 13}, d = {14, 19} ;*/
+    /*interval temp_b = {0, 0}, aa = {1, 2}, bb = {2, 2}, cc = {2, 2}, dd = {14, 17} ;*/
+    /*interval_node *result_head = NULL ;*/
+    /*interval_node *head_a = make_node(temp_a) ;*/
+    /*interval_node *head_b = make_node(temp_b) ;*/
+    /*interval_node *iter = make_node(d) ;*/
+    /*insert_node(head_a, iter) ;*/
+    /*iter = make_node(c) ;*/
+    /*insert_node(head_a, iter) ;*/
+    /*iter = make_node(b) ;*/
+    /*insert_node(head_a, iter) ;*/
+    /*iter = make_node(a) ;*/
+    /*insert_node(head_a, iter) ;*/
+    /*iter = head_a->next ;*/
+    /*printf("head_a: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+    /*iter = make_node(dd) ;*/
+    /*insert_node(head_b, iter) ;*/
+    /*iter = make_node(cc) ;*/
+    /*insert_node(head_b, iter) ;*/
+    /*iter = make_node(bb) ;*/
+    /*insert_node(head_b, iter) ;*/
+    /*iter = make_node(aa) ;*/
+    /*insert_node(head_b, iter) ;*/
+    /*iter = head_b->next ;*/
+    /*printf("head_b: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+
+    /*result_head = set_set_arithmetic(head_a, head_b, 1) ;*/
+    /*iter = result_head->next ;*/
+    /*printf("add: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+    /*result_head = set_set_arithmetic(head_a, head_b, 2) ;*/
+    /*iter = result_head->next ;*/
+    /*printf("sub: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+
+    /*result_head = set_set_arithmetic(head_a, head_b, 3) ;*/
+    /*iter = result_head->next ;*/
+    /*printf("mul: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+
+    /*result_head = set_set_arithmetic(head_a, head_b, 4) ;*/
+    /*iter = result_head->next ;*/
+    /*printf("div: ") ;*/
+    /*while (iter != NULL) {*/
+        /*printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value) ;*/
+        /*iter = iter->next ;*/
+    /*}*/
+    /*printf("\n") ;*/
+
+
+    //test function generation
+    char *fp = "/home/dgy/Programming/VInterval/testfunc.c.gimple" ;
+    char *glob_var_file = NULL ;
+    cfg_func_t **result = NULL ;
+    result = build_cfgs(fp, glob_var_file) ;
+    int j = 0 ;
+    while ((*result) != NULL) {
+        printf("func_num: %d\n", (*result)->func_num) ;
+        printf("func name: %s\n", (*result)->func_name) ;
+       /* int i = 0 ;*/
+        /*while (result->input_argument[i] != NULL) {*/
+            /*printf("input_argument %d : %s, \n", <`2`>);*/
+        /*}*/
+        result++ ;
     }
-    printf("\n") ;
 
-    iter = make_node(dd) ;
-    insert_node(head_b, iter) ;
-    iter = make_node(cc) ;
-    insert_node(head_b, iter) ;
-    iter = make_node(bb) ;
-    insert_node(head_b, iter) ;
-    iter = make_node(aa) ;
-    insert_node(head_b, iter) ;
-    iter = head_b->next ;
-    printf("head_b: ") ;
-    while (iter != NULL) {
-        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
-        iter = iter->next ;
-    }
-    printf("\n") ;
-
-
-    result_head = set_set_arithmetic(head_a, head_b, 1) ;
-    iter = result_head->next ;
-    printf("add: ") ;
-    while (iter != NULL) {
-        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
-        iter = iter->next ;
-    }
-    printf("\n") ;
-
-    result_head = set_set_arithmetic(head_a, head_b, 2) ;
-    iter = result_head->next ;
-    printf("sub: ") ;
-    while (iter != NULL) {
-        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
-        iter = iter->next ;
-    }
-    printf("\n") ;
-
-
-    result_head = set_set_arithmetic(head_a, head_b, 3) ;
-    iter = result_head->next ;
-    printf("mul: ") ;
-    while (iter != NULL) {
-        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value);
-        iter = iter->next ;
-    }
-    printf("\n") ;
-
-
-    result_head = set_set_arithmetic(head_a, head_b, 4) ;
-    iter = result_head->next ;
-    printf("div: ") ;
-    while (iter != NULL) {
-        printf("[%ld,%ld] ", iter->item.low_value, iter->item.up_value) ;
-        iter = iter->next ;
-    }
-    printf("\n") ;
-
-//test git
-//test this
-//haha
-//nohhah
     return 0;
 }

@@ -16,6 +16,11 @@
 #include <stdio.h>
 #include "interval.h"
 
+#define bool int
+#define true 1
+#define false 0
+
+
 //calculate the max of a and b
 interval_value_type interval_value_max(interval_value_type a, interval_value_type b);
 //calculate the min of a and b

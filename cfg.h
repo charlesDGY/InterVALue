@@ -25,13 +25,19 @@
 
 #include <stdio.h>
 #include "edgecontext.h"
+#include "common.h"
 
 
-#define NOT_TAKEN	0
-#define TAKEN		1
-#define BOTH_BRANCHES	2
-#define LOOP_HEAD	1
-#define LOOP_TAIL	2
+
+#define MAX_FUNC 200
+
+#define MAX_FUNC_NAME 60
+
+#define MAX_TYPE_NAME 60
+
+#define MAX_INPUT_VAR 20
+
+#define MAX_FUNC_VARS 1024
 
 
 typedef enum {DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;
@@ -44,17 +50,18 @@ typedef struct junction_t junction_t ;
 typedef struct call_t call_t ;
 //typedef struct switch_chain switch_chain ;
 typedef struct call_argument call_argument ;
+typedef struct func_vars func_vars ;
 
 struct declaration_t {
     char *name ;
     int variable_type ;
     bool is_pointer ;
     bool is_array ;
-//    bool is_struct ;      if is struct, variable type is 13
+//    bool is_struct ;        // if is struct , the type number is 13
     char *struct_name ;
     bool is_static ;
     int array_len ;
-}
+} ;
 
 struct assignment_t {
     char *dst_name ;
@@ -62,45 +69,49 @@ struct assignment_t {
     char *operator_b ;
     char *operand ;
     bool is_type_convert ;     //if is_type_convert is true, operator_a saves the type to convert, operator_b saves the src variable.
-}
+} ;
 
 struct if_test_t {
     char *cmp_a ;
     char *cmp_b ;
     char *cmp_operand ;
-}
+} ;
 
-/*struct switch_chain {*/
-    /*int case_num ;*/
-    /*switch_chain *next ;*/
-/*}*/
+/*[>struct switch_chain {<]*/
+    /*[>int case_num ;<]*/
+    /*[>switch_chain *next ;<]*/
+/*[>}<]*/
 
 struct switch_test_t {
     char *switch_value ;
 //    switch_chain *case_chain ;     //the first case_chain member corresponding to the first succ_edges, default branch corresponding to the last succ_edges.
     int *case_chain ;
-}
+} ;
 
 struct junction_t {
     bool is_simple_junction ;
-}
+} ;
 
 struct call_argument {
     char *arg_name ;
     int arg_type ;
     bool is_pointer ;
-//    bool is_struct ;        if is struct, arg_type = 13 ;
+    bool is_struct ;
     char *struct_name ;
-    call_argument *next ;
-}
+//    call_argument *next ;
+} ;
 
 struct call_t {
     char *dst_name ;
     char *call_name ;
     call_argument *input_chain ;
-}
+} ;
 
 
+struct func_vars {
+    char *name ;
+    int variable_type ;
+} ;
 
 
 typedef struct cfg_edge_t cfg_edge_t ;
@@ -113,7 +124,7 @@ struct cfg_edge_t {
     cfg_node_t *end_node ;
     edge_context *context_set ;
 //    cfg_edge_t *next ;
-}
+} ;
 
 
 struct cfg_node_t {
@@ -130,16 +141,52 @@ struct cfg_node_t {
     junction_t *junction_t ;
     call_t *call_i ;
 
-}
+} ;
 
 struct cfg_func_t {
     char *func_name ;
     int func_num ;
-    call_argument *input_argument ;
+    int edge_num ;
+    int node_num ;
+    call_argument *input_argument[MAX_INPUT_VAR] ;
+    func_vars *func_vars_table[MAX_FUNC_VARS] ;
     cfg_edge_t *pre_entry ;
-}
+} ;
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//dgy
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+cfg_func_t *new_func() ;
+
+call_argument *new_call_argument() ;
+
+
+cfg_edge_t *new_edge() ;
+/*void free_node(interval_node *p)*/
+/*{*/
+	/*free(p);*/
+/*}*/
+
+
+char *copy_string(char *str) ;
+
+
+
+void build_func_cfg(FILE *fp, cfg_func_t *function) ;
+
+
+cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) ;
+
+
+
+
+
+
 
 /*// control flow graph node (basic block) type*/
+
 /*typedef struct {*/
     /*int		id;		// basic block id (per procedure)*/
     /*proc_t  	*proc;		// up-link to the procedure containing it*/
