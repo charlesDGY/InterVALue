@@ -96,9 +96,14 @@ hoho(int i)
 /*    {*/
         /*int woca = 9 ;*/
         /*long cao = 32 ;*/
-    /*}*/
-    static int stac = 2 ;
-    int hae = stac + 3 ;
+     /*}*/
+    int uu = 3 ;
+    do {
+        i++ ;
+        uu++ ;
+    } while (uu < 100);
+    static const long long *stac = 5 ;
+    int hae = *stac + 3 ;
     extern long q2h4 ;
     const short shieg = 3 ;
     hae = shieg - 4 ;
@@ -107,6 +112,8 @@ hoho(int i)
     char ee = 's', as = 'c';
     if (ee == as) {
         ee = 'c' ;
+        int xx = 3 ;
+        hae = xx + 1 ;
     }
     int D = 3 ;
     glob = 1 ;
@@ -132,8 +139,9 @@ hoho(int i)
         return 0 ;
     }
 
+    val = (val == 2 ? 3: 4) ;
 
-    int a[50] ;
+    int a[50] = {3,4,5,6,7,8,9,10,3,2,1,4,5,6,7} ;
     a[10] = 100 ;
     a[39] = 23 ;
     a[val] = 4 ;
@@ -161,7 +169,6 @@ hoho(int i)
     unsigned short k = 5u ;
     unsigned long kj = 2ul ;
 
-
     typedef struct cang cang ;
     struct cang {
         int l ;
@@ -183,6 +190,16 @@ hoho(int i)
 
     val = sub(add(i, j), val) ;
     while(i > 0) {
+        while (j > 5) {
+            int ssd = 3 ;
+            ssd = i + j ;
+            int *sss, abc = 0 ;
+            sss = &abc ;
+            if (ssd == 4) {
+                int bbb = 3 ;
+                bbb = ssd ;
+            }
+        }
         switch (val) {
             case 3:
                 i = j ;
@@ -192,6 +209,10 @@ hoho(int i)
                 i = i + 1 ;
                 j = 6 ;
                 break ;
+            case 4:
+                j = 4 ;
+            case 2:
+                j = 1 ;
             default:
                 i = 0 ;
         }

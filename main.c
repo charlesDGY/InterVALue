@@ -241,10 +241,13 @@ int main(int argc, const char *argv[])
     while ((*result) != NULL) {
         printf("func_num: %d\n", (*result)->func_num) ;
         printf("func name: %s\n", (*result)->func_name) ;
-       /* int i = 0 ;*/
-        /*while (result->input_argument[i] != NULL) {*/
-            /*printf("input_argument %d : %s, \n", <`2`>);*/
-        /*}*/
+        int i = 0 ;
+        while ((*result)->input_argument[i] != NULL) {
+            printf("input_argument %d : %s \nis_struct :%d \nis_pointer :%d \nstruct_name: %s\n",
+                    (*result)->input_argument[i]->arg_type, (*result)->input_argument[i]->arg_name,
+                    (*result)->input_argument[i]->is_struct,(*result)->input_argument[i]->is_pointer,(*result)->input_argument[i]->struct_name);
+            i++ ;
+        }
         result++ ;
     }
 
