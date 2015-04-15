@@ -133,14 +133,6 @@ void insert_node(interval_node *head, interval_node *p)
 /*}*/
 
 
-
-
-
-
-
-
-
-
 //interval and set union operate, destroy old head and return new set in head.
 void interval_set_union(interval a, interval_node *head) {
     if (head == NULL) {

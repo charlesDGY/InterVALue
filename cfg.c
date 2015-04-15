@@ -1,24 +1,16 @@
-/*******************************************************************************
+/******************************************************************************
  *
- * Chronos: A Timing Analyzer for Embedded Software
- * =============================================================================
- * http://www.comp.nus.edu.sg/~rpembed/chronos/
+ *       COPYRIGHT NOTICE
+ *       Copyright (c) 2015
+ *       All rights reserved
  *
- * Copyright (C) 2005 Xianfeng Li
+ *       @author       :  Gaoyang Dai
+ *       @email        :  edward.d.erlic@gmail.com
+ *       @file         :  /home/dgy/Programming/VInterval/cfg.c
+ *       @date         :  2015/04/14 14:27
+ *       @description  :
  *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * $Id: cfg.c,v 1.2 2006/06/24 08:54:56 lixianfe Exp $
- *
- ******************************************************************************/
-
+ *****************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +18,7 @@
 #include "cfg.h"
 
 
-#define MAX_FUNC 200
+#define MAX_FUNC_NUM 100
 
 #define MAX_FUNC_NAME 60
 
@@ -147,6 +139,7 @@ struct cfg_func_t {
     int func_num ;
     int edge_num ;
     int node_num ;
+    int var_num ;
     call_argument *input_argument[MAX_INPUT_VAR] ;
     declaration_t *func_vars_table[MAX_FUNC_VARS] ;
     cfg_edge_t *pre_entry ;
@@ -174,14 +167,14 @@ char const *sys_var_type[] = {
     "struct",
     "const",
     "static",
-    "extern",
+//    "extern",
     "typedef",
     NULL
 } ;
 
 
 cfg_func_t **new_functions() {
-    cfg_func_t **p = (cfg_func_t **)malloc(MAX_FUNC * (sizeof *p)) ;
+    cfg_func_t **p = (cfg_func_t **)malloc(MAX_FUNC_NUM * (sizeof *p)) ;
     if (p == NULL) {
         perror("new_functions out of memory!!") ;
         exit(EXIT_FAILURE) ;
@@ -199,6 +192,8 @@ cfg_func_t *new_func() {
     }
     p->node_num = 0 ;
     p->edge_num = 0 ;
+    //the number of vars of the function;
+    p->var_num = 0 ;
     p->input_argument[0] = NULL ;
     p->func_vars_table[0] = NULL ;
 }
@@ -225,6 +220,7 @@ cfg_edge_t *new_edge() {
     }
     p->start_node = NULL ;
     p->end_node = NULL ;
+    p->context_set = NULL ;
 }
 /*void free_node(interval_node *p)*/
 /*{*/
@@ -246,6 +242,19 @@ declaration_t *new_declaration() {
 
 }
 
+assignment_t *new_assignment() {
+    assignment_t *p = (assignment_t *)malloc(sizeof *p) ;
+    if (p == NULL) {
+        perror("new declaration out of memory!") ;
+        exit(EXIT_FAILURE) ;
+    }
+
+    p->operator_a = NULL ;
+    p->operator_b = NULL ;
+    p->operand = NULL ;
+    p->is_type_convert = false ;
+}
+
 
 cfg_node_t *new_node() {
     cfg_node_t *p = (cfg_node_t *)malloc(sizeof *p) ;
@@ -253,15 +262,20 @@ cfg_node_t *new_node() {
         perror("new node out of memory!") ;
         exit(EXIT_FAILURE) ;
     }
-    p->array_len = -1 ;
-    p->struct_name = NULL ;
-    p->is_struct = false ;
-    p->is_array = false ;
-    p->is_pointer = false ;
-    p->is_static = false ;
 
+    p->pre_edges_num = 0 ;
+    p->succ_edges_num = 0 ;
+    p->pre_edges = NULL ;
+    p->succ_edges = NULL ;
+//     node_type ;
+//    declaration_t *declaration_i ;
+    p->assignment_i = NULL ;
+    p->if_test_i = NULL ;
+    p->switch_test_i = NULL ;
+    p->junction_t = NULL ;
 
 }
+
 char *copy_string(char *str) {
     char *result = NULL ;
     result = strdup(str) ;
@@ -273,21 +287,28 @@ char *copy_string(char *str) {
 }
 
 
-void build_func_table(FILE *fp, cfg_func_t *function, char *var_type_buffer, int var_type, int effect_domain, int var_num) {
+void build_vars_table(file *fp, cfg_func_t *function, int var_type, int effect_domain) {
     //read declaration and store
+    char var_type_buffer[MAX_TYPE_NAME] ;
     int row = 0, type_token = 0 ;
     char type_buffer[10][MAX_TYPE_NAME] ;    //the longest input argument is "static const long long unsigned int * name = 4B;". so the row is 10.
-    int i, var_num = 0 ;
+    int i ;
     int start, end, length ;
     char const **sys_type = NULL ;
     char const_var[] = "const" ;
     char struct_var[] = "struct" ;
     char point_c[] = "*" ;
+    char equal_c[] = "=" ;
     char *temp = NULL ;
+    char *array_token ;
+    char array_name[MAX_TYPE_NAME] ;
+    int var_num = function->var_num ;
 
 
-    if(var_type != 17) {
+    if(var_type != 16 && var_type != 15) {
         ch = fgetc(fp) ;
+        row = 1 ;
+        strcpy(type_buffer[0], sys_var_type[var_type]) ;
         while ((ch = fgetc(fp)) != ';') {
             if (ch == ' ') {
                 type_buffer[row][type_token] = '\0' ;
@@ -301,30 +322,21 @@ void build_func_table(FILE *fp, cfg_func_t *function, char *var_type_buffer, int
         }
         type_buffer[row][type_token] = '\0' ;
         function->func_vars_table[var_num] = new_declaration() ;
-        if (var_type == 15) {
-
-        }
-        if (var_type != 16 || var_type == 14) {
-
-        }
-
-
-
-
-
-        if (strcmp(type_buffer[0], const_var) == 0) {
+        function->func_vars_table[var_num]->effect_domain = effect_domain ;
+        //static type can't define as array.
+        if (var_type == 14) {
             if (strcmp(type_buffer[1], struct_var) == 0) {
-                function->input_argument[arg_num]->is_struct = true ;
-                function->input_argument[arg_num]->struct_name = copy_string(type_buffer[2]) ;
+                function->func_vars_table[var_num]->is_struct = true ;
+                function->func_vars_table[var_num]->struct_name = copy_string(type_buffer[2]) ;
                 start = 3 ;
             }
             else {
                 start = 1 ;
             }
         }
-        else if (strcmp(type_buffer[0], struct_var) == 0) {
-            function->input_argument[arg_num]->is_struct = true ;
-            function->input_argument[arg_num]->struct_name = copy_string(type_buffer[1]) ;
+        else if (var_type == 13) {
+            function->func_vars_table[var_num]->is_struct = true ;
+            function->func_vars_table[var_num]->struct_name = copy_string(type_buffer[1]) ;
             start = 2 ;
         }
         else {
@@ -332,14 +344,12 @@ void build_func_table(FILE *fp, cfg_func_t *function, char *var_type_buffer, int
         }
         //set the is_pointer bool member
         if (strcmp(type_buffer[row-1], point_c) == 0) {
-            function->input_argument[arg_num]->is_pointer = true ;
+            function->func_vars_table[arg_num]->is_pointer = true ;
             end = row - 1 ;
         }
         else {
             end = row ;
         }
-        //store the arg name
-        function->input_argument[arg_num]->arg_name = copy_string(type_buffer[row]) ;
         //set the variable type number
         var_type_buffer[0] = '\0' ;
         for (i = start; i < end; i++) {
@@ -353,20 +363,63 @@ void build_func_table(FILE *fp, cfg_func_t *function, char *var_type_buffer, int
         if (var_type_buffer[0] != '\0') {
             for(sys_type = sys_var_type; *sys_type != NULL; sys_type++) {
                 if (strcmp(var_type_buffer, *sys_type) == 0) {
-                    function->input_argument[arg_num]->arg_type = sys_type - sys_var_type ;
+                    function->func_vars_table[var_num]->variable_type = sys_type - sys_var_type ;
                 }
             }
         }
-        //set control variable
-        row = 0 ;
-        type_token = 0 ;
-        arg_num++ ;
-        if (ch == ',') {
-            ch = fgetc(fp) ;
+        //store the var name
+        array_token = strchr(type_buffer[row], '[') ;
+        if (array_token != NULL) {
+            temp = strncpy(array_name, type_buffer, array_token - type_buffer[row]) ;
+            array_name[array_token - type_buffer[row]] = '\0' ;
+            function->func_vars_table[var_num]->is_array = true ;
+            function->func_vars_table[var_num]->name = copy_string(array_name) ;
+            array_token++ ;
+            type_buffer[row][type_token - 1] = '\0' ;
+            function->func_vars_table[var_num]->array_len = atoi(array_token) ;
         }
+        else {
+            function->func_vars_table[var_num]->name = copy_string(type_buffer[row]) ;
+        }
+        ch = fgetc(fp) ;
+    }
+    else if (var_type == 15) {
 
+        if (var_type == 15) {
+            //set start token
+            if (strcmp(type_buffer[1], const_var) == 0) {
+                start = 2 ;
+            }
+            else {
+                start = 1 ;
+            }
+            //set close token
+            if (strcmp(type_buffer[row - 1], equal_c) == 0) {
+                if (strcmp(type_buffer[row - 3], point_c) == 0) {
+                    end = row - 3 ;
+                }
+                else {
+                    end = row - 2 ;
+                }
+            }
+            else {
+                if (strcmp(type_buffer[row - 1], point_c) == 0) {
+                    end = row - 1 ;
+                }
+                else {
+                    end = row ;
+                }
+            }
+            //assignment !!! new node
+            //
+            //////////////////////////
+        }
+    }
+    else {
         fgets(var_type_buffer, MAX_TYPE_NAME, fp);
     }
+
+    function->var_num++ ;
 }
 
 
@@ -395,8 +448,6 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **function_table)
     int var_type = -1 ;
     char const **sys_type = NULL ;
 
-    //the number of vars of the function;
-    int var_num = 0 ;
 
 
     while (range_buffer[top-1] != 0) {
@@ -454,12 +505,9 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **function_table)
 
         //declaration_t, except enum
         if (var_type != -1) {
-            build_func_table(fp, function, var_type, current_domain, var_num) ;
+            build_vars_table(fp, function, var_type, current_domain) ;
             var_num ++ ;
         }
-    }
-    else {
-
     }
 
 

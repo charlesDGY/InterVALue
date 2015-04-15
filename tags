@@ -74,11 +74,12 @@ assignment_t::operator_a	cfg.h	/^    char *operator_a ;$/;"	m	struct:assignment_
 assignment_t::operator_b	cfg.c	/^    char *operator_b ;$/;"	m	struct:assignment_t	file:	access:public
 assignment_t::operator_b	cfg.h	/^    char *operator_b ;$/;"	m	struct:assignment_t	access:public
 bool	common.h	19;"	d
-build_cfg_tree	cfg.c	/^void build_cfg_tree(FILE *fp, cfg_func_t *function) {$/;"	f	signature:(FILE *fp, cfg_func_t *function)
+build_cfg_tree	cfg.c	/^void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **function_table) {$/;"	f	signature:(FILE *fp, cfg_func_t *function, cfg_func_t **function_table)
 build_cfgs	cfg.c	/^cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) {$/;"	f	signature:(char *cfg_file, char *glob_var_file)
 build_cfgs	cfg.h	/^cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) ;$/;"	p	signature:(char *cfg_file, char *glob_var_file)
-build_func_cfg	cfg.c	/^void build_func_cfg(FILE *fp, cfg_func_t *function) {$/;"	f	signature:(FILE *fp, cfg_func_t *function)
 build_func_cfg	cfg.h	/^void build_func_cfg(FILE *fp, cfg_func_t *function) ;$/;"	p	signature:(FILE *fp, cfg_func_t *function)
+build_input_args	cfg.c	/^void build_input_args(FILE *fp, cfg_func_t *function) {$/;"	f	signature:(FILE *fp, cfg_func_t *function)
+build_vars_table	cfg.c	/^void build_vars_table(FILE *fp, cfg_func_t *function, char *var_type_buffer, int var_type, int effect_domain, int var_num) {$/;"	f	signature:(FILE *fp, cfg_func_t *function, char *var_type_buffer, int var_type, int effect_domain, int var_num)
 call_argument	cfg.c	/^struct call_argument {$/;"	s	file:
 call_argument	cfg.c	/^typedef struct call_argument call_argument ;$/;"	t	typeref:struct:call_argument	file:
 call_argument	cfg.h	/^struct call_argument {$/;"	s
@@ -226,6 +227,7 @@ edge_num	cfg.h	/^    int edge_num ;$/;"	m	struct:cfg_func_t	access:public
 effect_domain	cfg.c	/^    int effect_domain ;$/;"	m	struct:declaration_t	file:	access:public
 end_node	cfg.c	/^    cfg_node_t *end_node ;$/;"	m	struct:cfg_edge_t	file:	access:public
 end_node	cfg.h	/^    cfg_node_t *end_node ;$/;"	m	struct:cfg_edge_t	access:public
+f	simpletest.c	/^f (int i)$/;"	f	signature:(int i)
 false	common.h	21;"	d
 free_node	intervalset.c	/^void free_node(interval_node *p)$/;"	f	signature:(interval_node *p)
 free_node	intervalset.h	/^void free_node(interval_node *p) ;$/;"	p	signature:(interval_node *p)
@@ -339,11 +341,13 @@ name	cfg.h	/^    char *name ;$/;"	m	struct:func_vars	access:public
 name	edgecontext.h	/^    char *name ;$/;"	m	struct:edge_context	access:public
 new_call_argument	cfg.c	/^call_argument *new_call_argument() {$/;"	f
 new_call_argument	cfg.h	/^call_argument *new_call_argument() ;$/;"	p	signature:()
+new_declaration	cfg.c	/^declaration_t *new_declaration() {$/;"	f
 new_edge	cfg.c	/^cfg_edge_t *new_edge() {$/;"	f
 new_edge	cfg.h	/^cfg_edge_t *new_edge() ;$/;"	p	signature:()
 new_func	cfg.c	/^cfg_func_t *new_func() {$/;"	f
 new_func	cfg.h	/^cfg_func_t *new_func() ;$/;"	p	signature:()
 new_functions	cfg.c	/^cfg_func_t **new_functions() {$/;"	f
+new_node	cfg.c	/^cfg_node_t *new_node() {$/;"	f
 next	edgecontext.h	/^    edge_context *next ;$/;"	m	struct:edge_context	access:public
 next	intervalset.h	/^    struct interval_node *next ;$/;"	m	struct:interval_node	typeref:struct:interval_node::interval_node	access:public
 next	intervaltest.c	/^    struct node2 *next;$/;"	m	struct:node2	typeref:struct:node2::node2	file:	access:public

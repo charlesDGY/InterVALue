@@ -103,8 +103,10 @@ hoho(int i)
         uu++ ;
     } while (uu < 100);
     static const long long *stac = 5 ;
+
+    static const long long ssaa[10] = {2, 4 ,5 ,6,4,5} ;
     int hae = *stac + 3 ;
-    extern long q2h4 ;
+    extern const long q2h4 ;
     const short shieg = 3 ;
     hae = shieg - 4 ;
     long long youma = 4 ;
@@ -149,7 +151,7 @@ hoho(int i)
         a[32] = 3 ;
     }
 
-    node3 newnode ;
+    const node3 newnode ;
     newnode.a = 4 ;
     node2 *node44 = (node2 *)malloc(sizeof(node2)) ;
     node44->p = 5 ;
