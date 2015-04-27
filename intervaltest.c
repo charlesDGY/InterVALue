@@ -144,8 +144,9 @@ hoho(int i)
     val = (val == 2 ? 3: 4) ;
 
     int a[50] = {3,4,5,6,7,8,9,10,3,2,1,4,5,6,7} ;
-    a[10] = 100 ;
-    a[39] = 23 ;
+    a[10] = val + glob ;
+    a[39] = a[3] + 23 ;
+    a[1] = a[4] ;
     a[val] = 4 ;
     if (a[10] == 100) {
         a[32] = 3 ;
@@ -189,8 +190,24 @@ hoho(int i)
     if (k == 4) {
         printf("\n");
     }
+    while (pp < 3 && k > 5) {
+        if (pp > 1) {
+            if (k > 2) {
+                pp++ ;
+            }
+        }
+    }
+
+    while (pp > 0 || k < 9 && (j == 4 || k > 3)) {
+        pp++ ;
+    }
+
+    for (k = 0; k < 8; k++) {
+        pp-- ;
+    }
 
     val = sub(add(i, j), val) ;
+    val = sub(i, j) + add(i, j) ;
     while(i > 0) {
         while (j > 5) {
             int ssd = 3 ;

@@ -21,7 +21,7 @@
 
 int main(int argc, const char *argv[])
 {
-//	char fName[256], str[256];
+    //char fName[256], str[256];
     /*strcpy(fName, argv[argc - 1]);*/
     /*if (argc <= 1) {*/
         /*fprintf(stderr, "parameter error!!\n");*/
@@ -155,7 +155,7 @@ int main(int argc, const char *argv[])
 
     //set and set arithmetic -- add, sub, mul, div text
     //
-/*    interval temp_a = {0, 0}, a = {1, 6}, b = {7, 9}, c = {11, 13}, d = {14, 19} ;*/
+    /*interval temp_a = {0, 0}, a = {1, 6}, b = {7, 9}, c = {11, 13}, d = {14, 19} ;*/
     /*interval temp_b = {0, 0}, aa = {1, 2}, bb = {2, 2}, cc = {2, 2}, dd = {14, 17} ;*/
     /*interval_node *result_head = NULL ;*/
     /*interval_node *head_a = make_node(temp_a) ;*/
@@ -230,10 +230,27 @@ int main(int argc, const char *argv[])
         /*iter = iter->next ;*/
     /*}*/
     /*printf("\n") ;*/
-
-
-    //test function generation
-    char *fp = "/home/dgy/Programming/VInterval/testfunc.c.gimple" ;
+/*    //test function generation*/
+    /*char *fp = "/home/dgy/Programming/VInterval/testfunc.c.gimple" ;*/
+    /*char *glob_var_file = NULL ;*/
+    /*cfg_func_t **result = NULL ;*/
+    /*result = build_cfgs(fp, glob_var_file) ;*/
+    /*int j = 0 ;*/
+    /*while ((*result) != NULL) {*/
+        /*printf("func_num: %d\n", (*result)->func_num) ;*/
+        /*printf("func name: %s\n", (*result)->func_name) ;*/
+        /*int i = 0 ;*/
+        /*while ((*result)->input_argument[i] != NULL) {*/
+            /*printf("input_argument %d : %s \nis_struct :%d \nis_pointer :%d \nstruct_name: %s\n",*/
+                    /*(*result)->input_argument[i]->arg_type, (*result)->input_argument[i]->arg_name,*/
+                    /*(*result)->input_argument[i]->is_struct,(*result)->input_argument[i]->is_pointer,(*result)->input_argument[i]->struct_name);*/
+            /*i++ ;*/
+        /*}*/
+        /*result++ ;*/
+    /*}*/
+//
+    //test cfg generation!
+    char *fp = "/home/dgy/Programming/VInterval/simpletest.c.004t.gimple" ;
     char *glob_var_file = NULL ;
     cfg_func_t **result = NULL ;
     result = build_cfgs(fp, glob_var_file) ;
@@ -250,6 +267,7 @@ int main(int argc, const char *argv[])
         }
         result++ ;
     }
+
 
     return 0;
 }

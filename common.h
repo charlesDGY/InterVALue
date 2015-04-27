@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include "interval.h"
 
-#define bool int
+#define bool unsigned char
 #define true 1
 #define false 0
 
