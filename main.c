@@ -250,7 +250,7 @@ int main(int argc, const char *argv[])
     /*}*/
 //
     //test cfg generation!
-    char *fp = "/home/dgy/Programming/VInterval/simpletest.c.004t.gimple" ;
+    char *fp = "/home/dgy/Programming/VInterval/usefultest.c.004t.gimple" ;
     char *glob_var_file = NULL ;
     cfg_func_t **result = NULL ;
     result = build_cfgs(fp, glob_var_file) ;

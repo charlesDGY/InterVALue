@@ -6,23 +6,24 @@
  *
  *       @author       :  Gaoyang Dai
  *       @email        :  edward.d.erlic@gmail.com
- *       @file         :  /home/dgy/Programming/VInterval/interval.h
- *       @date         :  2015/03/26 09:24
+ *       @file         :  /home/dgy/Programming/VInterval/rangeanalysis.h
+ *       @date         :  2015/04/30 10:07
  *       @description  :
  *
  *****************************************************************************/
 
-#ifndef INTERVAL_H
-#define INTERVAL_H
+#ifndef RANGEANALYSIS_H
+#define RANGEANALYSIS_H
 
 
 #include <stdio.h>
 #include <float.h>
-#include "common.h"
 
-#define interval_value_type double
-#define MAX_VALUE DBL_MAX_10_EXP
-#define MIN_VALUE DBL_MIN_10_EXP
+#include "cfg.h"
+#include "edgecontext.h"
+
+#define MAX_EDGE_STACK 150
+#define MAX_JUNC_STACK 150
 
 //basic interval type
 typedef struct {

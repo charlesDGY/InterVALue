@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "interval.h"
-#include "common.h"
 
 
 void interval_add(interval *a, interval *b, interval *c) {

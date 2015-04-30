@@ -207,6 +207,8 @@ char const *sys_var_type[] = {
     "static",
 //    "extern",
     "typedef",
+    "long",
+    "short",
     NULL
 } ;
 
@@ -233,8 +235,8 @@ cfg_func_t *new_func() {
     p->edge_num = 0 ;
     //the number of vars of the function;
     p->var_num = 0 ;
-    p->return_is_var = false ;
-    p->return_num = NULL ;
+//    p->return_is_var = false ;
+//    p->return_num = NULL ;
     p->input_argument[0] = NULL ;
     p->func_vars_table[0] = NULL ;
     //token
@@ -331,6 +333,7 @@ cfg_node_t *new_node(cfg_func_t *function) {
     p->assignment_i = NULL ;
     p->if_test_i = NULL ;
     p->switch_test_i = NULL ;
+    p->return_i = NULL ;
     //p->junction_t = NULL ;
     p->is_if_junction = false ;
     p->node_id = function->node_num ;
@@ -393,15 +396,22 @@ call_t *new_call() {
     return p ;
 }
 
-
+return_t *new_return() {
+    return_t *p = (return_t *)malloc(sizeof *p) ;
+    if (p == NULL) {
+        perror("new return_t out of memory!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    p->return_num = NULL ;
+    p->return_is_var = false ;
+    return p ;
+}
 
 
 char *copy_string(char *str) {
     char *result = NULL ;
-    result = strdup(str) ;
-    if (result == NULL) {
-        perror("copy string error!!") ;
-        exit(EXIT_FAILURE) ;
+    if (str != NULL) {
+        result = strdup(str) ;
     }
     return result ;
 }
@@ -527,7 +537,7 @@ char *get_var_position(char *seek, cfg_func_t *function, int current_domain) {
         }
     }
     if (temp_var == -1) {
-        if (is_struct == 1 && is_struct == 2) {
+        if (is_struct == 1 || is_struct == 2) {
             *array_token = '\0' ;
             for (var_table = function->func_vars_table; *var_table != NULL; var_table++) {
                 if (strcmp((*var_table)->name, pointer) == 0 && (*var_table)->effect_domain <= current_domain &&
@@ -552,11 +562,12 @@ char *get_var_position(char *seek, cfg_func_t *function, int current_domain) {
                 function->func_vars_table[function->var_num] = new_declaration() ;
                 function->func_vars_table[function->var_num]->effect_domain = temp_domain ;
                 function->func_vars_table[function->var_num]->name = copy_string(pointer) ;
-                function->func_vars_table[function->var_num]->variable_type = 6 ;
+                function->func_vars_table[function->var_num]->variable_type = 19 ;
                 sprintf(var_type_buffer, "%d", function->var_num) ;
                 free(pointer) ;
                 pointer = copy_string(var_type_buffer) ;
                 function->var_num++ ;
+                function->func_vars_table[function->var_num] = NULL ;
             }
         }
         else {
@@ -590,6 +601,7 @@ void build_vars_table(char *line_buffer, cfg_func_t *function, int var_type, int
     char *array_token ;
     char array_name[MAX_TYPE_NAME] ;
     int var_num = function->var_num ;
+    line_buffer[strlen(line_buffer) - 1] = '\0' ;
 
     if(var_type != 16 && var_type != 15) {
         /*ch = fgetc(fp) ;*/
@@ -723,8 +735,10 @@ void build_vars_table(char *line_buffer, cfg_func_t *function, int var_type, int
     else {
         //fgets(var_type_buffer, MAX_TYPE_NAME, fp);
     }
-    function->var_num++ ;
-    function->func_vars_table[function->var_num] = NULL ;
+    if (function->func_vars_table[function->var_num] != NULL) {
+        function->var_num++ ;
+        function->func_vars_table[function->var_num] = NULL ;
+    }
 }
 
 //link two nodes with a new edge.
@@ -1190,32 +1204,42 @@ cfg_node_t *make_assign_call(char *line_str, cfg_node_t *current_node, cfg_func_
         }
     }
     //compulsory type convert
-    else if (row == 3 && type_buffer[2][0] == '(') {
+    else if (row >= 3 && type_buffer[2][0] == '(' && type_buffer[1][0] == '=') {
         new_current_node->node_type = ASSIGNMENT ;
         new_current_node->assignment_i = new_assignment() ;
         new_current_node->assignment_i->is_type_convert = true ;
+        //dst
         pointer = get_var_position(type_buffer[0], function, current_domain) ;
         if (pointer == NULL) {
             perror("compulsory type convert dst is unknown!!") ;
             exit(EXIT_FAILURE) ;
         }
         new_current_node->assignment_i->dst_name = atoi(pointer) ;
-        token = type_buffer[2] ;
+        //convert type
+        var_type_buffer[0] = '\0' ;
+        for (i = 2; i < row; i++) {
+            token = strcat(var_type_buffer, type_buffer[i]) ;
+            tail_handle = strlen(var_type_buffer) ;
+            var_type_buffer[tail_handle] = ' ' ;
+            var_type_buffer[tail_handle + 1] = '\0' ;
+        }
+        var_type_buffer[strlen(var_type_buffer) - 2] = '\0' ;
+        token = var_type_buffer ;
         token++ ;
-        tail_handle = strlen(token) ;
-        token[tail_handle - 1] = '\0' ;
         for(sys_type = sys_var_type; *sys_type != NULL; sys_type++) {
             if (strcmp(token, *sys_type) == 0) {
                 var_type = sys_type - sys_var_type ;
             }
         }
-        if (var_type != -1) {
+        if (var_type == -1) {
             perror("compulsory type is not a system type!!!") ;
             exit(EXIT_FAILURE) ;
         }
+        var_type_buffer[0] = '\0' ;
         sprintf(var_type_buffer, "%d", var_type) ;
         new_current_node->assignment_i->operator_a = copy_string(var_type_buffer) ;
-        token = type_buffer[3] ;
+        //source var
+        token = type_buffer[row] ;
         tail_handle = strlen(token) ;
         token[tail_handle - 1] = '\0' ;
         pointer = get_var_position(token, function, current_domain) ;
@@ -1280,7 +1304,7 @@ cfg_node_t *make_assign_call(char *line_str, cfg_node_t *current_node, cfg_func_
     else if (row == 2 && type_buffer[2][0] == '{' && type_buffer[2][1] == '}') {
         free(new_current_node) ;
         new_current_node = NULL ;
-        return ;
+        return new_current_node ;
     }
     //assignment c = a
     else if (row == 2) {
@@ -1396,7 +1420,7 @@ cfg_node_t *creat_goto_node(char *line_str, cfg_node_t *current_node, cfg_func_t
     int tail_handle ;
     char *pointer = NULL ;
     int row = 0 ;
-    char *type_buffer[2] ;
+    char *type_buffer[3] ;
     cfg_node_t *new_current_node = NULL ;
     cfg_node_t *new_junction = NULL ;
     //split the string
@@ -1429,6 +1453,53 @@ cfg_node_t *creat_goto_node(char *line_str, cfg_node_t *current_node, cfg_func_t
 void creat_switch_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) {
 
 }
+
+void creat_return_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) {
+    int tail_handle ;
+    char *pointer = NULL ;
+    char *temp = NULL ;
+    int row = 0 ;
+    char *type_buffer[3] ;
+    cfg_node_t *new_current_node = NULL ;
+    cfg_node_t *new_junction = NULL ;
+    //split the string
+    type_buffer[row] = strtok(line_str, " ") ;
+    while (type_buffer[row] != NULL) {
+        row++ ;
+        type_buffer[row] = strtok(NULL, " ") ;
+    }
+
+    new_current_node = new_node(function) ;
+    new_current_node->node_type = RETURN ;
+    new_current_node->return_i = new_return() ;
+
+    tail_handle = strlen(type_buffer[1]) ;
+    pointer = type_buffer[1] ;
+    type_buffer[1][tail_handle - 1] = '\0' ;
+    temp = is_instant_number(pointer) ;
+    if (temp != NULL) {
+        new_current_node->return_i->return_is_var = false ;
+        new_current_node->return_i->return_num = copy_string(temp) ;
+    }
+    else {
+        temp = get_var_position(pointer, function, current_domain) ;
+        if (temp == NULL) {
+            perror("return var is unknown") ;
+            exit(EXIT_FAILURE) ;
+        }
+        new_current_node->return_i->return_is_var = true ;
+        new_current_node->return_i->return_num = copy_string(temp) ;
+    }
+    //link node
+    link_last_token(new_current_node, function) ;
+    //link current_node and new if node
+    if (current_node != NULL) {
+        link_nodes(current_node, new_current_node, function) ;
+    }
+    new_junction = creat_if_junction(new_current_node, function) ;
+
+}
+
 
 void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
     //start
@@ -1468,6 +1539,7 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
     //put input_argument to func_vars_table
     call_argument **input_argument = NULL ;
     declaration_t *new_dec = NULL ;
+    declaration_t **var_table = NULL ;
     //token
     /*int exist_token_num = 0 ;*/
     /*int need_token_num = 0 ;*/
@@ -1481,6 +1553,7 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
     //current node
     cfg_node_t *current_node = NULL ;
     cfg_node_t *new_current_node = NULL ;
+    cfg_node_t *new_junction = NULL ;
     /*cfg_edge_t *new_link_edge = NULL ;*/
 
     //set entry
@@ -1492,20 +1565,37 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
     current_node->pre_edges[current_node->pre_edges_num] = NULL ;
     function->pre_entry->end_node = current_node ;
 
-    //put input_argument to the func_vars_table
-    for(input_argument = function->input_argument; *input_argument != NULL; input_argument++) {
-        new_dec = new_declaration() ;
-        new_dec->name = copy_string((*input_argument)->arg_name) ;
-        new_dec->variable_type = (*input_argument)->arg_type ;
-        new_dec->is_pointer = (*input_argument)->is_pointer ;
-        new_dec->is_struct = (*input_argument)->is_struct ;
-        new_dec->struct_name = copy_string((*input_argument)->struct_name) ;
-        new_dec->effect_domain = 1 ;
-        function->func_vars_table[function->var_num] = new_dec ;
-        function->var_num++ ;
-        function->func_vars_table[function->var_num] = NULL ;
+    if (function->func_num != 0) {
+        //put input_argument to the func_vars_table
+        for(input_argument = function->input_argument; *input_argument != NULL; input_argument++) {
+            new_dec = new_declaration() ;
+            new_dec->name = copy_string((*input_argument)->arg_name) ;
+            new_dec->variable_type = (*input_argument)->arg_type ;
+            new_dec->is_pointer = (*input_argument)->is_pointer ;
+            new_dec->is_struct = (*input_argument)->is_struct ;
+            new_dec->struct_name = copy_string((*input_argument)->struct_name) ;
+            new_dec->effect_domain = 1 ;
+            function->func_vars_table[function->var_num] = new_dec ;
+            function->var_num++ ;
+            function->func_vars_table[function->var_num] = NULL ;
+        }
+        //put global variable to the func_vars_table
+        for(var_table = functions[0]->func_vars_table; *var_table != NULL; var_table++) {
+            new_dec = new_declaration() ;
+            new_dec->name = copy_string((*var_table)->name) ;
+            new_dec->variable_type = (*var_table)->variable_type ;
+            new_dec->is_pointer = (*var_table)->is_pointer ;
+            new_dec->is_struct = (*var_table)->is_struct ;
+            new_dec->struct_name = copy_string((*var_table)->struct_name) ;
+            new_dec->array_len = (*var_table)->array_len ;
+            new_dec->is_array = (*var_table)->is_array ;
+            new_dec->is_static = (*var_table)->is_static ;
+            new_dec->effect_domain = 0 ;
+            function->func_vars_table[function->var_num] = new_dec ;
+            function->var_num++ ;
+            function->func_vars_table[function->var_num] = NULL ;
+        }
     }
-
     //first '{'
     fgets(line_buffer, MAX_LINE_LENGTH, fp);
     range_num++ ;
@@ -1563,7 +1653,7 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
             current_domain = range_stack[top-1] ;
         }
         //if_test
-        else if (strcmp(var_type_buffer, if_test_s)) {
+        else if (strcmp(var_type_buffer, if_test_s) == 0) {
             build_if_node(line_str, current_node, function, current_domain) ;
             current_node = NULL ;
         }
@@ -1576,39 +1666,25 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
         //junction_t
         else if (var_type_buffer[0] == '<' && var_type_buffer[1] == 'D') {
             line_str[strlen(line_str) - 1] = '\0' ;
-            function->exist_tokens[function->exist_token_num]->token_name = copy_string(line_str) ;
-            function->exist_tokens[function->exist_token_num]->pointer = NULL ;
-            if (current_node->node_type == GOTO) {
-                function->exist_tokens[function->exist_token_num]->while_pointer = current_node ;
+            add_exist_token(line_str, function) ;
+            //function->exist_tokens[function->exist_token_num]->token_name = copy_string(line_str) ;
+            //function->exist_tokens[function->exist_token_num]->pointer = NULL ;
+            if (current_node != NULL && current_node->node_type == GOTO) {
+                function->exist_tokens[function->exist_token_num - 1]->while_pointer = current_node ;
                 current_node = NULL ;
             }
-            function->exist_token_num++ ;
-            function->exist_tokens[function->exist_token_num] = NULL ;
+            //function->exist_token_num++ ;
+            //function->exist_tokens[function->exist_token_num] = NULL ;
         }
         //goto
-        else if (strcmp(var_type_buffer, goto_test_s)) {
+        else if (strcmp(var_type_buffer, goto_test_s) == 0) {
             new_current_node = creat_goto_node(line_str, current_node, function) ;
             current_node = new_current_node ;
         }
         //return
-        else if (strcmp(var_type_buffer, return_s)) {
-            line_pointer++ ;
-            line_tail = strlen(line_pointer) ;
-            line_pointer[line_tail - 1] = '\0' ;
-            line_str = is_instant_number(line_pointer) ;
-            if (line_str != NULL) {
-                function->return_is_var = false ;
-                function->return_num = copy_string(line_str) ;
-            }
-            else {
-                line_str = get_var_position(line_pointer, function, current_domain) ;
-                if (line_str == NULL) {
-                    perror("return var is unknown") ;
-                    exit(EXIT_FAILURE) ;
-                }
-                function->return_is_var = true ;
-                function->return_num = copy_string(line_str) ;
-            }
+        else if (strcmp(var_type_buffer, return_s) == 0) {
+            creat_return_node(line_str, current_node, function, current_domain) ;
+            current_node = NULL ;
         }
         //declaration_t and assignment_t and call_t
         else {
@@ -1631,6 +1707,15 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
             var_type = -1 ;
         }
     }
+
+    //set exit
+    new_current_node = new_node(function) ;
+    new_current_node->node_type = EXIT ;
+    link_last_token(new_current_node, function) ;
+    if (current_node != NULL) {
+        link_nodes(current_node, new_current_node, function) ;
+    }
+    new_junction = creat_if_junction(new_current_node, function) ;
 
 }
 
@@ -1731,7 +1816,8 @@ void build_input_args(FILE *fp, cfg_func_t *function) {
 }
 
 
-cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) {
+//cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) {
+cfg_func_t **build_cfgs(char *cfg_file) {
     FILE *fp ;
     fp = fopen(cfg_file, "r") ;
     if (fp == NULL) {
@@ -1750,17 +1836,23 @@ cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) {
     fseek(fp, 0, SEEK_SET);
     //generate function_table
     while ((ch = fgetc(fp)) != EOF) {
-        if (ch != ' ' && ch != '{' && ch != '}') {
+        if (ch != ' ' && ch != '{' && ch != '}' && ch != '\n') {
             ungetc(ch, fp) ;
             functions[func_num] = new_func() ;
             //get function name
             fscanf(fp,"%s", func_name_buffer) ;
             func_name = copy_string(func_name_buffer) ;
+            if (func_num == 0 && strcmp(func_name, "global") != 0) {
+                perror("the first function isn't global function!") ;
+                exit(EXIT_FAILURE) ;
+            }
             functions[func_num]->func_name = func_name ;
             functions[func_num]->func_num = func_num ;
             func_num++ ;
         }
-        fgets(row_buffer, MAX_LINE_LENGTH, fp);
+        if (ch != '\n') {
+            fgets(row_buffer, MAX_LINE_LENGTH, fp) ;
+        }
     }
     functions[func_num] = NULL ;
 
@@ -1772,7 +1864,7 @@ cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) {
         build_input_args(fp, functions[func_num]) ;
         //build_function cfg_tree
         build_cfg_tree(fp, functions[func_num], functions) ;
-
+        //skim the useless chars
         while ((ch = fgetc(fp)) == '\n') ;
         ungetc(ch, fp) ;
     }

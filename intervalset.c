@@ -25,30 +25,30 @@
 
 interval_node *make_node(interval item)
 {
-	interval_node *p = malloc(sizeof *p) ;
+    interval_node *p = malloc(sizeof *p) ;
     if (p == NULL) {
         perror("out of memory!") ;
         exit(EXIT_FAILURE) ;
     }
-	p->item.low_value = item.low_value ;
+    p->item.low_value = item.low_value ;
     p->item.up_value = item.up_value ;
-	p->next = NULL ;
-	return p;
+    p->next = NULL ;
+    return p;
 }
 
 void free_node(interval_node *p)
 {
-	free(p);
+    free(p);
 }
 
 void destroy_set(interval_node *head)
 {
-	interval_node *q, *p = head;
-	while (p) {
-		q = p;
-		p = p->next;
-		free_node(q);
-	}
+    interval_node *q, *p = head;
+    while (p) {
+        q = p;
+        p = p->next;
+        free_node(q);
+    }
 }
 
 
@@ -73,17 +73,17 @@ interval_node *copy_set(interval_node *src)
         p->next = make_node(temp_interval) ;
         p = p->next ;
     }
-	return result ;
+    return result ;
 }
 
 
 interval_node *search_node(interval_node *head, interval key)
 {
-	interval_node *p;
-	for (p = head->next; p; p = p->next)
-		if (p->item.low_value == key.low_value && p->item.up_value == key.up_value)
-			return p;
-	return NULL;
+    interval_node *p;
+    for (p = head->next; p; p = p->next)
+        if (p->item.low_value == key.low_value && p->item.up_value == key.up_value)
+            return p;
+    return NULL;
 }
 
 
@@ -98,38 +98,38 @@ void insert_node(interval_node *head, interval_node *p)
 
 /*void delete(interval_node *head, interval_node *p)*/
 /*{*/
-	/*interval_node *pre;*/
-	/*if (p == head) {*/
-		/*head = p->next;*/
-		/*return;*/
-	/*}*/
-	/*for (pre = head; pre; pre = pre->next)*/
-		/*if (pre->next == p) {*/
-			/*pre->next = p->next;*/
-			/*return;*/
-		/*}*/
+/*interval_node *pre;*/
+/*if (p == head) {*/
+/*head = p->next;*/
+/*return;*/
+/*}*/
+/*for (pre = head; pre; pre = pre->next)*/
+/*if (pre->next == p) {*/
+/*pre->next = p->next;*/
+/*return;*/
+/*}*/
 /*}*/
 
 /*void traverse(void (*visit)(interval_node *))*/
 /*{*/
-	/*interval_node * p;*/
-	/*for (p = head; p; p = p->next)*/
-		/*visit(p);*/
+/*interval_node * p;*/
+/*for (p = head; p; p = p->next)*/
+/*visit(p);*/
 /*}*/
 /*void push(interval_node * p)*/
 /*{*/
-	/*insert(p);*/
+/*insert(p);*/
 /*}*/
 
 /*interval_node * pop(void)*/
 /*{*/
-	/*if (head == NULL)*/
-		/*return NULL;*/
-	/*else {*/
-		/*interval_node * p = head;*/
-		/*head = head->next ;*/
-		/*return p;*/
-	/*}*/
+/*if (head == NULL)*/
+/*return NULL;*/
+/*else {*/
+/*interval_node * p = head;*/
+/*head = head->next ;*/
+/*return p;*/
+/*}*/
 /*}*/
 
 
@@ -200,7 +200,7 @@ void interval_set_union(interval a, interval_node *head) {
         //free unuseful node
         destroy_set(p) ;
     }
-};
+}
 
 //interval and set intersect operate, destroy old head and return new set in head
 void interval_set_intersect(interval a, interval_node *head) {
@@ -284,7 +284,7 @@ void interval_set_intersect(interval a, interval_node *head) {
         return ;
     }
 
-};
+}
 
 
 //set and set union operate, no change head_a and head_b , return a new result use new dynamic space.
@@ -310,7 +310,7 @@ interval_node *set_set_union(interval_node *head_a, interval_node *head_b) {
         iter = iter->next ;
     }
     return result ;
-};
+}
 
 //set and set union operate, no change head_a and head_b, return a new result use new dynamic space.
 interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) {
@@ -343,7 +343,7 @@ interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) {
         iter = iter->next ;
     }
     return result ;
-};
+}
 
 //set and set add, sub, mul, div operate, 1 --add   2 -- sub  3 -- mul  4 -- div
 interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, unsigned int operator_in) {
@@ -359,8 +359,8 @@ interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, 
     interval temp_interval ;
     if ((head_a->item.low_value == MIN_VALUE && head_a->item.up_value == MAX_VALUE) ||
         (head_b->item.low_value == MIN_VALUE && head_b->item.up_value == MAX_VALUE)) {
-        temp_interval.low_value == MIN_VALUE ;
-        temp_interval.up_value == MAX_VALUE ;
+        temp_interval.low_value = MIN_VALUE ;
+        temp_interval.up_value = MAX_VALUE ;
         result = make_node(temp_interval) ;
         return result;
     }
@@ -377,18 +377,22 @@ interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, 
     //calculate result
     while (iter_a != NULL) {
         while (iter_b != NULL) {
+            //add
             if (operator_in == 1) {
                 interval_add(&iter_a->item, &iter_b->item, &temp_interval) ;
                 interval_set_union(temp_interval, result) ;
             }
+            //sub
             else if (operator_in == 2) {
                 interval_sub(&iter_a->item, &iter_b->item, &temp_interval) ;
                 interval_set_union(temp_interval, result) ;
             }
+            //mul
             else if (operator_in == 3) {
                 interval_mul(&iter_a->item, &iter_b->item, &temp_interval) ;
                 interval_set_union(temp_interval, result) ;
             }
+            //div
             else if (operator_in == 4) {
                 interval_div(&iter_a->item, &iter_b->item, &temp_interval) ;
                 interval_set_union(temp_interval, result) ;
@@ -400,7 +404,7 @@ interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, 
     }
     return result ;
 
-};
+}
 
 
 

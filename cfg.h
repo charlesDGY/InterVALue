@@ -22,7 +22,7 @@
 
 
 
-#define MAX_FUNC_NUM 100
+#define MAX_FUNC_NUM 1000
 
 #define MAX_FUNC_NAME 60
 
@@ -41,7 +41,7 @@
 #define MAX_EDGE_NUM 64
 
 
-typedef enum {ENTRY, RETURN, GOTO, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;
+typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;
 
 typedef struct declaration_t declaration_t ;
 typedef struct assignment_t assignment_t ;
@@ -53,6 +53,7 @@ typedef struct call_t call_t ;
 typedef struct call_argument call_argument ;
 typedef struct call_parameter call_parameter ;
 typedef struct token_list token_list ;
+typedef struct return_t return_t ;
 //typedef struct func_vars func_vars ;
 
 typedef struct cfg_edge_t cfg_edge_t ;
@@ -135,6 +136,10 @@ struct token_list {
     cfg_node_t *while_pointer ;
 } ;
 
+struct return_t {
+    char *return_num ;
+    bool return_is_var ;
+} ;
 
 /*struct func_vars {*/
     /*char *name ;*/
@@ -164,6 +169,7 @@ struct cfg_node_t {
     assignment_t *assignment_i ;
     if_test_t *if_test_i ;
     switch_test_t *switch_test_i ;
+    return_t *return_i ;
 //    junction_t *junction_i ;
 
 } ;
@@ -174,8 +180,8 @@ struct cfg_func_t {
     int edge_num ;
     int node_num ;
     int var_num ;
-    char *return_num ;
-    bool return_is_var ;
+//    char *return_num ;
+//    bool return_is_var ;
     call_argument *input_argument[MAX_INPUT_VAR] ;
     declaration_t *func_vars_table[MAX_FUNC_VARS] ;
     cfg_edge_t *pre_entry ;
@@ -257,6 +263,8 @@ cfg_node_t *make_assign_call(char *line_str, cfg_node_t *current_node, cfg_func_
 cfg_node_t *creat_goto_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function) ;
 
 void creat_switch_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) ;
+
+void creat_return_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) ;
 
 void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **function_table) ;
 

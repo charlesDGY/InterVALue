@@ -1,0 +1,300 @@
+add (int a, int b)
+{
+  int D.3820;
+
+  __builtin_putchar (10);
+  D.3820 = a + b;
+  return D.3820;
+}
+
+
+sub (int a, int b)
+{
+  int D.3822;
+  int D.3823;
+  long int d;
+
+  D.3822 = a - b;
+  d = (long int) D.3822;
+  D.3823 = (int) d;
+  return D.3823;
+}
+
+
+mul (int * a, long int * b)
+{
+  __builtin_putchar (10);
+}
+
+
+cdiv (const struct node2 a, const struct node2 * b)
+{
+  __builtin_putchar (10);
+}
+
+
+hoho (int i)
+{
+  int D.3825;
+  float D.3828;
+  float D.3829;
+  int D.3832;
+  int D.3833;
+  int D.3840;
+  int iftmp.0;
+  int D.3845;
+  int D.3846;
+  int D.3847;
+  int D.3848;
+  int D.3849;
+  short unsigned int k.1;
+  int D.3863;
+  int D.3864;
+  int D.3865;
+  double D.3868;
+  double D.3869;
+  double D.3870;
+  int glob;
+  float glob2;
+  int uu;
+  int hae;
+  const short int shieg;
+  long long int youma;
+  long long unsigned int youmei;
+  char ee;
+  char as;
+  int D;
+  int val;
+  int val2;
+  int gg;
+  int j;
+  int a[50];
+  float noteasy;
+  double t;
+  float haha;
+  short unsigned int k;
+  long unsigned int kj;
+  typedef struct cang struct struct cang;
+  typedef struct cang cang;
+  struct cang * kkk;
+  struct cang zzz;
+  float noha;
+  unsigned int pp;
+  long unsigned int poi;
+  unsigned char pio;
+  char ma;
+  int vv;
+  double ss;
+
+  try
+    {
+      glob2 = 4.5e+0;
+      uu = 3;
+      hae = 3;
+      shieg = 3;
+      D.3825 = (int) shieg;
+      hae = D.3825 + -4;
+      youma = 4;
+      youmei = 2;
+      ee = 115;
+      as = 99;
+      if (ee == as) goto <D.3826>; else goto <D.3827>;
+      <D.3826>:
+      {
+        int xx;
+
+        ee = 99;
+        xx = 3;
+        hae = xx + 1;
+      }
+      <D.3827>:
+      D = 3;
+      glob = 1;
+      D.3828 = glob2 - 1.0e+1;
+      D.3829 = (float) glob;
+      if (D.3828 == D.3829) goto <D.3830>; else goto <D.3831>;
+      <D.3830>:
+      glob2 = 4.0e+0;
+      <D.3831>:
+      val = 12;
+      val2 = 6;
+      gg = 2 - val;
+      j = 32767;
+      D.3832 = val + val2;
+      D.3833 = D.3832 * val2;
+      j = D.3833 - val;
+      if (i > 0) goto <D.3836>; else goto <D.3834>;
+      <D.3836>:
+      if (j <= 49) goto <D.3837>; else goto <D.3834>;
+      <D.3837>:
+      goto <D.3776>;
+      <D.3775>:
+      j = j + 5;
+      <D.3776>:
+      if (j <= 99) goto <D.3775>; else goto <D.3777>;
+      <D.3777>:
+      goto <D.3835>;
+      <D.3834>:
+      j = j + -1;
+      <D.3835>:
+      if (val == 5) goto <D.3838>; else goto <D.3839>;
+      <D.3838>:
+      val = val + 1;
+      D.3840 = 0;
+      return D.3840;
+      <D.3839>:
+      if (val == 2) goto <D.3842>; else goto <D.3843>;
+      <D.3842>:
+      iftmp.0 = 3;
+      goto <D.3844>;
+      <D.3843>:
+      iftmp.0 = 4;
+      <D.3844>:
+      val = iftmp.0;
+      a = {};
+      a[0] = 3;
+      a[1] = 4;
+      a[2] = 5;
+      a[3] = 6;
+      a[4] = 7;
+      a[5] = 8;
+      a[6] = 9;
+      a[7] = 10;
+      a[8] = 3;
+      a[9] = 2;
+      a[10] = 1;
+      a[11] = 4;
+      a[12] = 5;
+      a[13] = 6;
+      a[14] = 7;
+      D.3845 = val + glob;
+      a[10] = D.3845;
+      D.3846 = a[3];
+      D.3847 = D.3846 + 23;
+      a[39] = D.3847;
+      D.3848 = a[4];
+      a[1] = D.3848;
+      a[val] = 4;
+      D.3849 = a[10];
+      if (D.3849 == 100) goto <D.3850>; else goto <D.3851>;
+      <D.3850>:
+      a[32] = 3;
+      <D.3851>:
+      noteasy = 5.77999986708164215087890625e-2;
+      t = 5.0e+0;
+      haha = 1.0e+1;
+      k = 5;
+      kj = 2;
+      kkk = malloc (4);
+      kkk->l = 9;
+      zzz.l = 10;
+      zzz.l = 5;
+      noha = 5.00000007450580596923828125e-2;
+      pp = 9;
+      poi = 3;
+      pio = 106;
+      if (k == 4) goto <D.3852>; else goto <D.3853>;
+      <D.3852>:
+      __builtin_putchar (10);
+      <D.3853>:
+      goto <D.3795>;
+      <D.3794>:
+      if (pp > 1) goto <D.3854>; else goto <D.3855>;
+      <D.3854>:
+      if (k > 2) goto <D.3856>; else goto <D.3857>;
+      <D.3856>:
+      pp = pp + 1;
+      <D.3857>:
+      <D.3855>:
+      <D.3795>:
+      if (pp <= 2) goto <D.3858>; else goto <D.3796>;
+      <D.3858>:
+      if (k > 5) goto <D.3794>; else goto <D.3796>;
+      <D.3796>:
+      goto <D.3798>;
+      <D.3797>:
+      pp = pp + 1;
+      <D.3798>:
+      if (pp != 0) goto <D.3797>; else goto <D.3859>;
+      <D.3859>:
+      if (k <= 8) goto <D.3860>; else goto <D.3799>;
+      <D.3860>:
+      if (j == 4) goto <D.3797>; else goto <D.3861>;
+      <D.3861>:
+      if (k > 3) goto <D.3797>; else goto <D.3799>;
+      <D.3799>:
+      k = 0;
+      goto <D.3801>;
+      <D.3800>:
+      pp = pp + 4294967295;
+      k.1 = k;
+      k = k.1 + 1;
+      <D.3801>:
+      if (k <= 7) goto <D.3800>; else goto <D.3802>;
+      <D.3802>:
+      D.3863 = add (i, j);
+      val = sub (D.3863, val);
+      D.3864 = sub (i, j);
+      D.3865 = add (i, j);
+      val = D.3864 + D.3865;
+      goto <D.3815>;
+      <D.3814>:
+      goto <D.3806>;
+      <D.3805>:
+      {
+        int ssd;
+
+        ssd = 3;
+        ssd = i + j;
+        if (ssd == 4) goto <D.3866>; else goto <D.3867>;
+        <D.3866>:
+        {
+          int bbb;
+
+          bbb = 3;
+          bbb = ssd;
+        }
+        <D.3867>:
+      }
+      <D.3806>:
+      if (j > 5) goto <D.3805>; else goto <D.3807>;
+      <D.3807>:
+      switch (val) <default: <D.3813>, case 2: <D.3812>, case 3: <D.3808>, case 4: <D.3811>, case 8: <D.3810>>
+      <D.3808>:
+      i = j;
+      j = 2;
+      goto <D.3809>;
+      <D.3810>:
+      i = i + 1;
+      j = 6;
+      goto <D.3809>;
+      <D.3811>:
+      j = 4;
+      <D.3812>:
+      j = 1;
+      <D.3813>:
+      i = 0;
+      <D.3809>:
+      i = -2;
+      <D.3815>:
+      if (i > 0) goto <D.3814>; else goto <D.3816>;
+      <D.3816>:
+      D.3868 = (double) j;
+      D.3869 = sqrt (D.3868);
+      i = (int) D.3869;
+      vv = 4;
+      ss = 2.29999999999999982236431605997495353221893310546875e+0;
+      D.3870 = floor (ss);
+      vv = (int) D.3870;
+      printf ("%d\n", j);
+      D.3840 = 0;
+      return D.3840;
+    }
+  finally
+    {
+      a = {CLOBBER};
+      zzz = {CLOBBER};
+    }
+}
+
+
