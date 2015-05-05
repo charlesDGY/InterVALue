@@ -35,11 +35,11 @@ void mul_overflow(interval_value_type *a, interval_value_type *b) ;
 
 void div_overflow(interval_value_type *a, interval_value_type *b) ;
 //calculate the sum of a and b. Deal with the infinite number MAX_VALUE and MIN_VALUE, overflow error.
-interval_value_type add_inf(interval_value_type a, interval_value_type b);
+interval_value_type add_inf(interval_value_type a, interval_value_type b, int variable_type);
 
-interval_value_type sub_inf(interval_value_type a, interval_value_type b);
+interval_value_type sub_inf(interval_value_type a, interval_value_type b, int variable_type);
 
-interval_value_type mul_inf(interval_value_type a, interval_value_type b);
+interval_value_type mul_inf(interval_value_type a, interval_value_type b, int variable_type);
 
-interval_value_type div_inf(interval_value_type a, interval_value_type b);
+interval_value_type div_inf(interval_value_type a, interval_value_type b, int variable_type);
 #endif

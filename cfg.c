@@ -938,6 +938,12 @@ void build_if_node(char *line_str, cfg_node_t *current_node, cfg_func_t *functio
     }
     //is an exist token, then there is a loop, add junction_node(while junction)
     else {
+        //generate if junction at the begin of the loop if need. if there are code like while(a < 1 || b > 2), then we need if junction.
+        if ((*exist_token_prt)->pointer->node_type != JUNCTION && (*exist_token_prt)->pointer->pre_edges_num > 1) {
+            new_junction = creat_if_junction((*exist_token_prt)->pointer, function) ;
+            (*exist_token_prt)->pointer = new_junction ;
+        }
+        //add while junction
         if ((*exist_token_prt)->while_pointer->succ_edges[0]->end_node->pre_edges_num >= 3) {
             new_junction = add_while_junction((*exist_token_prt)->while_pointer->succ_edges[0]->end_node, function) ;
         }

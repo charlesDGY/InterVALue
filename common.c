@@ -43,7 +43,7 @@ void add_overflow(interval_value_type *a, interval_value_type *b) {
 }
 
 //add operator, consider the infinite and overflow.
-interval_value_type add_inf(interval_value_type a, interval_value_type b) {
+interval_value_type add_inf(interval_value_type a, interval_value_type b, int variable_type) {
     if ((a == MAX_VALUE && b > MIN_VALUE && b < MAX_VALUE) || (b == MAX_VALUE && a > MIN_VALUE && a < MAX_VALUE) || (a == MAX_VALUE && b == MAX_VALUE) ) {
         return MAX_VALUE ;
     }
@@ -56,9 +56,75 @@ interval_value_type add_inf(interval_value_type a, interval_value_type b) {
     }
     else {
         add_overflow(&a, &b) ;
-        return a + b ;
+        interval_value_type c ;
+        if (variable_type == 0) {
+            c = ((int)a + (int)b) ;
+        }
+        else if (variable_type == 1) {
+            c = ((char)a + (char)b) ;
+        }
+        else if (variable_type == 2) {
+            c = ((short)a + (short)b) ;
+        }
+        else if (variable_type == 3) {
+            c = ((long)a + (long)b) ;
+        }
+        else if (variable_type == 4) {
+            c = ((long long)a + (long long)b) ;
+        }
+        else if (variable_type == 5) {
+            c = ((float)a + (float)b) ;
+        }
+        else if (variable_type == 6) {
+            c = ((double)a + (double)b) ;
+        }
+        else if (variable_type == 7) {
+            c = ((unsigned int)a + (unsigned int)b) ;
+        }
+        else if (variable_type == 8) {
+            c = ((unsigned char)a + (unsigned char)b) ;
+        }
+        else if (variable_type == 9) {
+            c = ((unsigned short)a + (unsigned short)b) ;
+        }
+        else if (variable_type == 10) {
+            c = ((unsigned long)a + (unsigned long)b) ;
+        }
+        else if (variable_type == 11) {
+            c = ((unsigned long long)a + (unsigned long long)b) ;
+        }
+        else {
+            perror("unknown variable_type!!") ;
+            exit(EXIT_FAILURE) ;
+        }
+        return c ;
     }
 }
+
+
+char const *sys_var_type[] = {
+    "int",
+    "char",
+    "short int",
+    "long int",
+    "long long int",
+    "float",
+    "double",
+    "unsigned int",
+    "unsigned char",
+    "short unsigned int",
+    "long unsigned int",
+    "long long unsigned int",
+    "unsigned",
+    "struct",
+    "const",
+    "static",
+//    "extern",
+    "typedef",
+    "long",
+    "short",
+    NULL
+} ;
 
 
 //handle sub overflow
@@ -71,7 +137,7 @@ void sub_overflow(interval_value_type *a, interval_value_type *b) {
 }
 
 //sub operator, consider the infinite and overflow
-interval_value_type sub_inf(interval_value_type a, interval_value_type b) {
+interval_value_type sub_inf(interval_value_type a, interval_value_type b, int variable_type) {
     if ((a == MAX_VALUE && b > MIN_VALUE && b < MAX_VALUE) || (b == MIN_VALUE && a > MIN_VALUE && a < MAX_VALUE) || (a == MAX_VALUE && b == MIN_VALUE)) {
         return MAX_VALUE ;
     }
@@ -84,7 +150,48 @@ interval_value_type sub_inf(interval_value_type a, interval_value_type b) {
     }
     else {
         sub_overflow(&a, &b) ;
-        return a - b ;
+        interval_value_type c ;
+        if (variable_type == 0) {
+            c = ((int)a - (int)b) ;
+        }
+        else if (variable_type == 1) {
+            c = ((char)a - (char)b) ;
+        }
+        else if (variable_type == 2) {
+            c = ((short)a - (short)b) ;
+        }
+        else if (variable_type == 3) {
+            c = ((long)a - (long)b) ;
+        }
+        else if (variable_type == 4) {
+            c = ((long long)a - (long long)b) ;
+        }
+        else if (variable_type == 5) {
+            c = ((float)a - (float)b) ;
+        }
+        else if (variable_type == 6) {
+            c = ((double)a - (double)b) ;
+        }
+        else if (variable_type == 7) {
+            c = ((unsigned int)a - (unsigned int)b) ;
+        }
+        else if (variable_type == 8) {
+            c = ((unsigned char)a - (unsigned char)b) ;
+        }
+        else if (variable_type == 9) {
+            c = ((unsigned short)a - (unsigned short)b) ;
+        }
+        else if (variable_type == 10) {
+            c = ((unsigned long)a - (unsigned long)b) ;
+        }
+        else if (variable_type == 11) {
+            c = ((unsigned long long)a - (unsigned long long)b) ;
+        }
+        else {
+            perror("unknown variable_type!!") ;
+            exit(EXIT_FAILURE) ;
+        }
+        return c ;
     }
 }
 
@@ -123,7 +230,7 @@ void mul_overflow(interval_value_type *a, interval_value_type *b) {
 }
 
 //mul operator, consider infinite and overflow
-interval_value_type mul_inf(interval_value_type a, interval_value_type b) {
+interval_value_type mul_inf(interval_value_type a, interval_value_type b, int variable_type) {
     if (a == MAX_VALUE) {
         if (b > 0) {
             return MAX_VALUE ;
@@ -158,7 +265,48 @@ interval_value_type mul_inf(interval_value_type a, interval_value_type b) {
     }
     else {
         mul_overflow(&a, &b) ;
-        return a * b ;
+         interval_value_type c ;
+        if (variable_type == 0) {
+            c = ((int)a * (int)b) ;
+        }
+        else if (variable_type == 1) {
+            c = ((char)a * (char)b) ;
+        }
+        else if (variable_type == 2) {
+            c = ((short)a * (short)b) ;
+        }
+        else if (variable_type == 3) {
+            c = ((long)a * (long)b) ;
+        }
+        else if (variable_type == 4) {
+            c = ((long long)a * (long long)b) ;
+        }
+        else if (variable_type == 5) {
+            c = ((float)a * (float)b) ;
+        }
+        else if (variable_type == 6) {
+            c = ((double)a * (double)b) ;
+        }
+        else if (variable_type == 7) {
+            c = ((unsigned int)a * (unsigned int)b) ;
+        }
+        else if (variable_type == 8) {
+            c = ((unsigned char)a * (unsigned char)b) ;
+        }
+        else if (variable_type == 9) {
+            c = ((unsigned short)a * (unsigned short)b) ;
+        }
+        else if (variable_type == 10) {
+            c = ((unsigned long)a * (unsigned long)b) ;
+        }
+        else if (variable_type == 11) {
+            c = ((unsigned long long)a * (unsigned long long)b) ;
+        }
+        else {
+            perror("unknown variable_type!!") ;
+            exit(EXIT_FAILURE) ;
+        }
+        return c ;
     }
 }
 
@@ -172,7 +320,7 @@ void div_overflow(interval_value_type *a, interval_value_type *b) {
 }
 
 //now the function is not used because the interval_div function has the infinite handling.
-interval_value_type div_inf(interval_value_type a, interval_value_type b) {
+interval_value_type div_inf(interval_value_type a, interval_value_type b, int variable_type) {
     if ((a == MAX_VALUE && b == MAX_VALUE) || (a == MAX_VALUE && b == MIN_VALUE) || (a == MIN_VALUE && b == MAX_VALUE) || (a == MIN_VALUE && b == MIN_VALUE)) {
         perror("can't calculate two infinite number's div!") ;
         exit(EXIT_FAILURE) ;
@@ -188,7 +336,48 @@ interval_value_type div_inf(interval_value_type a, interval_value_type b) {
     }
     else {
         div_overflow(&a, &b) ;
-        return a / b ;
+        interval_value_type c ;
+        if (variable_type == 0) {
+            c = ((int)a / (int)b) ;
+        }
+        else if (variable_type == 1) {
+            c = ((char)a / (char)b) ;
+        }
+        else if (variable_type == 2) {
+            c = ((short)a / (short)b) ;
+        }
+        else if (variable_type == 3) {
+            c = ((long)a / (long)b) ;
+        }
+        else if (variable_type == 4) {
+            c = ((long long)a / (long long)b) ;
+        }
+        else if (variable_type == 5) {
+            c = ((float)a / (float)b) ;
+        }
+        else if (variable_type == 6) {
+            c = ((double)a / (double)b) ;
+        }
+        else if (variable_type == 7) {
+            c = ((unsigned int)a / (unsigned int)b) ;
+        }
+        else if (variable_type == 8) {
+            c = ((unsigned char)a / (unsigned char)b) ;
+        }
+        else if (variable_type == 9) {
+            c = ((unsigned short)a / (unsigned short)b) ;
+        }
+        else if (variable_type == 10) {
+            c = ((unsigned long)a / (unsigned long)b) ;
+        }
+        else if (variable_type == 11) {
+            c = ((unsigned long long)a / (unsigned long long)b) ;
+        }
+        else {
+            perror("unknown variable_type!!") ;
+            exit(EXIT_FAILURE) ;
+        }
+        return c ;
     }
 }
 

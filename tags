@@ -5,7 +5,6 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ASSIGNMENT	cfg.h	/^typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;$/;"	e	enum:__anon1
-BOOL	edgecontext.h	/^typedef enum {NUM, BOOL} value_t ;$/;"	e	enum:__anon2
 CALL	cfg.h	/^typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;$/;"	e	enum:__anon1
 CFG_H	cfg.h	16;"	d
 COMMON_H	common.h	15;"	d
@@ -22,22 +21,26 @@ MAX	intervaltest.c	59;"	d	file:
 MAX	intervaltest/intervaltest.c	58;"	d	file:
 MAX	usefultest.c	59;"	d	file:
 MAX_EDGE_NUM	cfg.h	41;"	d
+MAX_EDGE_STACK	rangeanalysis.h	25;"	d
 MAX_FUNC_NAME	cfg.h	27;"	d
 MAX_FUNC_NUM	cfg.h	25;"	d
 MAX_FUNC_VARS	cfg.h	33;"	d
 MAX_INPUT_VAR	cfg.h	31;"	d
+MAX_JUNC_STACK	rangeanalysis.h	26;"	d
 MAX_LINE_LENGTH	cfg.h	37;"	d
 MAX_RANGE_DEPTH	cfg.h	35;"	d
 MAX_TOKEN_NUM	cfg.h	39;"	d
 MAX_TYPE_NAME	cfg.h	29;"	d
-MAX_VALUE	interval.h	23;"	d
+MAX_VALUE	interval.h	24;"	d
 MIN	intervaltest.h	17;"	d
 MIN	intervaltest/intervaltest.h	17;"	d
-MIN_VALUE	interval.h	24;"	d
-NUM	edgecontext.h	/^typedef enum {NUM, BOOL} value_t ;$/;"	e	enum:__anon2
+MIN_VALUE	interval.h	25;"	d
+RANGEANALYSIS_H	rangeanalysis.h	16;"	d
 RETURN	cfg.h	/^typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;$/;"	e	enum:__anon1
 SWITCH_TEST	cfg.h	/^typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;$/;"	e	enum:__anon1
 UNKNOWN_CALL	cfg.h	/^typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;$/;"	e	enum:__anon1
+__anon2::low_value	rangeanalysis.h	/^    interval_value_type low_value;$/;"	m	struct:__anon2	access:public
+__anon2::up_value	rangeanalysis.h	/^    interval_value_type up_value;$/;"	m	struct:__anon2	access:public
 __anon3::low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:__anon3	access:public
 __anon3::up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:__anon3	access:public
 a	intervaltest.c	/^    int a ;$/;"	m	struct:node3	file:	access:public
@@ -82,7 +85,7 @@ b_is_var	cfg.h	/^    bool b_is_var ;$/;"	m	struct:if_test_t	access:public
 bool	common.h	19;"	d
 build_cfg_tree	cfg.c	/^void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {$/;"	f	signature:(FILE *fp, cfg_func_t *function, cfg_func_t **functions)
 build_cfg_tree	cfg.h	/^void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **function_table) ;$/;"	p	signature:(FILE *fp, cfg_func_t *function, cfg_func_t **function_table)
-build_cfgs	cfg.c	/^cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) {$/;"	f	signature:(char *cfg_file, char *glob_var_file)
+build_cfgs	cfg.c	/^cfg_func_t **build_cfgs(char *cfg_file) {$/;"	f	signature:(char *cfg_file)
 build_cfgs	cfg.h	/^cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) ;$/;"	p	signature:(char *cfg_file, char *glob_var_file)
 build_if_node	cfg.c	/^void build_if_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) {$/;"	f	signature:(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain)
 build_if_node	cfg.h	/^void build_if_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) ;$/;"	p	signature:(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain)
@@ -188,10 +191,9 @@ dst_name	cfg.h	/^    int dst_name ;$/;"	m	struct:assignment_t	access:public
 dst_name	cfg.h	/^    int dst_name ;$/;"	m	struct:call_t	access:public
 edge_context	edgecontext.h	/^struct edge_context {$/;"	s
 edge_context	edgecontext.h	/^typedef struct edge_context edge_context ;$/;"	t	typeref:struct:edge_context
-edge_context::name	edgecontext.h	/^    char *name ;$/;"	m	struct:edge_context	access:public
+edge_context::name_d	edgecontext.h	/^    int name_d ;$/;"	m	struct:edge_context	access:public
 edge_context::next	edgecontext.h	/^    edge_context *next ;$/;"	m	struct:edge_context	access:public
 edge_context::value_set	edgecontext.h	/^    interval_node *value_set ;$/;"	m	struct:edge_context	access:public
-edge_context::value_type	edgecontext.h	/^    value_t value_type ;$/;"	m	struct:edge_context	access:public
 edge_id	cfg.h	/^    int edge_id ;$/;"	m	struct:cfg_edge_t	access:public
 edge_num	cfg.h	/^    int edge_num ;$/;"	m	struct:cfg_func_t	access:public
 effect_domain	cfg.h	/^    int effect_domain ;$/;"	m	struct:declaration_t	access:public
@@ -233,15 +235,19 @@ input_argument	cfg.h	/^    call_argument *input_argument[MAX_INPUT_VAR] ;$/;"	m	
 insert_node	intervalset.c	/^void insert_node(interval_node *head, interval_node *p)$/;"	f	signature:(interval_node *head, interval_node *p)
 insert_node	intervalset.h	/^void insert_node(interval_node *head, interval_node *p) ;$/;"	p	signature:(interval_node *head, interval_node *p)
 interval	interval.h	/^} interval;$/;"	t	typeref:struct:__anon3
+interval	rangeanalysis.h	/^} interval;$/;"	t	typeref:struct:__anon2
 interval_add	interval.c	/^void interval_add(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
 interval_add	interval.h	/^void interval_add(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_add	interval.s	/^interval_add:$/;"	l
+interval_add	rangeanalysis.h	/^void interval_add(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_div	interval.c	/^void interval_div(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
 interval_div	interval.h	/^void interval_div(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_div	interval.s	/^interval_div:$/;"	l
+interval_div	rangeanalysis.h	/^void interval_div(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_mul	interval.c	/^void interval_mul(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
 interval_mul	interval.h	/^void interval_mul(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_mul	interval.s	/^interval_mul:$/;"	l
+interval_mul	rangeanalysis.h	/^void interval_mul(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_node	intervalset.h	/^typedef struct interval_node {$/;"	s
 interval_node	intervalset.h	/^} interval_node ;$/;"	t	typeref:struct:interval_node
 interval_node::item	intervalset.h	/^    interval item ;$/;"	m	struct:interval_node	access:public
@@ -253,11 +259,12 @@ interval_set_union	intervalset.h	/^void interval_set_union(interval a, interval_
 interval_sub	interval.c	/^void interval_sub(interval *a, interval *b, interval *c) {$/;"	f	signature:(interval *a, interval *b, interval *c)
 interval_sub	interval.h	/^void interval_sub(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_sub	interval.s	/^interval_sub:$/;"	l
+interval_sub	rangeanalysis.h	/^void interval_sub(interval *a, interval *b, interval *c);$/;"	p	signature:(interval *a, interval *b, interval *c)
 interval_value_max	common.c	/^interval_value_type interval_value_max(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
 interval_value_max	common.h	/^interval_value_type interval_value_max(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
 interval_value_min	common.c	/^interval_value_type interval_value_min(interval_value_type a, interval_value_type b) {$/;"	f	signature:(interval_value_type a, interval_value_type b)
 interval_value_min	common.h	/^interval_value_type interval_value_min(interval_value_type a, interval_value_type b);$/;"	p	signature:(interval_value_type a, interval_value_type b)
-interval_value_type	interval.h	22;"	d
+interval_value_type	interval.h	23;"	d
 is_array	cfg.c	/^char *is_array(char *seek, cfg_func_t *function, int current_domain) {$/;"	f	signature:(char *seek, cfg_func_t *function, int current_domain)
 is_array	cfg.h	/^    bool is_array ;$/;"	m	struct:declaration_t	access:public
 is_array	cfg.h	/^char *is_array(char *seek, cfg_func_t *function, int current_domain) ;$/;"	p	signature:(char *seek, cfg_func_t *function, int current_domain)
@@ -284,6 +291,7 @@ link_last_token	cfg.h	/^void link_last_token(cfg_node_t *new_current_node, cfg_f
 link_nodes	cfg.c	/^void link_nodes(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function) {$/;"	f	signature:(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function)
 link_nodes	cfg.h	/^void link_nodes(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function) ;$/;"	p	signature:(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function)
 low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:__anon3	access:public
+low_value	rangeanalysis.h	/^    interval_value_type low_value;$/;"	m	struct:__anon2	access:public
 main	intervaltest/intervaltest.c	/^main(int i)$/;"	f	signature:(int i)
 main	intervaltest/intervaltest.s	/^main:$/;"	l
 main	intervaltest/iwannatest.c	/^int main(int argc, const char *argv[])$/;"	f	signature:(int argc, const char *argv[])
@@ -303,7 +311,7 @@ mul_inf	common.h	/^interval_value_type mul_inf(interval_value_type a, interval_v
 mul_overflow	common.c	/^void mul_overflow(interval_value_type *a, interval_value_type *b) {$/;"	f	signature:(interval_value_type *a, interval_value_type *b)
 mul_overflow	common.h	/^void mul_overflow(interval_value_type *a, interval_value_type *b) ;$/;"	p	signature:(interval_value_type *a, interval_value_type *b)
 name	cfg.h	/^    char *name ;$/;"	m	struct:declaration_t	access:public
-name	edgecontext.h	/^    char *name ;$/;"	m	struct:edge_context	access:public
+name_d	edgecontext.h	/^    int name_d ;$/;"	m	struct:edge_context	access:public
 need_token_num	cfg.h	/^    int need_token_num ;$/;"	m	struct:cfg_func_t	access:public
 need_tokens	cfg.h	/^    token_list *need_tokens[MAX_TOKEN_NUM] ;$/;"	m	struct:cfg_func_t	access:public
 new_assignment	cfg.c	/^assignment_t *new_assignment() {$/;"	f
@@ -385,6 +393,7 @@ pointer	cfg.h	/^    cfg_node_t *pointer ;$/;"	m	struct:token_list	access:public
 pre_edges	cfg.h	/^    cfg_edge_t *pre_edges[MAX_EDGE_NUM] ;$/;"	m	struct:cfg_node_t	access:public
 pre_edges_num	cfg.h	/^    int pre_edges_num ;$/;"	m	struct:cfg_node_t	access:public
 pre_entry	cfg.h	/^    cfg_edge_t *pre_entry ;$/;"	m	struct:cfg_func_t	access:public
+range_analysis	rangeanalysis.c	/^void range_analysis(cfg_func_t **functions) {$/;"	f	signature:(cfg_func_t **functions)
 return_i	cfg.h	/^    return_t *return_i ;$/;"	m	struct:cfg_node_t	access:public
 return_is_var	cfg.h	/^    bool return_is_var ;$/;"	m	struct:return_t	access:public
 return_num	cfg.h	/^    char *return_num ;$/;"	m	struct:return_t	access:public
@@ -428,9 +437,8 @@ token_list::while_pointer	cfg.h	/^    cfg_node_t *while_pointer ;$/;"	m	struct:t
 token_name	cfg.h	/^    char *token_name ;$/;"	m	struct:token_list	access:public
 true	common.h	20;"	d
 up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:__anon3	access:public
+up_value	rangeanalysis.h	/^    interval_value_type up_value;$/;"	m	struct:__anon2	access:public
 value_set	edgecontext.h	/^    interval_node *value_set ;$/;"	m	struct:edge_context	access:public
-value_t	edgecontext.h	/^typedef enum {NUM, BOOL} value_t ;$/;"	t	typeref:enum:__anon2
-value_type	edgecontext.h	/^    value_t value_type ;$/;"	m	struct:edge_context	access:public
 var_num	cfg.h	/^    int var_num ;$/;"	m	struct:cfg_func_t	access:public
 var_number	cfg.h	/^    char *var_number ;$/;"	m	struct:call_parameter	access:public
 variable_type	cfg.h	/^    int variable_type ;$/;"	m	struct:declaration_t	access:public

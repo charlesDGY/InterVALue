@@ -346,7 +346,7 @@ interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) {
 }
 
 //set and set add, sub, mul, div operate, 1 --add   2 -- sub  3 -- mul  4 -- div
-interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, unsigned int operator_in) {
+interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, unsigned int operator_in, int variable_type) {
     if (head_a == NULL || head_b == NULL) {
         perror("input interval_set's head is NULL!") ;
         exit(EXIT_FAILURE) ;
@@ -379,22 +379,22 @@ interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, 
         while (iter_b != NULL) {
             //add
             if (operator_in == 1) {
-                interval_add(&iter_a->item, &iter_b->item, &temp_interval) ;
+                interval_add(&iter_a->item, &iter_b->item, &temp_interval, variable_type) ;
                 interval_set_union(temp_interval, result) ;
             }
             //sub
             else if (operator_in == 2) {
-                interval_sub(&iter_a->item, &iter_b->item, &temp_interval) ;
+                interval_sub(&iter_a->item, &iter_b->item, &temp_interval, variable_type) ;
                 interval_set_union(temp_interval, result) ;
             }
             //mul
             else if (operator_in == 3) {
-                interval_mul(&iter_a->item, &iter_b->item, &temp_interval) ;
+                interval_mul(&iter_a->item, &iter_b->item, &temp_interval, variable_type) ;
                 interval_set_union(temp_interval, result) ;
             }
             //div
             else if (operator_in == 4) {
-                interval_div(&iter_a->item, &iter_b->item, &temp_interval) ;
+                interval_div(&iter_a->item, &iter_b->item, &temp_interval, variable_type) ;
                 interval_set_union(temp_interval, result) ;
             }
             iter_b = iter_b->next ;
@@ -406,6 +406,93 @@ interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, 
 
 }
 
+interval_node *compulsory_convert(interval_node *src, int variable_type)
+{
+    if (src == NULL) {
+        perror("source copy input is NULL!!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    interval temp_interval ;
+    interval_node *iter = src, *result = NULL, *p = NULL ;
+
+    temp_interval.low_value = iter->item.low_value ;
+    temp_interval.up_value = iter->item.up_value ;
+    result = make_node(temp_interval) ;
+    p = result ;
+
+    while (iter->next != NULL) {
+        iter = iter->next ;
+        if (variable_type == 0) {
+            temp_interval.low_value = (int)iter->item.low_value ;
+            temp_interval.up_value = (int)iter->item.up_value ;
+        }
+        else if (variable_type == 1) {
+            temp_interval.low_value = (char)iter->item.low_value ;
+            temp_interval.up_value = (char)iter->item.up_value ;
+        }
+        else if (variable_type == 2) {
+            temp_interval.low_value = (short)iter->item.low_value ;
+            temp_interval.up_value = (short)iter->item.up_value ;
+        }
+        else if (variable_type == 3) {
+            temp_interval.low_value = (long)iter->item.low_value ;
+            temp_interval.up_value = (long)iter->item.up_value ;
+        }
+        else if (variable_type == 4) {
+            temp_interval.low_value = (long long)iter->item.low_value ;
+            temp_interval.up_value = (long long)iter->item.up_value ;
+        }
+        else if (variable_type == 5) {
+            temp_interval.low_value = (float)iter->item.low_value ;
+            temp_interval.up_value = (float)iter->item.up_value ;
+        }
+        else if (variable_type == 6) {
+            temp_interval.low_value = (double)iter->item.low_value ;
+            temp_interval.up_value = (double)iter->item.up_value ;
+        }
+        else if (variable_type == 7) {
+            temp_interval.low_value = (unsigned int)iter->item.low_value ;
+            temp_interval.up_value = (unsigned int)iter->item.up_value ;
+        }
+        else if (variable_type == 8) {
+            temp_interval.low_value = (unsigned char)iter->item.low_value ;
+            temp_interval.up_value = (unsigned char)iter->item.up_value ;
+        }
+        else if (variable_type == 9) {
+            temp_interval.low_value = (unsigned short)iter->item.low_value ;
+            temp_interval.up_value = (unsigned short)iter->item.up_value ;
+        }
+        else if (variable_type == 10) {
+            temp_interval.low_value = (unsigned long)iter->item.low_value ;
+            temp_interval.up_value = (unsigned long)iter->item.up_value ;
+        }
+        else if (variable_type == 11) {
+            temp_interval.low_value = (unsigned long long)iter->item.low_value ;
+            temp_interval.up_value = (unsigned long long)iter->item.up_value ;
+        }
+        else {
+            perror("unknown variable_type!!") ;
+            exit(EXIT_FAILURE) ;
+        }
+        p->next = make_node(temp_interval) ;
+        p = p->next ;
+    }
+    return result ;
+}
+
+
+interval_node *convert_to_set(interval_value_type src) {
+    interval_node *result = NULL ;
+    interval item ;
+    item->low_value = 0 ;
+    item->up_value = 0 ;
+    result = make_node(item) ;
+
+    item->low_value = src ;
+    item->up_value = src ;
+    result->next = make_node(item) ;
+    return result ;
+}
 
 
 

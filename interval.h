@@ -33,13 +33,12 @@ typedef struct {
 } interval;
 
 
-void interval_add(interval *a, interval *b, interval *c);
+void interval_add(interval *a, interval *b, interval *c, int variable_type);
 
-void interval_sub(interval *a, interval *b, interval *c);
+void interval_sub(interval *a, interval *b, interval *c, int variable_type);
 
-void interval_mul(interval *a, interval *b, interval *c);
+void interval_mul(interval *a, interval *b, interval *c, int variable_type);
 
-//div function can only handle non-float argument.
-void interval_div(interval *a, interval *b, interval *c);
+void interval_div(interval *a, interval *b, interval *c, int variable_type);
 
 #endif
