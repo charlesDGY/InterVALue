@@ -41,4 +41,6 @@ void interval_mul(interval *a, interval *b, interval *c, int variable_type);
 
 void interval_div(interval *a, interval *b, interval *c, int variable_type);
 
+void interval_broaden(interval *a, interval *b, interval *c) ;
+
 #endif

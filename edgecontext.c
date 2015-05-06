@@ -36,7 +36,10 @@ edge_context *make_context()
         exit(EXIT_FAILURE) ;
     }
     p->name_d = -1 ;
-    p->value_set = NULL ;
+    interval item ;
+    item.low_value = 0 ;
+    item.up_value = 0 ;
+    p->value_set = make_node(item) ;
     p->next = NULL ;
     return p;
 }
@@ -99,21 +102,22 @@ edge_context *copy_context(edge_context *src)
 }
 
 
+void destroy_context(edge_context *head)
+{
+    edge_context *q, *p = head;
+    while (p) {
+        q = p;
+        p = p->next;
+        destroy_set(q->value_set);
+        free(q) ;
+    }
+}
+
+
 void free_node(interval_node *p)
 {
     free(p);
 }
-
-void destroy_set(interval_node *head)
-{
-    interval_node *q, *p = head;
-    while (p) {
-        q = p;
-        p = p->next;
-        free_node(q);
-    }
-}
-
 
 interval_node *search_node(interval_node *head, interval key)
 {
@@ -196,4 +200,71 @@ edge_context *get_var(int var_name, edge_context *context) {
     }
     perror("get var wrong, no var name exist!!") ;
     exit(EXIT_FAILURE) ;
+}
+
+//estimate whether two edge_context is equal.
+bool is_context_equal(edge_context *a, edge_context *b) {
+    if (a == NULL || b == NULL) {
+        perror("is_context_equal input a or b is NULL") ;
+        exit(EXIT_FAILURE) ;
+    }
+    edge_context *pointer_a = NULL ;
+    edge_context *pointer_b = NULL ;
+    pointer_a = a ;
+    pointer_b = b ;
+    while (pointer_a->next != NULL) {
+        pointer_a = pointer_a->next ;
+        pointer_b = pointer_b->next ;
+        if (is_set_equal(pointer_a->value_set, pointer_b->value_set) == false) {
+            return false ;
+        }
+    }
+    return true ;
+}
+
+edge_context *broaden_context(edge_context *head_a, edge_context *head_b) {
+    if (head_b == NULL) {
+        perror("broaden_context's input head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    //handle null and XN condition.
+    if (head_a == NULL) {
+        head_a = make_context() ;
+    }
+
+    if (head_a->next == NULL) {
+        return copy_context(head_b) ;
+    }
+    if (head_b->next == NULL) {
+        return copy_context(head_a) ;
+    }
+
+    edge_context *iter_a = NULL, *iter_b = NULL ;
+    edge_context *context_p = NULL, *iter_r = NULL, *result = NULL ;
+    iter_a = head_a->next ;
+    iter_b = head_b->next ;
+
+    //broaden set and set
+    while (iter_a != NULL) {
+        iter_r = new_context() ;
+        iter_r->name_d = iter_a->name_d ;
+        if (is_set_equal(iter_a->value_set, iter_b->value_set) == false) {
+            iter_r->value_set = set_set_broaden(iter_a->value_set, iter_b->value_set) ;
+        }
+        else {
+            iter_r->value_set = copy_set(iter_a->value_set) ;
+        }
+        if (result == NULL) {
+            result = iter_r ;
+            context_p = result ;
+        }
+        else {
+            context_p->next = iter_r ;
+            context_p = context_p->next ;
+        }
+        iter_a = iter_a->next ;
+        iter_b = iter_b->next ;
+    }
+    return result ;
+
 }

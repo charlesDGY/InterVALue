@@ -1586,20 +1586,22 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
             function->func_vars_table[function->var_num] = NULL ;
         }
         //put global variable to the func_vars_table
-        for(var_table = functions[0]->func_vars_table; *var_table != NULL; var_table++) {
-            new_dec = new_declaration() ;
-            new_dec->name = copy_string((*var_table)->name) ;
-            new_dec->variable_type = (*var_table)->variable_type ;
-            new_dec->is_pointer = (*var_table)->is_pointer ;
-            new_dec->is_struct = (*var_table)->is_struct ;
-            new_dec->struct_name = copy_string((*var_table)->struct_name) ;
-            new_dec->array_len = (*var_table)->array_len ;
-            new_dec->is_array = (*var_table)->is_array ;
-            new_dec->is_static = (*var_table)->is_static ;
-            new_dec->effect_domain = 0 ;
-            function->func_vars_table[function->var_num] = new_dec ;
-            function->var_num++ ;
-            function->func_vars_table[function->var_num] = NULL ;
+        if (strcmp(functions[0]->func_name, "global") == 0) {
+            for(var_table = functions[0]->func_vars_table; *var_table != NULL; var_table++) {
+                new_dec = new_declaration() ;
+                new_dec->name = copy_string((*var_table)->name) ;
+                new_dec->variable_type = (*var_table)->variable_type ;
+                new_dec->is_pointer = (*var_table)->is_pointer ;
+                new_dec->is_struct = (*var_table)->is_struct ;
+                new_dec->struct_name = copy_string((*var_table)->struct_name) ;
+                new_dec->array_len = (*var_table)->array_len ;
+                new_dec->is_array = (*var_table)->is_array ;
+                new_dec->is_static = (*var_table)->is_static ;
+                new_dec->effect_domain = 0 ;
+                function->func_vars_table[function->var_num] = new_dec ;
+                function->var_num++ ;
+                function->func_vars_table[function->var_num] = NULL ;
+            }
         }
     }
     //first '{'

@@ -113,3 +113,23 @@ void interval_div(interval *a, interval *b, interval *c, int variable_type) {
     }
 }
 
+void interval_broaden(interval *a, interval *b, interval *c) {
+    if (b->low_value < a->low_value && b->up_value <= a->up_value) {
+        c->low_value = MIN_VALUE ;
+        c->up_value = a->up_value ;
+    }
+    else if (a->low_value <= b->low_value && a->up_value < b->up_value) {
+        c->low_value = a->low_value ;
+        c->up_value = MAX_VALUE ;
+    }
+    else if (b->low_value < a->low_value && a->up_value < b->up_value) {
+        c->low_value = MIN_VALUE ;
+        c->up_value = MAX_VALUE ;
+    }
+    else if (a->low_value <= b->low_value && b->up_value <= a->up_value) {
+        c->low_value = a->low_value ;
+        c->up_value = a->up_value ;
+    }
+}
+
+

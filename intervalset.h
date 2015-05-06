@@ -60,16 +60,17 @@ interval_node *set_set_union(interval_node *head_a, interval_node *head_b) ;
 //set and set intersect operate
 interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) ;
 
+interval_node *set_set_broaden(interval_node *head_a, interval_node *head_b) ;
 //set and set add, sub, mul, div operate
 interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, unsigned int operator_in, int variable_type) ;
 
 //compulsory_convert of src to the result interval_node set
 interval_node *compulsory_convert(interval_node *src, int variable_type) ;
 
-
 interval_node *convert_to_set(interval_value_type src) ;
 
 
+bool is_set_equal(interval_node *a, interval_node *b) ;
 
 
 

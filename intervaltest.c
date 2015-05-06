@@ -135,7 +135,7 @@ hoho(int i)
         j--;
     }
 
-    if (val == 5) {
+    if (3 >= val) {
         val++ ;
         val2 = val % 2 ;
         return 0 ;
@@ -204,6 +204,9 @@ hoho(int i)
 
     for (k = 0; k < 8; k++) {
         pp-- ;
+    }
+    if (5 > 3) {
+        pp++ ;
     }
 
     val = sub(add(i, j), val) ;

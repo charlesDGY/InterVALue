@@ -65,17 +65,17 @@ hoho (int i)
   int j.12;
   short unsigned int k.13;
   int j.14;
-  int D.3895;
-  int j.15;
   int D.3897;
-  int j.16;
+  int j.15;
   int D.3899;
+  int j.16;
+  int D.3901;
   int j.17;
   int j.18;
   int j.19;
-  double D.3905;
-  double D.3906;
   double D.3907;
+  double D.3908;
+  double D.3909;
   int j.20;
   int uu;
   static const long long int * stac = 5B;
@@ -185,7 +185,7 @@ hoho (int i)
       j.9 = j.8 + -1;
       j = j.9;
       <D.3855>:
-      if (val == 5) goto <D.3864>; else goto <D.3865>;
+      if (val <= 3) goto <D.3864>; else goto <D.3865>;
       <D.3864>:
       val = val + 1;
       val2 = val % 2;
@@ -292,14 +292,18 @@ hoho (int i)
       <D.3811>:
       if (k <= 7) goto <D.3810>; else goto <D.3812>;
       <D.3812>:
+      if (1 != 0) goto <D.3894>; else goto <D.3895>;
+      <D.3894>:
+      pp = pp + 1;
+      <D.3895>:
       j.14 = j;
-      D.3895 = add (i, j.14);
-      val = sub (D.3895, val);
+      D.3897 = add (i, j.14);
+      val = sub (D.3897, val);
       j.15 = j;
-      D.3897 = sub (i, j.15);
+      D.3899 = sub (i, j.15);
       j.16 = j;
-      D.3899 = add (i, j.16);
-      val = D.3897 + D.3899;
+      D.3901 = add (i, j.16);
+      val = D.3899 + D.3901;
       goto <D.3827>;
       <D.3826>:
       goto <D.3818>;
@@ -316,15 +320,15 @@ hoho (int i)
             ssd = i + j.17;
             abc = 0;
             sss = &abc;
-            if (ssd == 4) goto <D.3901>; else goto <D.3902>;
-            <D.3901>:
+            if (ssd == 4) goto <D.3903>; else goto <D.3904>;
+            <D.3903>:
             {
               int bbb;
 
               bbb = 3;
               bbb = ssd;
             }
-            <D.3902>:
+            <D.3904>:
           }
         finally
           {
@@ -356,13 +360,13 @@ hoho (int i)
       if (i > 0) goto <D.3826>; else goto <D.3828>;
       <D.3828>:
       j.19 = j;
-      D.3905 = (double) j.19;
-      D.3906 = sqrt (D.3905);
-      i = (int) D.3906;
+      D.3907 = (double) j.19;
+      D.3908 = sqrt (D.3907);
+      i = (int) D.3908;
       vv = 4;
       ss = 2.29999999999999982236431605997495353221893310546875e+0;
-      D.3907 = floor (ss);
-      vv = (int) D.3907;
+      D.3909 = floor (ss);
+      vv = (int) D.3909;
       j.20 = j;
       printf ("%d\n", j.20);
       D.3866 = 0;

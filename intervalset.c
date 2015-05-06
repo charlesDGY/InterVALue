@@ -345,6 +345,37 @@ interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) {
     return result ;
 }
 
+interval_node *set_set_broaden(interval_node *head_a, interval_node *head_b) {
+    if (head_a == NULL || head_b == NULL) {
+        perror("set_set_broaden input head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    interval_node *iter = NULL, *result = NULL ;
+    interval temp_interval ;
+    interval a, b ;
+    temp_interval.low_value = 0 ;
+    temp_interval.up_value = 0 ;
+    result = make_node(temp_interval) ;
+
+    iter = head_a ;
+    a.low_value = head_a->next->item.low_value ;
+    while (iter->next != NULL) {
+        iter = iter->next ;
+    }
+    a.up_value = iter->item.up_value ;
+    iter = head_b ;
+    b.low_value = head_b->next->item.low_value ;
+    while (iter->next != NULL) {
+        iter = iter->next ;
+    }
+    b.up_value = iter->item.up_value ;
+
+    interval_broaden(&a, &b, &temp_interval) ;
+    result->next = make_node(temp_interval) ;
+
+    return result ;
+}
+
 //set and set add, sub, mul, div operate, 1 --add   2 -- sub  3 -- mul  4 -- div
 interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, unsigned int operator_in, int variable_type) {
     if (head_a == NULL || head_b == NULL) {
@@ -484,17 +515,36 @@ interval_node *compulsory_convert(interval_node *src, int variable_type)
 interval_node *convert_to_set(interval_value_type src) {
     interval_node *result = NULL ;
     interval item ;
-    item->low_value = 0 ;
-    item->up_value = 0 ;
+    item.low_value = 0 ;
+    item.up_value = 0 ;
     result = make_node(item) ;
 
-    item->low_value = src ;
-    item->up_value = src ;
+    item.low_value = src ;
+    item.up_value = src ;
     result->next = make_node(item) ;
     return result ;
 }
 
 
+
+bool is_set_equal(interval_node *a, interval_node *b) {
+    if (a == NULL || b == NULL) {
+        perror("is_set_equal input a or b is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    interval_node *pointer_a = NULL ;
+    interval_node *pointer_b = NULL ;
+    pointer_a = a ;
+    pointer_b = b ;
+    while (pointer_a->next != NULL) {
+        pointer_a = pointer_a->next ;
+        pointer_b = pointer_b->next ;
+        if (pointer_a->item.low_value != pointer_b->item.low_value || pointer_a->item.up_value != pointer_b->item.up_value) {
+            return false ;
+        }
+    }
+    return true ;
+}
 
 
 
