@@ -77,11 +77,11 @@ interval_node *copy_set(interval_node *src)
 }
 
 
-interval_node *search_node(interval_node *head, interval key)
+interval_node *search_node(interval_node *head, double key)
 {
     interval_node *p;
     for (p = head->next; p; p = p->next)
-        if (p->item.low_value == key.low_value && p->item.up_value == key.up_value)
+        if (p->item.low_value <= key && p->item.up_value >= key)
             return p;
     return NULL;
 }
@@ -547,5 +547,86 @@ bool is_set_equal(interval_node *a, interval_node *b) {
 }
 
 
+interval_node *split_set_low(interval_node *head, double key) {
+    interval_node *result = NULL ;
+    interval_node *key_node = NULL ;
+    interval_node *pre_key_node = NULL ;
+    double h_low, h_up ;
+    h_low = head->next->item.low_value ;
+    key_node = head ;
+    while (key_node->next != NULL) {
+        key_node = key_node->next ;
+    }
+    h_up = key_node->item.up_value ;
 
+    if (h_up <= key) {
+        result = copy_set(head) ;
+        return result ;
+    }
+    if (h_low > key) {
+        result = NULL ;
+        return result ;
+    }
+
+    result = copy_set(head) ;
+
+    key_node = result ;
+    pre_key_node = key_node ;
+    while (key_node->next != NULL) {
+        key_node = key_node->next ;
+        if (key_node->item.low_value <= key && key_node->item.up_value => key) {
+            destroy_set(key_node->next) ;
+            key_node->next = NULL ;
+            key_node->item.up_value = key ;
+        }
+        else if (key_node->item.low_value > key && pre_key_node->item.up_value < key) {
+            destroy_set(key_node) ;
+            pre_key_node->next = NULL ;
+        }
+        pre_key_node = pre_key_node->next ;
+    }
+    return result ;
+}
+
+interval_node *split_set_up(interval_node *head, double key) {
+    interval_node *result = NULL ;
+    interval_node *key_node = NULL ;
+    interval_node *pre_key_node = NULL ;
+    interval item ;
+    double h_low, h_up ;
+    h_low = head->next->item.low_value ;
+    key_node = head ;
+    while (key_node->next != NULL) {
+        key_node = key_node->next ;
+    }
+    h_up = key_node->item.up_value ;
+
+    if (h_low >= key) {
+        result = copy_set(head) ;
+        return result ;
+    }
+    if (h_up < key) {
+        result = NULL ;
+        return result ;
+    }
+
+    item.low_value = 0 ;
+    item.up_value = 0 ;
+    result = make_node(item) ;
+
+    key_node = head ;
+    pre_key_node = key_node ;
+    while (key_node->next != NULL) {
+        key_node = key_node->next ;
+        if (key_node->item.low_value <= key && key_node->item.up_value => key) {
+            result->next = copy_set(key_node) ;
+            result->next->item.low_value = key ;
+        }
+        else if (key_node->item.low_value > key && pre_key_node->item.up_value < key) {
+            result->next = copy_set(key_node) ;
+        }
+        pre_key_node = pre_key_node->next ;
+    }
+    return result ;
+}
 

@@ -36,7 +36,7 @@ void destroy_set(interval_node *head) ;
 interval_node *copy_set(interval_node *src) ;
 
 
-interval_node *search_node(interval_node *head, interval key) ;
+interval_node *search_node(interval_node *head, double key) ;
 
 
 //interval_node *make_node(interval item);
@@ -73,6 +73,9 @@ interval_node *convert_to_set(interval_value_type src) ;
 bool is_set_equal(interval_node *a, interval_node *b) ;
 
 
+interval_node *split_set_low(interval_node *head, double key) ;
+
+interval_node *split_set_up(interval_node *head, double key) ;
 
 
 

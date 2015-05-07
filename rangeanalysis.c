@@ -188,41 +188,242 @@ edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, 
     double a_d, b_d ;
     int a_i, b_i ;
     int cmp_operand ;
+    bool a_low_c = false, a_up_c = false, b_low_c = false, b_up_c = false ;
+    double a_low, a_up, b_low, b_up ;
     char l_s[] = ">", lq_s[] = ">=", s_s[] = "<", sq_s[] = "=<", eq_s[] = "==" ;
-    edge_context *pointer = NULL ;
+    edge_context *pointer_a = NULL ;
     edge_context *pointer_b = NULL ;
     edge_context *result = NULL ;
     interval_node *node_pointer = NULL ;
     interval_node *node_pointer_b = NULL ;
+    interval_node *temp_a = NULL ;
+    interval_node *temp_b = NULL ;
     result = copy_context(pre_context) ;
     if (current_node->if_test_i->a_is_var == true && current_node->if_test_i->b_is_var == true) {
-        a_i = atoi(current_node->assignment_i->cmp_a) ;
-        pointer = get_var(a_i, result) ;
-        destroy_set(pointer_d->value_set) ;
-        pointer_d->value_set = node_pointer ;
+        a_i = atoi(current_node->if_test_i->cmp_a) ;
+        b_i = atoi(current_node->if_test_i->cmp_b) ;
+        pointer_a = get_var(a_i, result) ;
+        pointer_b = get_var(b_i, result) ;
     }
     else if (current_node->if_test_i->a_is_var == true && current_node->if_test_i->b_is_var == false) {
-
+        a_i = atoi(current_node->if_test_i->cmp_a) ;
+        pointer_a = get_var(a_i, result) ;
+        b_d = atof(current_node->if_test_i->cmp_b) ;
+        pointer_b = convert_to_set(b_d) ;
     }
     else {
         perror("exec_if_test cmp_a is not a var") ;
         exit(EXIT_FAILURE) ;
     }
-
-    //c = a
-    if (current_node->assignment_i->operator_b == NULL) {
-        if (current_node->assignment_i->a_is_var == true) {
-            a_i = atoi(current_node->assignment_i->operator_a) ;
-            pointer = get_var(a_i, result) ;
-            node_pointer = compulsory_convert(pointer->value_set, a_i) ;
-            destroy_set(pointer_d->value_set) ;
-            pointer_d->value_set = node_pointer ;
+    //get a_low and a_up, b_low and b_up
+    a_low = pointer_a->value_set->next->item.low_value ;
+    b_low = pointer_b->value_set->next->item.low_value ;
+    temp_a = pointer_a->value_set ;
+    while (temp_a->next != NULL) {
+        temp_a = temp_a->next ;
+    }
+    a_up = temp_a->item.up_value ;
+    temp_b = pointer_b->value_set ;
+    while (temp_b->next != NULL) {
+        temp_b = temp_b->next ;
+    }
+    b_up = temp_b->item.up_value ;
+    //get result
+    if (if_true == true) {
+        //>
+        if (strcmp(current_node->if_test_i->cmp_operand, l_s) == 0 || strcmp(current_node->if_test_i->cmp_operand, lq_s) == 0) {
+            if (a_up < b_low) {
+                node_pointer = NULL ;
+            }
+            else if (a_low <= b_low && a_up >= b_up) {
+                node_pointer = split_set_up(pointer_a->value_set, b_low) ;
+                node_pointer_b = copy_set(pointer_b->value_set) ;
+            }
+            else if (a_low > b_low && a_up > b_up) {
+                node_pointer = copy_set(pointer_a->value_set) ;
+                node_pointer_b = copy_set(pointer_b->value_set) ;
+            }
+            else if (a_low < b_low && a_up < b_up) {
+                node_pointer = split_set_up(pointer_a->value_set, b_low) ;
+                node_pointer_b = split_set_low(pointer_b->value_set, a_up) ;
+            }
+            else if (a_low >= b_low && a_up <= b_up) {
+                node_pointer = copy_set(pointer_a->value_set) ;
+                node_pointer_b = split_set_low(pointer_b->value_set, a_up) ;
+            }
         }
-        else {
-            a_d = atof(current_node->assignment_i->operator_a) ;
-            node_pointer = convert_to_set(a_d) ;
-            destroy_set(pointer_d->value_set) ;
-            pointer_d->value_set = node_pointer ;
+        //>=
+/*        else if (strcmp(current_node->if_test_i->cmp_operand, lq_s) == 0) {*/
+            /*if (a_up < b_low) {*/
+                /*node_pointer = NULL ;*/
+            /*}*/
+            /*else if (a_low <= b_low && a_up >= b_up) {*/
+                /*node_pointer = split_set_up(pointer_a->value_set, b_low) ;*/
+                /*node_pointer_b = copy_set(pointer_b->value_set) ;*/
+            /*}*/
+            /*else if (a_low > b_low && a_up > b_up) {*/
+                /*node_pointer = copy_set(pointer_a->value_set) ;*/
+                /*node_pointer_b = copy_set(pointer_b->value_set) ;*/
+            /*}*/
+            /*else if (a_low < b_low && a_up < b_up) {*/
+                /*node_pointer = split_set_up(pointer_a->value_set, b_low) ;*/
+                /*node_pointer_b = split_set_low(pointer_b->value_set, a_up) ;*/
+            /*}*/
+            /*else if (a_low >= b_low && a_up <= b_up) {*/
+                /*node_pointer = copy_set(pointer_a->value_set) ;*/
+                /*node_pointer_b = split_set_low(pointer_b->value_set, a_up) ;*/
+            /*}*/
+        /*}*/
+        //<
+        else if (strcmp(current_node->if_test_i->cmp_operand, s_s) == 0 || strcmp(current_node->if_test_i->cmp_operand, sq_s) == 0) {
+            if (b_up < a_low) {
+                node_pointer = NULL ;
+            }
+            else if (b_low <= a_low && b_up >= a_up) {
+                node_pointer_b = split_set_up(pointer_b->value_set, a_low) ;
+                node_pointer = copy_set(pointer_a->value_set) ;
+            }
+            else if (b_low > a_low && b_up > a_up) {
+                node_pointer_b = copy_set(pointer_b->value_set) ;
+                node_pointer = copy_set(pointer_a->value_set) ;
+            }
+            else if (b_low < a_low && b_up < a_up) {
+                node_pointer_b = split_set_up(pointer_b->value_set, a_low) ;
+                node_pointer = split_set_low(pointer_a->value_set, b_up) ;
+            }
+            else if (b_low >= a_low && b_up <= a_up) {
+                node_pointer_b = copy_set(pointer_b->value_set) ;
+                node_pointer = split_set_low(pointer_a->value_set, b_up) ;
+            }
+        }
+        //<=
+/*        else if (strcmp(current_node->if_test_i->cmp_operand, sq_s) == 0) {*/
+            /*if (b_up < a_low) {*/
+                /*node_pointer = NULL ;*/
+            /*}*/
+            /*else if (b_low <= a_low && b_up >= a_up) {*/
+                /*node_pointer_b = split_set_up(pointer_b->value_set, a_low) ;*/
+                /*node_pointer = copy_set(pointer_a->value_set) ;*/
+            /*}*/
+            /*else if (b_low > a_low && b_up > a_up) {*/
+                /*node_pointer_b = copy_set(pointer_b->value_set) ;*/
+                /*node_pointer = copy_set(pointer_a->value_set) ;*/
+            /*}*/
+            /*else if (b_low < a_low && b_up < a_up) {*/
+                /*node_pointer_b = split_set_up(pointer_b->value_set, a_low) ;*/
+                /*node_pointer = split_set_low(pointer_a->value_set, b_up) ;*/
+            /*}*/
+            /*else if (b_low >= a_low && b_up <= a_up) {*/
+                /*node_pointer_b = copy_set(pointer_b->value_set) ;*/
+                /*node_pointer = split_set_low(pointer_a->value_set, b_up) ;*/
+            /*}*/
+        /*}*/
+        //==
+        else if (strcmp(current_node->if_test_i->cmp_operand, eq_s) == 0) {
+            node_pointer = set_set_intersect(pointer_a->value_set, pointer_b->value_set) ;
+            node_pointer_b = copy_set(node_pointer) ;
+        }
+    }
+    else {
+        //>
+        if (strcmp(current_node->if_test_i->cmp_operand, l_s) == 0 || strcmp(current_node->if_test_i->cmp_operand, lq_s) == 0) {
+            if (b_up < a_low) {
+                node_pointer = NULL ;
+            }
+            else if (b_low <= a_low && b_up >= a_up) {
+                node_pointer_b = split_set_up(pointer_b->value_set, a_low) ;
+                node_pointer = copy_set(pointer_a->value_set) ;
+            }
+            else if (b_low > a_low && b_up > a_up) {
+                node_pointer_b = copy_set(pointer_b->value_set) ;
+                node_pointer = copy_set(pointer_a->value_set) ;
+            }
+            else if (b_low < a_low && b_up < a_up) {
+                node_pointer_b = split_set_up(pointer_b->value_set, a_low) ;
+                node_pointer = split_set_low(pointer_a->value_set, b_up) ;
+            }
+            else if (b_low >= a_low && b_up <= a_up) {
+                node_pointer_b = copy_set(pointer_b->value_set) ;
+                node_pointer = split_set_low(pointer_a->value_set, b_up) ;
+            }
+        }
+        //>=
+/*        else if (strcmp(current_node->if_test_i->cmp_operand, lq_s) == 0) {*/
+            /*if (b_up < a_low) {*/
+                /*node_pointer = NULL ;*/
+            /*}*/
+            /*else if (b_low <= a_low && b_up >= a_up) {*/
+                /*node_pointer_b = split_set_up(pointer_b->value_set, a_low) ;*/
+                /*node_pointer = copy_set(pointer_a->value_set) ;*/
+            /*}*/
+            /*else if (b_low > a_low && b_up > a_up) {*/
+                /*node_pointer_b = copy_set(pointer_b->value_set) ;*/
+                /*node_pointer = copy_set(pointer_a->value_set) ;*/
+            /*}*/
+            /*else if (b_low < a_low && b_up < a_up) {*/
+                /*node_pointer_b = split_set_up(pointer_b->value_set, a_low) ;*/
+                /*node_pointer = split_set_low(pointer_a->value_set, b_up) ;*/
+            /*}*/
+            /*else if (b_low >= a_low && b_up <= a_up) {*/
+                /*node_pointer_b = copy_set(pointer_b->value_set) ;*/
+                /*node_pointer = split_set_low(pointer_a->value_set, b_up) ;*/
+            /*}*/
+        /*}*/
+        //<
+        else if (strcmp(current_node->if_test_i->cmp_operand, s_s) == 0 || strcmp(current_node->if_test_i->cmp_operand, sq_s) == 0) {
+            if (a_up < b_low) {
+                node_pointer = NULL ;
+            }
+            else if (a_low <= b_low && a_up >= b_up) {
+                node_pointer = split_set_up(pointer_a->value_set, b_low) ;
+                node_pointer_b = copy_set(pointer_b->value_set) ;
+            }
+            else if (a_low > b_low && a_up > b_up) {
+                node_pointer = copy_set(pointer_a->value_set) ;
+                node_pointer_b = copy_set(pointer_b->value_set) ;
+            }
+            else if (a_low < b_low && a_up < b_up) {
+                node_pointer = split_set_up(pointer_a->value_set, b_low) ;
+                node_pointer_b = split_set_low(pointer_b->value_set, a_up) ;
+            }
+            else if (a_low >= b_low && a_up <= b_up) {
+                node_pointer = copy_set(pointer_a->value_set) ;
+                node_pointer_b = split_set_low(pointer_b->value_set, a_up) ;
+            }
+        }
+        //<=
+       /* else if (strcmp(current_node->if_test_i->cmp_operand, sq_s) == 0) {*/
+            /*if (a_up < b_low) {*/
+                /*node_pointer = NULL ;*/
+            /*}*/
+            /*else if (a_low <= b_low && a_up >= b_up) {*/
+                /*node_pointer = split_set_up(pointer_a->value_set, b_low) ;*/
+                /*node_pointer_b = copy_set(pointer_b->value_set) ;*/
+            /*}*/
+            /*else if (a_low > b_low && a_up > b_up) {*/
+                /*node_pointer = copy_set(pointer_a->value_set) ;*/
+                /*node_pointer_b = copy_set(pointer_b->value_set) ;*/
+            /*}*/
+            /*else if (a_low < b_low && a_up < b_up) {*/
+                /*node_pointer = split_set_up(pointer_a->value_set, b_low) ;*/
+                /*node_pointer_b = split_set_low(pointer_b->value_set, a_up) ;*/
+            /*}*/
+            /*else if (a_low >= b_low && a_up <= b_up) {*/
+                /*node_pointer = copy_set(pointer_a->value_set) ;*/
+                /*node_pointer_b = split_set_low(pointer_b->value_set, a_up) ;*/
+            /*}*/
+        /*}*/
+        //==
+        else if (strcmp(current_node->if_test_i->cmp_operand, eq_s) == 0) {
+            node_pointer = copy_set(pointer_a->value_set) ;
+            node_pointer_b = copy_set(pointer_b->value_set) ;
+        }
+    }
+
+    if (if_true == true) {
+        if (strcmp(current_node->if_test_i->cmp_operand, l_s) == 0 &&
+            function->func_vars_table[a_i]->variable_type != 5 && function->func_vars_table[a_i]->variable_type != 6) {
+
         }
     }
 

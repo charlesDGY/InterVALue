@@ -109,7 +109,7 @@ hoho(int i)
 
 //    static const long long ssaa[10] = {2, 4 ,5 ,6,4,5} ;
     int hae = 3 ;
-//    extern const long q2h4 ;
+//    extern const long q3h4 ;
     const short shieg = 3 ;
     hae = shieg - 4 ;
     long long youma = 4 ;
