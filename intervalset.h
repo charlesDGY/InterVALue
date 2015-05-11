@@ -19,7 +19,6 @@
 #include <stdlib.h>
 
 #include "interval.h"
-#include "common.h"
 
 typedef struct interval_node {
     interval item ;
@@ -78,6 +77,7 @@ interval_node *split_set_low(interval_node *head, double key) ;
 interval_node *split_set_up(interval_node *head, double key) ;
 
 
+interval_node *split_set_mid(interval_node *head, double key) ;
 
 
 

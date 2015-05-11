@@ -112,7 +112,7 @@ hoho(int i)
     long long youma = 4 ;
     unsigned long long youmei = 2 ;
     char ee = 's', as = 'c';
-    if (ee == as) {
+    if (ee != as) {
         ee = 'c' ;
         int xx = 3 ;
         hae = xx + 1 ;

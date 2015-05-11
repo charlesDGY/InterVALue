@@ -1460,7 +1460,7 @@ void creat_switch_node(char *line_str, cfg_node_t *current_node, cfg_func_t *fun
 
 }
 
-void creat_return_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) {
+cfg_node_t *creat_return_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) {
     int tail_handle ;
     char *pointer = NULL ;
     char *temp = NULL ;
@@ -1503,6 +1503,7 @@ void creat_return_node(char *line_str, cfg_node_t *current_node, cfg_func_t *fun
         link_nodes(current_node, new_current_node, function) ;
     }
     new_junction = creat_if_junction(new_current_node, function) ;
+    return new_current_node ;
 
 }
 
@@ -1560,6 +1561,7 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
     cfg_node_t *current_node = NULL ;
     cfg_node_t *new_current_node = NULL ;
     cfg_node_t *new_junction = NULL ;
+    cfg_node_t *exit_node = NULL ;
     /*cfg_edge_t *new_link_edge = NULL ;*/
 
     //set entry
@@ -1571,37 +1573,35 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
     current_node->pre_edges[current_node->pre_edges_num] = NULL ;
     function->pre_entry->end_node = current_node ;
 
-    if (function->func_num != 0) {
-        //put input_argument to the func_vars_table
-        for(input_argument = function->input_argument; *input_argument != NULL; input_argument++) {
+    //put input_argument to the func_vars_table
+    for(input_argument = function->input_argument; *input_argument != NULL; input_argument++) {
+        new_dec = new_declaration() ;
+        new_dec->name = copy_string((*input_argument)->arg_name) ;
+        new_dec->variable_type = (*input_argument)->arg_type ;
+        new_dec->is_pointer = (*input_argument)->is_pointer ;
+        new_dec->is_struct = (*input_argument)->is_struct ;
+        new_dec->struct_name = copy_string((*input_argument)->struct_name) ;
+        new_dec->effect_domain = 1 ;
+        function->func_vars_table[function->var_num] = new_dec ;
+        function->var_num++ ;
+        function->func_vars_table[function->var_num] = NULL ;
+    }
+    //put global variable to the func_vars_table
+    if (strcmp(functions[0]->func_name, "global") == 0) {
+        for(var_table = functions[0]->func_vars_table; *var_table != NULL; var_table++) {
             new_dec = new_declaration() ;
-            new_dec->name = copy_string((*input_argument)->arg_name) ;
-            new_dec->variable_type = (*input_argument)->arg_type ;
-            new_dec->is_pointer = (*input_argument)->is_pointer ;
-            new_dec->is_struct = (*input_argument)->is_struct ;
-            new_dec->struct_name = copy_string((*input_argument)->struct_name) ;
-            new_dec->effect_domain = 1 ;
+            new_dec->name = copy_string((*var_table)->name) ;
+            new_dec->variable_type = (*var_table)->variable_type ;
+            new_dec->is_pointer = (*var_table)->is_pointer ;
+            new_dec->is_struct = (*var_table)->is_struct ;
+            new_dec->struct_name = copy_string((*var_table)->struct_name) ;
+            new_dec->array_len = (*var_table)->array_len ;
+            new_dec->is_array = (*var_table)->is_array ;
+            new_dec->is_static = (*var_table)->is_static ;
+            new_dec->effect_domain = 0 ;
             function->func_vars_table[function->var_num] = new_dec ;
             function->var_num++ ;
             function->func_vars_table[function->var_num] = NULL ;
-        }
-        //put global variable to the func_vars_table
-        if (strcmp(functions[0]->func_name, "global") == 0) {
-            for(var_table = functions[0]->func_vars_table; *var_table != NULL; var_table++) {
-                new_dec = new_declaration() ;
-                new_dec->name = copy_string((*var_table)->name) ;
-                new_dec->variable_type = (*var_table)->variable_type ;
-                new_dec->is_pointer = (*var_table)->is_pointer ;
-                new_dec->is_struct = (*var_table)->is_struct ;
-                new_dec->struct_name = copy_string((*var_table)->struct_name) ;
-                new_dec->array_len = (*var_table)->array_len ;
-                new_dec->is_array = (*var_table)->is_array ;
-                new_dec->is_static = (*var_table)->is_static ;
-                new_dec->effect_domain = 0 ;
-                function->func_vars_table[function->var_num] = new_dec ;
-                function->var_num++ ;
-                function->func_vars_table[function->var_num] = NULL ;
-            }
         }
     }
     //first '{'
@@ -1691,7 +1691,7 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
         }
         //return
         else if (strcmp(var_type_buffer, return_s) == 0) {
-            creat_return_node(line_str, current_node, function, current_domain) ;
+            new_current_node = creat_return_node(line_str, current_node, function, current_domain) ;
             current_node = NULL ;
         }
         //declaration_t and assignment_t and call_t
@@ -1717,13 +1717,16 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
     }
 
     //set exit
-    new_current_node = new_node(function) ;
-    new_current_node->node_type = EXIT ;
-    link_last_token(new_current_node, function) ;
+    exit_node = new_node(function) ;
+    exit_node->node_type = EXIT ;
+    link_last_token(exit_node, function) ;
     if (current_node != NULL) {
-        link_nodes(current_node, new_current_node, function) ;
+        link_nodes(current_node, exit_node, function) ;
     }
-    new_junction = creat_if_junction(new_current_node, function) ;
+    if (new_current_node->node_type == RETURN) {
+        link_nodes(new_current_node, exit_node, function) ;
+    }
+    new_junction = creat_if_junction(exit_node, function) ;
 
 }
 
@@ -1850,10 +1853,10 @@ cfg_func_t **build_cfgs(char *cfg_file) {
             //get function name
             fscanf(fp,"%s", func_name_buffer) ;
             func_name = copy_string(func_name_buffer) ;
-            if (func_num == 0 && strcmp(func_name, "global") != 0) {
-                perror("the first function isn't global function!") ;
-                exit(EXIT_FAILURE) ;
-            }
+/*            if (func_num == 0 && strcmp(func_name, "global") != 0) {*/
+                /*perror("the first function isn't global function!") ;*/
+                /*exit(EXIT_FAILURE) ;*/
+            /*}*/
             functions[func_num]->func_name = func_name ;
             functions[func_num]->func_num = func_num ;
             func_num++ ;

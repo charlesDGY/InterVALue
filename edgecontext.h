@@ -15,7 +15,6 @@
 #ifndef EDGECONTEXT_H
 #define EDGECONTEXT_H
 
-#include <stdio.h>
 #include "intervalset.h"
 
 //typedef enum {NUM, BOOL} value_t ;
@@ -32,26 +31,24 @@ struct edge_context {
 } ;
 
 
+edge_context *make_context() ;
 
 
+edge_context *copy_context(edge_context *src) ;
 
+void destroy_context(edge_context *head) ;
 
-void free_node(edge_context *p) ;
+void free_context_node(edge_context *p) ;
 
-void destroy_set(edge_context *head) ;
-
-edge_context *copy_set(edge_context *src) ;
-
-edge_context *search_node(edge_context *head, int name_d) ;
-
-
-void insert_node(edge_context *head, edge_context *p) ;
-
-
-
+//assume that all edge_context is originally generated to the same length and same variable sort.
 edge_context *union_context(edge_context *head_a, edge_context *head_b) ;
 
+edge_context *get_var(int var_name, edge_context *context) ;
 
+//estimate whether two edge_context is equal.
+bool is_context_equal(edge_context *a, edge_context *b) ;
+
+edge_context *broaden_context(edge_context *head_a, edge_context *head_b) ;
 
 
 

@@ -14,11 +14,16 @@
 #ifndef COMMON_H
 #define COMMON_H
 #include <stdio.h>
-#include "interval.h"
+#include <float.h>
 
 #define bool unsigned char
 #define true 1
 #define false 0
+
+#define interval_value_type double
+
+#define MAX_VALUE 1.7E308
+#define MIN_VALUE -1.7E308
 
 
 //calculate the max of a and b

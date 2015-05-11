@@ -16,18 +16,6 @@
 #include "edgecontext.h"
 
 
-
-
-struct edge_context {
-    int name_d ;
-    interval_node *value_set ;
-//    value_t value_type ;
-    edge_context *next ;
-} ;
-
-
-
-
 edge_context *make_context()
 {
     edge_context *p = (edge_context *)malloc(sizeof *p) ;
@@ -114,37 +102,10 @@ void destroy_context(edge_context *head)
 }
 
 
-void free_node(interval_node *p)
-{
+void free_context_node(edge_context *p) {
+    destroy_set(p->value_set) ;
     free(p);
 }
-
-interval_node *search_node(interval_node *head, interval key)
-{
-    interval_node *p;
-    for (p = head->next; p; p = p->next)
-        if (p->item.low_value == key.low_value && p->item.up_value == key.up_value)
-            return p;
-    return NULL;
-}
-
-
-
-
-
-void insert_node(interval_node *head, interval_node *p)
-{
-    p->next = head->next;
-    head->next = p;
-}
-
-
-
-
-
-
-
-
 
 //assume that all edge_context is originally generated to the same length and same variable sort.
 edge_context *union_context(edge_context *head_a, edge_context *head_b) {
@@ -167,12 +128,13 @@ edge_context *union_context(edge_context *head_a, edge_context *head_b) {
 
     //union set and set
     while (iter_a != NULL) {
-        iter_r = new_context() ;
+        iter_r = make_context() ;
         iter_r->name_d = iter_a->name_d ;
         iter_r->value_set = set_set_union(iter_a->value_set, iter_b->value_set) ;
         if (result == NULL) {
-            result = iter_r ;
-            context_p = result ;
+            result = make_context() ;
+            result->next = iter_r ;
+            context_p = result->next ;
         }
         else {
             context_p->next = iter_r ;
@@ -212,6 +174,12 @@ bool is_context_equal(edge_context *a, edge_context *b) {
     edge_context *pointer_b = NULL ;
     pointer_a = a ;
     pointer_b = b ;
+    if (pointer_a->next == pointer_b->next && pointer_a->next == NULL) {
+        return true ;
+    }
+    else if (pointer_a->next == NULL || pointer_b->next == NULL) {
+        return false ;
+    }
     while (pointer_a->next != NULL) {
         pointer_a = pointer_a->next ;
         pointer_b = pointer_b->next ;
@@ -222,9 +190,10 @@ bool is_context_equal(edge_context *a, edge_context *b) {
     return true ;
 }
 
+
 edge_context *broaden_context(edge_context *head_a, edge_context *head_b) {
     if (head_b == NULL) {
-        perror("broaden_context's input head is NULL!") ;
+        perror("broaden_context's input head_b is NULL!") ;
         exit(EXIT_FAILURE) ;
     }
     //handle null and XN condition.
@@ -236,7 +205,8 @@ edge_context *broaden_context(edge_context *head_a, edge_context *head_b) {
         return copy_context(head_b) ;
     }
     if (head_b->next == NULL) {
-        return copy_context(head_a) ;
+        perror("broaden_context's input head_b->next is NULL!") ;
+        exit(EXIT_FAILURE) ;
     }
 
     edge_context *iter_a = NULL, *iter_b = NULL ;
@@ -246,7 +216,7 @@ edge_context *broaden_context(edge_context *head_a, edge_context *head_b) {
 
     //broaden set and set
     while (iter_a != NULL) {
-        iter_r = new_context() ;
+        iter_r = make_context() ;
         iter_r->name_d = iter_a->name_d ;
         if (is_set_equal(iter_a->value_set, iter_b->value_set) == false) {
             iter_r->value_set = set_set_broaden(iter_a->value_set, iter_b->value_set) ;
@@ -255,8 +225,9 @@ edge_context *broaden_context(edge_context *head_a, edge_context *head_b) {
             iter_r->value_set = copy_set(iter_a->value_set) ;
         }
         if (result == NULL) {
-            result = iter_r ;
-            context_p = result ;
+            result = make_context() ;
+            result->next = iter_r ;
+            context_p = result->next ;
         }
         else {
             context_p->next = iter_r ;

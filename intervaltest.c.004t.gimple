@@ -137,7 +137,7 @@ hoho (int i)
       youmei = 2;
       ee = 115;
       as = 99;
-      if (ee == as) goto <D.3843>; else goto <D.3844>;
+      if (ee != as) goto <D.3843>; else goto <D.3844>;
       <D.3843>:
       {
         int xx;

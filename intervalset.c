@@ -453,57 +453,149 @@ interval_node *compulsory_convert(interval_node *src, int variable_type)
 
     while (iter->next != NULL) {
         iter = iter->next ;
-        if (variable_type == 0) {
-            temp_interval.low_value = (int)iter->item.low_value ;
-            temp_interval.up_value = (int)iter->item.up_value ;
+        if (iter->item.low_value == MIN_VALUE && iter->item.up_value == MAX_VALUE) {
+            temp_interval.low_value = iter->item.low_value ;
+            temp_interval.up_value = iter->item.up_value ;
         }
-        else if (variable_type == 1) {
-            temp_interval.low_value = (char)iter->item.low_value ;
-            temp_interval.up_value = (char)iter->item.up_value ;
+        else if (iter->item.low_value != MIN_VALUE && iter->item.up_value == MAX_VALUE) {
+            temp_interval.up_value = iter->item.up_value ;
+            if (variable_type == 0) {
+                temp_interval.low_value = (int)iter->item.low_value ;
+            }
+            else if (variable_type == 1) {
+                temp_interval.low_value = (char)iter->item.low_value ;
+            }
+            else if (variable_type == 2) {
+                temp_interval.low_value = (short)iter->item.low_value ;
+            }
+            else if (variable_type == 3) {
+                temp_interval.low_value = (long)iter->item.low_value ;
+            }
+            else if (variable_type == 4) {
+                temp_interval.low_value = (long long)iter->item.low_value ;
+            }
+            else if (variable_type == 5) {
+                temp_interval.low_value = (float)iter->item.low_value ;
+            }
+            else if (variable_type == 6) {
+                temp_interval.low_value = (double)iter->item.low_value ;
+            }
+            else if (variable_type == 7) {
+                temp_interval.low_value = (unsigned int)iter->item.low_value ;
+            }
+            else if (variable_type == 8) {
+                temp_interval.low_value = (unsigned char)iter->item.low_value ;
+            }
+            else if (variable_type == 9) {
+                temp_interval.low_value = (unsigned short)iter->item.low_value ;
+            }
+            else if (variable_type == 10) {
+                temp_interval.low_value = (unsigned long)iter->item.low_value ;
+            }
+            else if (variable_type == 11) {
+                temp_interval.low_value = (unsigned long long)iter->item.low_value ;
+            }
+            else {
+                perror("unknown variable_type!!") ;
+                exit(EXIT_FAILURE) ;
+            }
         }
-        else if (variable_type == 2) {
-            temp_interval.low_value = (short)iter->item.low_value ;
-            temp_interval.up_value = (short)iter->item.up_value ;
+        else if (iter->item.low_value == MIN_VALUE && iter->item.up_value != MAX_VALUE) {
+            temp_interval.low_value = iter->item.low_value ;
+            if (variable_type == 0) {
+                temp_interval.up_value = (int)iter->item.up_value ;
+            }
+            else if (variable_type == 1) {
+                temp_interval.up_value = (char)iter->item.up_value ;
+            }
+            else if (variable_type == 2) {
+                temp_interval.up_value = (short)iter->item.up_value ;
+            }
+            else if (variable_type == 3) {
+                temp_interval.up_value = (long)iter->item.up_value ;
+            }
+            else if (variable_type == 4) {
+                temp_interval.up_value = (long long)iter->item.up_value ;
+            }
+            else if (variable_type == 5) {
+                temp_interval.up_value = (float)iter->item.up_value ;
+            }
+            else if (variable_type == 6) {
+                temp_interval.up_value = (double)iter->item.up_value ;
+            }
+            else if (variable_type == 7) {
+                temp_interval.up_value = (unsigned int)iter->item.up_value ;
+            }
+            else if (variable_type == 8) {
+                temp_interval.up_value = (unsigned char)iter->item.up_value ;
+            }
+            else if (variable_type == 9) {
+                temp_interval.up_value = (unsigned short)iter->item.up_value ;
+            }
+            else if (variable_type == 10) {
+                temp_interval.up_value = (unsigned long)iter->item.up_value ;
+            }
+            else if (variable_type == 11) {
+                temp_interval.up_value = (unsigned long long)iter->item.up_value ;
+            }
+            else {
+                perror("unknown variable_type!!") ;
+                exit(EXIT_FAILURE) ;
+            }
         }
-        else if (variable_type == 3) {
-            temp_interval.low_value = (long)iter->item.low_value ;
-            temp_interval.up_value = (long)iter->item.up_value ;
-        }
-        else if (variable_type == 4) {
-            temp_interval.low_value = (long long)iter->item.low_value ;
-            temp_interval.up_value = (long long)iter->item.up_value ;
-        }
-        else if (variable_type == 5) {
-            temp_interval.low_value = (float)iter->item.low_value ;
-            temp_interval.up_value = (float)iter->item.up_value ;
-        }
-        else if (variable_type == 6) {
-            temp_interval.low_value = (double)iter->item.low_value ;
-            temp_interval.up_value = (double)iter->item.up_value ;
-        }
-        else if (variable_type == 7) {
-            temp_interval.low_value = (unsigned int)iter->item.low_value ;
-            temp_interval.up_value = (unsigned int)iter->item.up_value ;
-        }
-        else if (variable_type == 8) {
-            temp_interval.low_value = (unsigned char)iter->item.low_value ;
-            temp_interval.up_value = (unsigned char)iter->item.up_value ;
-        }
-        else if (variable_type == 9) {
-            temp_interval.low_value = (unsigned short)iter->item.low_value ;
-            temp_interval.up_value = (unsigned short)iter->item.up_value ;
-        }
-        else if (variable_type == 10) {
-            temp_interval.low_value = (unsigned long)iter->item.low_value ;
-            temp_interval.up_value = (unsigned long)iter->item.up_value ;
-        }
-        else if (variable_type == 11) {
-            temp_interval.low_value = (unsigned long long)iter->item.low_value ;
-            temp_interval.up_value = (unsigned long long)iter->item.up_value ;
-        }
-        else {
-            perror("unknown variable_type!!") ;
-            exit(EXIT_FAILURE) ;
+        else if (iter->item.low_value != MIN_VALUE && iter->item.up_value != MAX_VALUE) {
+            if (variable_type == 0) {
+                temp_interval.low_value = (int)iter->item.low_value ;
+                temp_interval.up_value = (int)iter->item.up_value ;
+            }
+            else if (variable_type == 1) {
+                temp_interval.low_value = (char)iter->item.low_value ;
+                temp_interval.up_value = (char)iter->item.up_value ;
+            }
+            else if (variable_type == 2) {
+                temp_interval.low_value = (short)iter->item.low_value ;
+                temp_interval.up_value = (short)iter->item.up_value ;
+            }
+            else if (variable_type == 3) {
+                temp_interval.low_value = (long)iter->item.low_value ;
+                temp_interval.up_value = (long)iter->item.up_value ;
+            }
+            else if (variable_type == 4) {
+                temp_interval.low_value = (long long)iter->item.low_value ;
+                temp_interval.up_value = (long long)iter->item.up_value ;
+            }
+            else if (variable_type == 5) {
+                temp_interval.low_value = (float)iter->item.low_value ;
+                temp_interval.up_value = (float)iter->item.up_value ;
+            }
+            else if (variable_type == 6) {
+                temp_interval.low_value = (double)iter->item.low_value ;
+                temp_interval.up_value = (double)iter->item.up_value ;
+            }
+            else if (variable_type == 7) {
+                temp_interval.low_value = (unsigned int)iter->item.low_value ;
+                temp_interval.up_value = (unsigned int)iter->item.up_value ;
+            }
+            else if (variable_type == 8) {
+                temp_interval.low_value = (unsigned char)iter->item.low_value ;
+                temp_interval.up_value = (unsigned char)iter->item.up_value ;
+            }
+            else if (variable_type == 9) {
+                temp_interval.low_value = (unsigned short)iter->item.low_value ;
+                temp_interval.up_value = (unsigned short)iter->item.up_value ;
+            }
+            else if (variable_type == 10) {
+                temp_interval.low_value = (unsigned long)iter->item.low_value ;
+                temp_interval.up_value = (unsigned long)iter->item.up_value ;
+            }
+            else if (variable_type == 11) {
+                temp_interval.low_value = (unsigned long long)iter->item.low_value ;
+                temp_interval.up_value = (unsigned long long)iter->item.up_value ;
+            }
+            else {
+                perror("unknown variable_type!!") ;
+                exit(EXIT_FAILURE) ;
+            }
         }
         p->next = make_node(temp_interval) ;
         p = p->next ;
@@ -536,14 +628,28 @@ bool is_set_equal(interval_node *a, interval_node *b) {
     interval_node *pointer_b = NULL ;
     pointer_a = a ;
     pointer_b = b ;
+    if (pointer_a->next == pointer_b->next && pointer_a->next == NULL) {
+        return true ;
+    }
+    else if (pointer_a->next == NULL || pointer_b->next == NULL) {
+        return false ;
+    }
     while (pointer_a->next != NULL) {
+        if (pointer_b->next == NULL) {
+            return false ;
+        }
         pointer_a = pointer_a->next ;
         pointer_b = pointer_b->next ;
         if (pointer_a->item.low_value != pointer_b->item.low_value || pointer_a->item.up_value != pointer_b->item.up_value) {
             return false ;
         }
     }
-    return true ;
+    if (pointer_b->next == NULL) {
+        return true ;
+    }
+    else {
+        return false ;
+    }
 }
 
 
@@ -551,6 +657,7 @@ interval_node *split_set_low(interval_node *head, double key) {
     interval_node *result = NULL ;
     interval_node *key_node = NULL ;
     interval_node *pre_key_node = NULL ;
+    interval item ;
     double h_low, h_up ;
     h_low = head->next->item.low_value ;
     key_node = head ;
@@ -564,7 +671,9 @@ interval_node *split_set_low(interval_node *head, double key) {
         return result ;
     }
     if (h_low > key) {
-        result = NULL ;
+        item.low_value = 0 ;
+        item.up_value = 0 ;
+        result = make_node(item) ;
         return result ;
     }
 
@@ -574,14 +683,16 @@ interval_node *split_set_low(interval_node *head, double key) {
     pre_key_node = key_node ;
     while (key_node->next != NULL) {
         key_node = key_node->next ;
-        if (key_node->item.low_value <= key && key_node->item.up_value => key) {
+        if (key_node->item.low_value <= key && key_node->item.up_value >= key) {
             destroy_set(key_node->next) ;
             key_node->next = NULL ;
             key_node->item.up_value = key ;
+            break ;
         }
         else if (key_node->item.low_value > key && pre_key_node->item.up_value < key) {
             destroy_set(key_node) ;
             pre_key_node->next = NULL ;
+            break ;
         }
         pre_key_node = pre_key_node->next ;
     }
@@ -606,7 +717,9 @@ interval_node *split_set_up(interval_node *head, double key) {
         return result ;
     }
     if (h_up < key) {
-        result = NULL ;
+        item.low_value = 0 ;
+        item.up_value = 0 ;
+        result = make_node(item) ;
         return result ;
     }
 
@@ -618,15 +731,71 @@ interval_node *split_set_up(interval_node *head, double key) {
     pre_key_node = key_node ;
     while (key_node->next != NULL) {
         key_node = key_node->next ;
-        if (key_node->item.low_value <= key && key_node->item.up_value => key) {
+        if (key_node->item.low_value <= key && key_node->item.up_value >= key) {
             result->next = copy_set(key_node) ;
             result->next->item.low_value = key ;
+            break ;
         }
         else if (key_node->item.low_value > key && pre_key_node->item.up_value < key) {
             result->next = copy_set(key_node) ;
+            break ;
         }
         pre_key_node = pre_key_node->next ;
     }
     return result ;
 }
 
+//only be used to handle int class type
+interval_node *split_set_mid(interval_node *head, double key) {
+    interval_node *result = NULL ;
+    interval_node *key_node = NULL ;
+    interval_node *pre_key_node = NULL ;
+    interval_node *new_node = NULL ;
+    interval item ;
+    double h_low, h_up ;
+    item.low_value = 0 ;
+    item.up_value = 0 ;
+
+    h_low = head->next->item.low_value ;
+    key_node = head ;
+    while (key_node->next != NULL) {
+        key_node = key_node->next ;
+    }
+    h_up = key_node->item.up_value ;
+
+    result = copy_set(head) ;
+
+    if (h_up < key || h_low > key) {
+        return result ;
+    }
+    key_node = result ;
+    pre_key_node = key_node ;
+    while (key_node->next != NULL) {
+        key_node = key_node->next ;
+        if (key_node->item.low_value < key && key_node->item.up_value > key) {
+            new_node = make_node(item) ;
+            new_node->next = key_node->next ;
+            key_node->next = new_node ;
+            new_node->item.up_value = key_node->item.up_value ;
+            new_node->item.low_value = key + 1;
+            key_node->item.up_value = key - 1 ;
+            break ;
+        }
+        else if (key_node->item.low_value == key && key_node->item.up_value != key) {
+            key_node->item.low_value++ ;
+            break ;
+        }
+        else if (key_node->item.up_value == key && key_node->item.low_value != key) {
+            key_node->item.up_value-- ;
+            break ;
+        }
+        else if (key_node->item.low_value == key) {
+            pre_key_node->next = key_node->next ;
+            free_node(key_node) ;
+            break ;
+        }
+        pre_key_node = pre_key_node->next ;
+    }
+    return result ;
+
+}

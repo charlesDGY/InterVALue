@@ -14,10 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "interval.h"
-#include "intervalset.h"
-#include "edgecontext.h"
-#include "cfg.h"
+#include "rangeanalysis.h"
 
 int main(int argc, const char *argv[])
 {
@@ -250,24 +247,62 @@ int main(int argc, const char *argv[])
     /*}*/
 //
     //test cfg generation!
-    char *fp = "/home/dgy/Programming/VInterval/usefultest.c.004t.gimple" ;
+/*    char *fp = "/home/dgy/Programming/VInterval/usefultest.c.004t.gimple" ;*/
+    /*char *glob_var_file = NULL ;*/
+    /*cfg_func_t **result = NULL ;*/
+    /*result = build_cfgs(fp, glob_var_file) ;*/
+    /*int j = 0 ;*/
+    /*while ((*result) != NULL) {*/
+        /*printf("func_num: %d\n", (*result)->func_num) ;*/
+        /*printf("func name: %s\n", (*result)->func_name) ;*/
+        /*int i = 0 ;*/
+        /*while ((*result)->input_argument[i] != NULL) {*/
+            /*printf("input_argument %d : %s \nis_struct :%d \nis_pointer :%d \nstruct_name: %s\n",*/
+                    /*(*result)->input_argument[i]->arg_type, (*result)->input_argument[i]->arg_name,*/
+                    /*(*result)->input_argument[i]->is_struct,(*result)->input_argument[i]->is_pointer,(*result)->input_argument[i]->struct_name);*/
+            /*i++ ;*/
+        /*}*/
+        /*result++ ;*/
+    /*}*/
+
+    char *fp = "/home/dgy/Programming/VInterval/simpletest.c.004t.gimple" ;
     char *glob_var_file = NULL ;
-    cfg_func_t **result = NULL ;
-    result = build_cfgs(fp, glob_var_file) ;
+    cfg_func_t **cfg_tree = NULL ;
+    cfg_func_t **result_cfg = NULL ;
+    cfg_tree = build_cfgs(fp) ;
+    result_cfg = cfg_tree ;
     int j = 0 ;
-    while ((*result) != NULL) {
-        printf("func_num: %d\n", (*result)->func_num) ;
-        printf("func name: %s\n", (*result)->func_name) ;
+    while ((*cfg_tree) != NULL) {
+        printf("func_num: %d\n", (*cfg_tree)->func_num) ;
+        printf("func name: %s\n", (*cfg_tree)->func_name) ;
         int i = 0 ;
-        while ((*result)->input_argument[i] != NULL) {
+        while ((*cfg_tree)->input_argument[i] != NULL) {
             printf("input_argument %d : %s \nis_struct :%d \nis_pointer :%d \nstruct_name: %s\n",
-                    (*result)->input_argument[i]->arg_type, (*result)->input_argument[i]->arg_name,
-                    (*result)->input_argument[i]->is_struct,(*result)->input_argument[i]->is_pointer,(*result)->input_argument[i]->struct_name);
+                    (*cfg_tree)->input_argument[i]->arg_type, (*cfg_tree)->input_argument[i]->arg_name,
+                    (*cfg_tree)->input_argument[i]->is_struct,(*cfg_tree)->input_argument[i]->is_pointer,(*cfg_tree)->input_argument[i]->struct_name);
             i++ ;
         }
-        result++ ;
+        cfg_tree++ ;
     }
 
+    //global
+    interval_node *result_set = NULL ;
+    edge_context *global_var_range = NULL ;
+    global_var_range = make_context() ;
+
+    //input i
+    edge_context *func_actual_arg = NULL ;
+    edge_context *input_i = NULL ;
+    func_actual_arg = make_context() ;
+    input_i = make_context() ;
+    input_i->name_d = 0 ;
+    interval item ;
+    item.low_value = MIN_VALUE ;
+    item.up_value = MAX_VALUE ;
+    input_i->value_set->next = make_node(item) ;
+    func_actual_arg->next = input_i ;
+
+    result_set = range_analysis(global_var_range, func_actual_arg, 0, result_cfg) ;
 
     return 0;
 }

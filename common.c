@@ -102,29 +102,29 @@ interval_value_type add_inf(interval_value_type a, interval_value_type b, int va
 }
 
 
-char const *sys_var_type[] = {
-    "int",
-    "char",
-    "short int",
-    "long int",
-    "long long int",
-    "float",
-    "double",
-    "unsigned int",
-    "unsigned char",
-    "short unsigned int",
-    "long unsigned int",
-    "long long unsigned int",
-    "unsigned",
-    "struct",
-    "const",
-    "static",
-//    "extern",
-    "typedef",
-    "long",
-    "short",
-    NULL
-} ;
+/*char const *sys_var_type[] = {*/
+    /*"int",*/
+    /*"char",*/
+    /*"short int",*/
+    /*"long int",*/
+    /*"long long int",*/
+    /*"float",*/
+    /*"double",*/
+    /*"unsigned int",*/
+    /*"unsigned char",*/
+    /*"short unsigned int",*/
+    /*"long unsigned int",*/
+    /*"long long unsigned int",*/
+    /*"unsigned",*/
+    /*"struct",*/
+    /*"const",*/
+    /*"static",*/
+/*//    "extern",*/
+    /*"typedef",*/
+    /*"long",*/
+    /*"short",*/
+    /*NULL*/
+/*} ;*/
 
 
 //handle sub overflow
@@ -265,7 +265,7 @@ interval_value_type mul_inf(interval_value_type a, interval_value_type b, int va
     }
     else {
         mul_overflow(&a, &b) ;
-         interval_value_type c ;
+        interval_value_type c ;
         if (variable_type == 0) {
             c = ((int)a * (int)b) ;
         }

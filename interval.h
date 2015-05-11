@@ -17,13 +17,7 @@
 
 
 #include <stdio.h>
-#include <float.h>
 #include "common.h"
-
-#define interval_value_type double
-#define MAX_VALUE DBL_MAX_10_EXP
-#define MIN_VALUE DBL_MIN_10_EXP
-
 //basic interval type
 typedef struct {
     interval_value_type low_value;

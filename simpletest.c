@@ -1,5 +1,4 @@
-void
-f (int i)
+int f (int i)
 {
     int j = 0;
     if (i > 0) {
@@ -10,5 +9,6 @@ f (int i)
     else {
         j--;
     }
+    return j ;
 }
 

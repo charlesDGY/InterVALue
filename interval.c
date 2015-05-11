@@ -87,7 +87,7 @@ void interval_div(interval *a, interval *b, interval *c, int variable_type) {
     if ((b->low_value > MIN_VALUE && b->up_value < 0) || (b->low_value > 0 && b->up_value < MAX_VALUE)) {
         interval_value_type temp_max, temp_min, temp_mid;
         temp_min = interval_value_min(div_inf(a->low_value, b->low_value, variable_type),
-                div_inf(a->low_value, b->up_value)) ;
+                div_inf(a->low_value, b->up_value, variable_type)) ;
         temp_mid = interval_value_min(div_inf(a->up_value, b->low_value, variable_type),
                 div_inf(a->up_value, b->up_value, variable_type)) ;
         temp_min = interval_value_min(temp_min, temp_mid) ;

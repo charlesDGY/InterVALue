@@ -18,7 +18,6 @@
 
 #include <stdio.h>
 #include "edgecontext.h"
-#include "common.h"
 
 
 
@@ -264,14 +263,14 @@ cfg_node_t *creat_goto_node(char *line_str, cfg_node_t *current_node, cfg_func_t
 
 void creat_switch_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) ;
 
-void creat_return_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) ;
+cfg_node_t *creat_return_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) ;
 
 void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **function_table) ;
 
 
 void build_input_args(FILE *fp, cfg_func_t *function) ;
 
-cfg_func_t **build_cfgs(char *cfg_file, char *glob_var_file) ;
+cfg_func_t **build_cfgs(char *cfg_file) ;
 
 
 

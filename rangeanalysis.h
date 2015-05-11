@@ -15,32 +15,29 @@
 #ifndef RANGEANALYSIS_H
 #define RANGEANALYSIS_H
 
-
-#include <stdio.h>
-#include <float.h>
-
 #include "cfg.h"
-#include "edgecontext.h"
 
 #define MAX_EDGE_STACK 150
 #define MAX_JUNC_STACK 150
 
-//basic interval type
-typedef struct {
-    interval_value_type low_value;
-    interval_value_type up_value;
-    //bool low_bound; [>true means close interval, false means open interval<]
-    //bool up_bound;
-} interval;
 
+void push_edges(cfg_edge_t *new_edge, cfg_edge_t **edges, int *edges_num) ;
 
-void interval_add(interval *a, interval *b, interval *c);
+cfg_edge_t *pop_edges(cfg_edge_t **edges, int *edges_num) ;
 
-void interval_sub(interval *a, interval *b, interval *c);
+//junctions stack
+void push_junctions(cfg_node_t *new_node, cfg_node_t **junctions, int *junctions_num) ;
 
-void interval_mul(interval *a, interval *b, interval *c);
+cfg_node_t *pop_junctions(cfg_node_t **junctions, int *junctions_num) ;
 
-//div function can only handle non-float argument.
-void interval_div(interval *a, interval *b, interval *c);
+edge_context *exec_assignment(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function) ;
+
+edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function, edge_context *true_context, edge_context *false_context) ;
+
+void update_range(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num) ;
+
+void creat_return_set(cfg_node_t *current_node, edge_context *current_context, interval_node *result) ;
+
+interval_node *range_analysis(edge_context *global_var_range, edge_context *func_actual_arg, int func_num, cfg_func_t **functions) ;
 
 #endif
