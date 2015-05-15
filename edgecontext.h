@@ -41,7 +41,6 @@ void destroy_context(edge_context *head) ;
 void free_context_node(edge_context *p) ;
 
 //assume that all edge_context is originally generated to the same length and same variable sort.
-edge_context *union_context(edge_context *head_a, edge_context *head_b) ;
 
 edge_context *get_var(int var_name, edge_context *context) ;
 

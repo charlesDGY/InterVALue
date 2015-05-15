@@ -212,6 +212,47 @@ char const *sys_var_type[] = {
     NULL
 } ;
 
+//assume that all edge_context is originally generated to the same length and same variable sort.
+edge_context *union_context(edge_context *head_a, edge_context *head_b, cfg_func_t *function) {
+    if (head_a == NULL || head_b == NULL) {
+        perror("union_context's input head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    //handle null and XN condition.
+    if (head_a->next == NULL) {
+        return copy_context(head_b) ;
+    }
+    if (head_b->next == NULL) {
+        return copy_context(head_a) ;
+    }
+
+    edge_context *iter_a = NULL, *iter_b = NULL ;
+    edge_context *context_p = NULL, *iter_r = NULL, *result = NULL ;
+    iter_a = head_a->next ;
+    iter_b = head_b->next ;
+
+    //union set and set
+    while (iter_a != NULL) {
+        iter_r = make_context() ;
+        iter_r->name_d = iter_a->name_d ;
+        iter_r->value_set = set_set_union(iter_a->value_set, iter_b->value_set, function->func_vars_table[iter_r->name_d]->variable_type) ;
+        if (result == NULL) {
+            result = make_context() ;
+            result->next = iter_r ;
+            context_p = result->next ;
+        }
+        else {
+            context_p->next = iter_r ;
+            context_p = context_p->next ;
+        }
+        iter_a = iter_a->next ;
+        iter_b = iter_b->next ;
+    }
+    return result ;
+
+}
+
+
 
 cfg_func_t **new_functions() {
     cfg_func_t **p = (cfg_func_t **)malloc(MAX_FUNC_NUM * (sizeof *p)) ;
@@ -369,6 +410,32 @@ if_test_t *new_if() {
 
     return p ;
 }
+
+case_t *new_case() {
+    case_t *p = (case_t *)malloc(sizeof *p) ;
+    if (p == NULL) {
+        perror("new case is out of memory!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    p->case_number = 0 ;
+    p->token_name = NULL ;
+    return p ;
+}
+
+switch_test_t *new_switch() {
+    switch_test_t *p = (switch_test_t *)malloc(sizeof *p) ;
+    if (p == NULL) {
+        perror("new switch_test_t is out of memory!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    p->switch_var = -1 ;
+    p->case_chain[0] = NULL ;
+    p->case_num = 0 ;
+
+    return p ;
+}
+
+
 
 call_parameter *new_call_parameter() {
     call_parameter *p = (call_parameter *)malloc(sizeof *p) ;
@@ -813,15 +880,30 @@ cfg_node_t *add_pre_junction(cfg_node_t *source, cfg_func_t *function) {
     return junction_node ;
 }
 
+
 //if the last exist token hasn't pointer to a node, link the need_node to the new_current_node.
 void link_last_token(cfg_node_t *new_current_node, cfg_func_t *function) {
     token_list **need_token_prt = NULL ;
+    case_t *temp_case = NULL ;
+    int i ;
     //if there are new exist_token that hasn't been pointer to a node, then pointer to the new if node, and estimate whether has need_token pointer to the token, then link_nodes.
     if (function->exist_token_num > 0 && function->exist_tokens[function->exist_token_num - 1]->pointer == NULL) {
         function->exist_tokens[function->exist_token_num - 1]->pointer = new_current_node ;
         for (need_token_prt = function->need_tokens; *need_token_prt != NULL; need_token_prt++) {
             if(strcmp((*need_token_prt)->token_name, function->exist_tokens[function->exist_token_num - 1]->token_name) == 0) {
                 link_nodes((*need_token_prt)->pointer, function->exist_tokens[function->exist_token_num - 1]->pointer, function) ;
+                if ((*need_token_prt)->pointer->node_type == SWITCH_TEST) {
+                    for (i = 0; i < (*need_token_prt)->pointer->switch_test_i->case_num; i++) {
+                        if (strcmp((*need_token_prt)->pointer->switch_test_i->case_chain[i]->token_name, (*need_token_prt)->token_name) == 0) {
+                            if ((*need_token_prt)->pointer->succ_edges_num != (i + 1)) {
+                                temp_case = (*need_token_prt)->pointer->switch_test_i->case_chain[(*need_token_prt)->pointer->succ_edges_num - 1] ;
+                                (*need_token_prt)->pointer->switch_test_i->case_chain[(*need_token_prt)->pointer->succ_edges_num - 1] = (*need_token_prt)->pointer->switch_test_i->case_chain[i] ;
+                                (*need_token_prt)->pointer->switch_test_i->case_chain[i] = temp_case ;
+                            }
+                            break ;
+                        }
+                    }
+                }
             }
         }
     }
@@ -879,6 +961,39 @@ cfg_node_t *add_while_junction(cfg_node_t *if_junc_node, cfg_func_t *function) {
     //return
     junction_node->node_type = JUNCTION ;
     junction_node->is_if_junction = false ;
+    junction_node->loop_times = LOOP_TIMES ;
+    return junction_node ;
+
+}
+
+cfg_node_t *while_junction(cfg_node_t *if_node, cfg_func_t *function) {
+    cfg_node_t *junction_node = NULL ;
+    cfg_edge_t *junction_edge = NULL ;
+    junction_node = new_node(function) ;
+    junction_edge = new_edge(function) ;
+    cfg_edge_t **source_pre_edges = NULL ;
+    cfg_node_t *new_junction = NULL ;
+
+    for(source_pre_edges = if_node->pre_edges + 1; *source_pre_edges != NULL; source_pre_edges++) {
+        (*source_pre_edges)->end_node = junction_node;
+        junction_node->pre_edges[junction_node->pre_edges_num] = *source_pre_edges ;
+        junction_node->pre_edges_num++ ;
+    }
+    junction_node->pre_edges[junction_node->pre_edges_num] = NULL ;
+    //link bottom if and new while junction.
+    junction_node->succ_edges[junction_node->succ_edges_num] = junction_edge ;
+    junction_node->succ_edges_num++ ;
+    junction_node->succ_edges[junction_node->succ_edges_num] = NULL ;
+    junction_edge->start_node = junction_node ;
+    junction_edge->end_node = if_node ;
+    if_node->pre_edges[1] = junction_edge ;
+    if_node->pre_edges[2] = NULL ;
+
+    new_junction = creat_if_junction(junction_node, function) ;
+    //return
+    junction_node->node_type = JUNCTION ;
+    junction_node->is_if_junction = false ;
+    junction_node->loop_times = LOOP_TIMES ;
     return junction_node ;
 
 }
@@ -919,8 +1034,6 @@ void build_if_node(char *line_str, cfg_node_t *current_node, cfg_func_t *functio
     /*}*/
     /*}*/
     /*}*/
-    //if there is if_junction, creat it.
-    new_junction = creat_if_junction(new_current_node, function) ;
     //find the need token of if node.
     //true token
     tail_handle = strlen(type_buffer[5]) ;
@@ -935,25 +1048,39 @@ void build_if_node(char *line_str, cfg_node_t *current_node, cfg_func_t *functio
     //not an exist token
     if (*exist_token_prt == NULL) {
         add_need_token(pointer, new_current_node, function) ;
+        //if there is if_junction, creat it.
+        new_junction = creat_if_junction(new_current_node, function) ;
     }
     //is an exist token, then there is a loop, add junction_node(while junction)
     else {
+        //goto point if_test_node, doesn't point while junction
         //generate if junction at the begin of the loop if need. if there are code like while(a < 1 || b > 2), then we need if junction.
         if ((*exist_token_prt)->pointer->node_type != JUNCTION && (*exist_token_prt)->pointer->pre_edges_num > 1) {
             new_junction = creat_if_junction((*exist_token_prt)->pointer, function) ;
             (*exist_token_prt)->pointer = new_junction ;
         }
         //add while junction
-        if ((*exist_token_prt)->while_pointer->succ_edges[0]->end_node->pre_edges_num >= 3) {
-            new_junction = add_while_junction((*exist_token_prt)->while_pointer->succ_edges[0]->end_node, function) ;
-        }
-        else if ((*exist_token_prt)->while_pointer->succ_edges[0]->end_node->pre_edges_num == 2) {
-            (*exist_token_prt)->while_pointer->succ_edges[0]->end_node->is_if_junction = false ;
-        }
-        else {
-            perror("add while junction error!!") ;
-            exit(EXIT_FAILURE) ;
-        }
+        new_junction = while_junction((*exist_token_prt)->while_pointer->succ_edges[0]->end_node, function) ;
+
+        //goto point to while junction.
+/*        //generate if junction at the begin of the loop if need. if there are code like while(a < 1 || b > 2), then we need if junction.*/
+        /*if ((*exist_token_prt)->pointer->node_type != JUNCTION && (*exist_token_prt)->pointer->pre_edges_num > 1) {*/
+            /*new_junction = creat_if_junction((*exist_token_prt)->pointer, function) ;*/
+            /*(*exist_token_prt)->pointer = new_junction ;*/
+        /*}*/
+        /*//add while junction*/
+        /*if ((*exist_token_prt)->while_pointer->succ_edges[0]->end_node->pre_edges_num >= 3) {*/
+            /*new_junction = add_while_junction((*exist_token_prt)->while_pointer->succ_edges[0]->end_node, function) ;*/
+        /*}*/
+        /*else if ((*exist_token_prt)->while_pointer->succ_edges[0]->end_node->pre_edges_num == 2) {*/
+            /*(*exist_token_prt)->while_pointer->succ_edges[0]->end_node->is_if_junction = false ;*/
+            /*(*exist_token_prt)->while_pointer->succ_edges[0]->end_node->loop_times = LOOP_TIMES ;*/
+        /*}*/
+        /*else {*/
+            /*perror("add while junction error!!") ;*/
+            /*exit(EXIT_FAILURE) ;*/
+        /*}*/
+
     }
     /* //estimate whether there is a if junction.*/
     /*if (new_junction != NULL) {*/
@@ -1455,8 +1582,81 @@ cfg_node_t *creat_goto_node(char *line_str, cfg_node_t *current_node, cfg_func_t
     return new_current_node ;
 }
 
-
 void creat_switch_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) {
+    int tail_handle ;
+    int iter = 4 ;
+    char *pointer = NULL ;
+    char *temp = NULL ;
+    int row = 0 ;
+    char *type_buffer[MAX_SWITCH_CASE * 2 + 2] ;
+    cfg_node_t *new_current_node = NULL ;
+    cfg_node_t *new_junction = NULL ;
+    //split the string
+    type_buffer[row] = strtok(line_str, " ") ;
+    while (type_buffer[row] != NULL) {
+        row++ ;
+        type_buffer[row] = strtok(NULL, " ") ;
+    }
+    row-- ;
+
+    new_current_node = new_node(function) ;
+    new_current_node->node_type = SWITCH_TEST ;
+    new_current_node->switch_test_i = new_switch() ;
+    //if there are new exist_token that hasn't been pointer to a node, then pointer to the new if node, and estimate whether has need_token pointer to the token, then link_nodes.
+    link_last_token(new_current_node, function) ;
+    //link current_node and new if node
+    if (current_node != NULL) {
+        link_nodes(current_node, new_current_node, function) ;
+    }
+    //if there is if_junction, creat it.
+    new_junction = creat_if_junction(new_current_node, function) ;
+    //find the need token of if node.
+    //true token
+    tail_handle = strlen(type_buffer[1]) ;
+    type_buffer[1][tail_handle - 1] = '\0' ;
+    pointer = type_buffer[1] ;
+    pointer++ ;
+    temp = get_var_position(pointer, function, current_domain) ;
+    if (temp == NULL) {
+        perror("switch var is unknown") ;
+        exit(EXIT_FAILURE) ;
+    }
+    new_current_node->switch_test_i->switch_var = atoi(temp) ;
+    //default
+    new_current_node->switch_test_i->case_chain[new_current_node->switch_test_i->case_num] = new_case() ;
+
+    tail_handle = strlen(type_buffer[3]) ;
+    type_buffer[3][tail_handle - 1] = '\0' ;
+    pointer = type_buffer[3] ;
+    new_current_node->switch_test_i->case_chain[new_current_node->switch_test_i->case_num]->case_number = 0 ;
+    new_current_node->switch_test_i->case_chain[new_current_node->switch_test_i->case_num]->token_name = copy_string(pointer) ;
+    add_need_token(pointer, new_current_node, function) ;
+
+    new_current_node->switch_test_i->case_num++ ;
+    new_current_node->switch_test_i->case_chain[new_current_node->switch_test_i->case_num] = NULL ;
+
+    if (iter > row) {
+        return ;
+    }
+    //case
+    while (iter != row + 1) {
+        new_current_node->switch_test_i->case_chain[new_current_node->switch_test_i->case_num] = new_case() ;
+        tail_handle = strlen(type_buffer[iter + 1]) ;
+        type_buffer[iter + 1][tail_handle - 1] = '\0' ;
+        pointer = type_buffer[iter + 1] ;
+        new_current_node->switch_test_i->case_chain[new_current_node->switch_test_i->case_num]->case_number = atoi(pointer) ;
+
+        tail_handle = strlen(type_buffer[iter + 2]) ;
+        type_buffer[iter + 2][tail_handle - 1] = '\0' ;
+        pointer = type_buffer[iter + 2] ;
+        new_current_node->switch_test_i->case_chain[new_current_node->switch_test_i->case_num]->token_name = copy_string(pointer) ;
+        add_need_token(pointer, new_current_node, function) ;
+
+        new_current_node->switch_test_i->case_num++ ;
+        new_current_node->switch_test_i->case_chain[new_current_node->switch_test_i->case_num] = NULL ;
+
+        iter = iter + 3 ;
+    }
 
 }
 
@@ -1494,7 +1694,7 @@ cfg_node_t *creat_return_node(char *line_str, cfg_node_t *current_node, cfg_func
             exit(EXIT_FAILURE) ;
         }
         new_current_node->return_i->return_is_var = true ;
-        new_current_node->return_i->return_num = copy_string(temp) ;
+        new_current_node->return_i->return_num = temp ;
     }
     //link node
     link_last_token(new_current_node, function) ;
@@ -1669,6 +1869,7 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **functions) {
         //switch_test
         else if (strcmp(var_type_buffer, switch_test_s) == 0) {
             creat_switch_node(line_str, current_node, function, current_domain) ;
+            current_node = NULL ;
         }
 
         //junction_t

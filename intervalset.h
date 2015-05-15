@@ -54,10 +54,10 @@ void interval_set_union(interval a, interval_node *head) ;
 void interval_set_intersect(interval a, interval_node *head) ;
 
 //set and set union operate
-interval_node *set_set_union(interval_node *head_a, interval_node *head_b) ;
+interval_node *set_set_union(interval_node *head_a, interval_node *head_b, int variable_type) ;
 
 //set and set intersect operate
-interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) ;
+interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b, int variable_type) ;
 
 interval_node *set_set_broaden(interval_node *head_a, interval_node *head_b) ;
 //set and set add, sub, mul, div operate

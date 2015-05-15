@@ -34,10 +34,17 @@ edge_context *exec_assignment(cfg_node_t *current_node, edge_context *pre_contex
 
 edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function, edge_context *true_context, edge_context *false_context) ;
 
-void update_range(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num) ;
+edge_context *exec_switch_test(cfg_node_t *current_node, edge_context *current_context, edge_context *temp_context, int case_number) ;
 
-void creat_return_set(cfg_node_t *current_node, edge_context *current_context, interval_node *result) ;
+void update_range(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num, cfg_func_t *function) ;
+
+void creat_return_set(cfg_node_t *current_node, edge_context *current_context, interval_node *result, cfg_func_t *function) ;
 
 interval_node *range_analysis(edge_context *global_var_range, edge_context *func_actual_arg, int func_num, cfg_func_t **functions) ;
+
+
+void print_set(interval_node *head) ;
+
+void print_context(edge_context *head, cfg_func_t *function) ;
 
 #endif

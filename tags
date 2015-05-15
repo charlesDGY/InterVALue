@@ -17,6 +17,7 @@ IF_TEST	cfg.h	/^typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT
 INTERVALSET_H	intervalset.h	16;"	d
 INTERVAL_H	interval.h	16;"	d
 JUNCTION	cfg.h	/^typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;$/;"	e	enum:__anon1
+LOOP_TIMES	cfg.h	44;"	d
 MAX	intervaltest.c	59;"	d	file:
 MAX	intervaltest/intervaltest.c	58;"	d	file:
 MAX	usefultest.c	59;"	d	file:
@@ -29,6 +30,7 @@ MAX_INPUT_VAR	cfg.h	30;"	d
 MAX_JUNC_STACK	rangeanalysis.h	21;"	d
 MAX_LINE_LENGTH	cfg.h	36;"	d
 MAX_RANGE_DEPTH	cfg.h	34;"	d
+MAX_SWITCH_CASE	cfg.h	42;"	d
 MAX_TOKEN_NUM	cfg.h	38;"	d
 MAX_TYPE_NAME	cfg.h	28;"	d
 MAX_VALUE	common.h	25;"	d
@@ -111,7 +113,13 @@ call_t::actual_parameter	cfg.h	/^    call_parameter *actual_parameter[MAX_INPUT_
 call_t::dst_name	cfg.h	/^    int dst_name ;$/;"	m	struct:call_t	access:public
 call_t::func_number	cfg.h	/^    int func_number ;$/;"	m	struct:call_t	access:public
 call_t::parameter_num	cfg.h	/^    int parameter_num ;$/;"	m	struct:call_t	access:public
-case_chain	cfg.h	/^    int *case_chain ;$/;"	m	struct:switch_test_t	access:public
+case_chain	cfg.h	/^    case_t *case_chain[MAX_SWITCH_CASE] ;$/;"	m	struct:switch_test_t	access:public
+case_num	cfg.h	/^    int case_num ;$/;"	m	struct:switch_test_t	access:public
+case_number	cfg.h	/^    int case_number ;$/;"	m	struct:case_t	access:public
+case_t	cfg.h	/^struct case_t {$/;"	s
+case_t	cfg.h	/^typedef struct case_t case_t ;$/;"	t	typeref:struct:case_t
+case_t::case_number	cfg.h	/^    int case_number ;$/;"	m	struct:case_t	access:public
+case_t::token_name	cfg.h	/^    char *token_name ;$/;"	m	struct:case_t	access:public
 cdiv	intervaltest.c	/^int cdiv(const node2 a, node2 const *b) {$/;"	f	signature:(const node2 a, node2 const *b)
 cdiv	usefultest.c	/^int cdiv(const node2 a, node2 const *b) {$/;"	f	signature:(const node2 a, node2 const *b)
 cfg_edge_t	cfg.h	/^struct cfg_edge_t {$/;"	s
@@ -140,6 +148,7 @@ cfg_node_t::assignment_i	cfg.h	/^    assignment_t *assignment_i ;$/;"	m	struct:c
 cfg_node_t::call_i	cfg.h	/^    call_t *call_i ;$/;"	m	struct:cfg_node_t	access:public
 cfg_node_t::if_test_i	cfg.h	/^    if_test_t *if_test_i ;$/;"	m	struct:cfg_node_t	access:public
 cfg_node_t::is_if_junction	cfg.h	/^    bool is_if_junction ;$/;"	m	struct:cfg_node_t	access:public
+cfg_node_t::loop_times	cfg.h	/^    int loop_times ;$/;"	m	struct:cfg_node_t	access:public
 cfg_node_t::node_id	cfg.h	/^    int node_id ;$/;"	m	struct:cfg_node_t	access:public
 cfg_node_t::node_type	cfg.h	/^    node_type_t node_type ;$/;"	m	struct:cfg_node_t	access:public
 cfg_node_t::pre_edges	cfg.h	/^    cfg_edge_t *pre_edges[MAX_EDGE_NUM] ;$/;"	m	struct:cfg_node_t	access:public
@@ -212,6 +221,8 @@ exec_assignment	rangeanalysis.c	/^edge_context *exec_assignment(cfg_node_t *curr
 exec_assignment	rangeanalysis.h	/^edge_context *exec_assignment(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function) ;$/;"	p	signature:(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function)
 exec_if_test	rangeanalysis.c	/^edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function, edge_context *true_context, edge_context *false_context) {$/;"	f	signature:(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function, edge_context *true_context, edge_context *false_context)
 exec_if_test	rangeanalysis.h	/^edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function, edge_context *true_context, edge_context *false_context) ;$/;"	p	signature:(cfg_node_t *current_node, edge_context *pre_context, cfg_func_t *function, edge_context *true_context, edge_context *false_context)
+exec_switch_test	rangeanalysis.c	/^edge_context *exec_switch_test(cfg_node_t *current_node, edge_context *current_context, edge_context *temp_context, int case_number) {$/;"	f	signature:(cfg_node_t *current_node, edge_context *current_context, edge_context *temp_context, int case_number)
+exec_switch_test	rangeanalysis.h	/^edge_context *exec_switch_test(cfg_node_t *current_node, edge_context *current_context, edge_context *temp_context, int case_number) ;$/;"	p	signature:(cfg_node_t *current_node, edge_context *current_context, edge_context *temp_context, int case_number)
 exist_token_num	cfg.h	/^    int exist_token_num ;$/;"	m	struct:cfg_func_t	access:public
 exist_tokens	cfg.h	/^    token_list *exist_tokens[MAX_TOKEN_NUM] ;$/;"	m	struct:cfg_func_t	access:public
 f	simpletest.c	/^int f (int i)$/;"	f	signature:(int i)
@@ -309,6 +320,7 @@ link_last_token	cfg.c	/^void link_last_token(cfg_node_t *new_current_node, cfg_f
 link_last_token	cfg.h	/^void link_last_token(cfg_node_t *new_current_node, cfg_func_t *function) ;$/;"	p	signature:(cfg_node_t *new_current_node, cfg_func_t *function)
 link_nodes	cfg.c	/^void link_nodes(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function) {$/;"	f	signature:(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function)
 link_nodes	cfg.h	/^void link_nodes(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function) ;$/;"	p	signature:(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function)
+loop_times	cfg.h	/^    int loop_times ;$/;"	m	struct:cfg_node_t	access:public
 low_value	interval.h	/^    interval_value_type low_value;$/;"	m	struct:__anon2	access:public
 main	intervaltest/intervaltest.c	/^main(int i)$/;"	f	signature:(int i)
 main	intervaltest/intervaltest.s	/^main:$/;"	l
@@ -342,6 +354,8 @@ new_call_argument	cfg.c	/^call_argument *new_call_argument() {$/;"	f
 new_call_argument	cfg.h	/^call_argument *new_call_argument() ;$/;"	p	signature:()
 new_call_parameter	cfg.c	/^call_parameter *new_call_parameter() {$/;"	f
 new_call_parameter	cfg.h	/^call_parameter *new_call_parameter() ;$/;"	p	signature:()
+new_case	cfg.c	/^case_t *new_case() {$/;"	f
+new_case	cfg.h	/^case_t *new_case() ;$/;"	p	signature:()
 new_declaration	cfg.c	/^declaration_t *new_declaration() {$/;"	f
 new_declaration	cfg.h	/^declaration_t *new_declaration() ;$/;"	p	signature:()
 new_edge	cfg.c	/^cfg_edge_t *new_edge(cfg_func_t *function) {$/;"	f	signature:(cfg_func_t *function)
@@ -355,6 +369,8 @@ new_if	cfg.h	/^if_test_t *new_if() ;$/;"	p	signature:()
 new_node	cfg.c	/^cfg_node_t *new_node(cfg_func_t *function) {$/;"	f	signature:(cfg_func_t *function)
 new_node	cfg.h	/^cfg_node_t *new_node(cfg_func_t *function) ;$/;"	p	signature:(cfg_func_t *function)
 new_return	cfg.c	/^return_t *new_return() {$/;"	f
+new_switch	cfg.c	/^switch_test_t *new_switch() {$/;"	f
+new_switch	cfg.h	/^switch_test_t *new_switch() ;$/;"	p	signature:()
 new_token_list	cfg.c	/^token_list *new_token_list() {$/;"	f
 new_token_list	cfg.h	/^token_list *new_token_list() ;$/;"	p	signature:()
 next	edgecontext.h	/^    edge_context *next ;$/;"	m	struct:edge_context	access:public
@@ -417,6 +433,10 @@ pop_junctions	rangeanalysis.h	/^cfg_node_t *pop_junctions(cfg_node_t **junctions
 pre_edges	cfg.h	/^    cfg_edge_t *pre_edges[MAX_EDGE_NUM] ;$/;"	m	struct:cfg_node_t	access:public
 pre_edges_num	cfg.h	/^    int pre_edges_num ;$/;"	m	struct:cfg_node_t	access:public
 pre_entry	cfg.h	/^    cfg_edge_t *pre_entry ;$/;"	m	struct:cfg_func_t	access:public
+print_context	rangeanalysis.c	/^void print_context(edge_context *head, cfg_func_t *function) {$/;"	f	signature:(edge_context *head, cfg_func_t *function)
+print_context	rangeanalysis.h	/^void print_context(edge_context *head, cfg_func_t *function) ;$/;"	p	signature:(edge_context *head, cfg_func_t *function)
+print_set	rangeanalysis.c	/^void print_set(interval_node *head) {$/;"	f	signature:(interval_node *head)
+print_set	rangeanalysis.h	/^void print_set(interval_node *head) ;$/;"	p	signature:(interval_node *head)
 push_edges	rangeanalysis.c	/^void push_edges(cfg_edge_t *new_edge, cfg_edge_t **edges, int *edges_num) {$/;"	f	signature:(cfg_edge_t *new_edge, cfg_edge_t **edges, int *edges_num)
 push_edges	rangeanalysis.h	/^void push_edges(cfg_edge_t *new_edge, cfg_edge_t **edges, int *edges_num) ;$/;"	p	signature:(cfg_edge_t *new_edge, cfg_edge_t **edges, int *edges_num)
 push_junctions	rangeanalysis.c	/^void push_junctions(cfg_node_t *new_node, cfg_node_t **junctions, int *junctions_num) {$/;"	f	signature:(cfg_node_t *new_node, cfg_node_t **junctions, int *junctions_num)
@@ -436,10 +456,10 @@ set_set_arithmetic	intervalset.c	/^interval_node *set_set_arithmetic(interval_no
 set_set_arithmetic	intervalset.h	/^interval_node *set_set_arithmetic(interval_node *head_a, interval_node *head_b, unsigned int operator_in, int variable_type) ;$/;"	p	signature:(interval_node *head_a, interval_node *head_b, unsigned int operator_in, int variable_type)
 set_set_broaden	intervalset.c	/^interval_node *set_set_broaden(interval_node *head_a, interval_node *head_b) {$/;"	f	signature:(interval_node *head_a, interval_node *head_b)
 set_set_broaden	intervalset.h	/^interval_node *set_set_broaden(interval_node *head_a, interval_node *head_b) ;$/;"	p	signature:(interval_node *head_a, interval_node *head_b)
-set_set_intersect	intervalset.c	/^interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) {$/;"	f	signature:(interval_node *head_a, interval_node *head_b)
-set_set_intersect	intervalset.h	/^interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) ;$/;"	p	signature:(interval_node *head_a, interval_node *head_b)
-set_set_union	intervalset.c	/^interval_node *set_set_union(interval_node *head_a, interval_node *head_b) {$/;"	f	signature:(interval_node *head_a, interval_node *head_b)
-set_set_union	intervalset.h	/^interval_node *set_set_union(interval_node *head_a, interval_node *head_b) ;$/;"	p	signature:(interval_node *head_a, interval_node *head_b)
+set_set_intersect	intervalset.c	/^interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b, int variable_type) {$/;"	f	signature:(interval_node *head_a, interval_node *head_b, int variable_type)
+set_set_intersect	intervalset.h	/^interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b, int variable_type) ;$/;"	p	signature:(interval_node *head_a, interval_node *head_b, int variable_type)
+set_set_union	intervalset.c	/^interval_node *set_set_union(interval_node *head_a, interval_node *head_b, int variable_type) {$/;"	f	signature:(interval_node *head_a, interval_node *head_b, int variable_type)
+set_set_union	intervalset.h	/^interval_node *set_set_union(interval_node *head_a, interval_node *head_b, int variable_type) ;$/;"	p	signature:(interval_node *head_a, interval_node *head_b, int variable_type)
 split_set_low	intervalset.c	/^interval_node *split_set_low(interval_node *head, double key) {$/;"	f	signature:(interval_node *head, double key)
 split_set_low	intervalset.h	/^interval_node *split_set_low(interval_node *head, double key) ;$/;"	p	signature:(interval_node *head, double key)
 split_set_mid	intervalset.c	/^interval_node *split_set_mid(interval_node *head, double key) {$/;"	f	signature:(interval_node *head, double key)
@@ -462,19 +482,21 @@ succ_edges_num	cfg.h	/^    int succ_edges_num ;$/;"	m	struct:cfg_node_t	access:p
 switch_test_i	cfg.h	/^    switch_test_t *switch_test_i ;$/;"	m	struct:cfg_node_t	access:public
 switch_test_t	cfg.h	/^struct switch_test_t {$/;"	s
 switch_test_t	cfg.h	/^typedef struct switch_test_t switch_test_t ;$/;"	t	typeref:struct:switch_test_t
-switch_test_t::case_chain	cfg.h	/^    int *case_chain ;$/;"	m	struct:switch_test_t	access:public
-switch_test_t::switch_var	cfg.h	/^    int switch_var;$/;"	m	struct:switch_test_t	access:public
-switch_var	cfg.h	/^    int switch_var;$/;"	m	struct:switch_test_t	access:public
+switch_test_t::case_chain	cfg.h	/^    case_t *case_chain[MAX_SWITCH_CASE] ;$/;"	m	struct:switch_test_t	access:public
+switch_test_t::case_num	cfg.h	/^    int case_num ;$/;"	m	struct:switch_test_t	access:public
+switch_test_t::switch_var	cfg.h	/^    int switch_var ;$/;"	m	struct:switch_test_t	access:public
+switch_var	cfg.h	/^    int switch_var ;$/;"	m	struct:switch_test_t	access:public
 sys_var_type	cfg.c	/^char const *sys_var_type[] = {$/;"	v
 token_list	cfg.h	/^struct token_list {$/;"	s
 token_list	cfg.h	/^typedef struct token_list token_list ;$/;"	t	typeref:struct:token_list
 token_list::pointer	cfg.h	/^    cfg_node_t *pointer ;$/;"	m	struct:token_list	access:public
 token_list::token_name	cfg.h	/^    char *token_name ;$/;"	m	struct:token_list	access:public
 token_list::while_pointer	cfg.h	/^    cfg_node_t *while_pointer ;$/;"	m	struct:token_list	access:public
+token_name	cfg.h	/^    char *token_name ;$/;"	m	struct:case_t	access:public
 token_name	cfg.h	/^    char *token_name ;$/;"	m	struct:token_list	access:public
 true	common.h	20;"	d
-union_context	edgecontext.c	/^edge_context *union_context(edge_context *head_a, edge_context *head_b) {$/;"	f	signature:(edge_context *head_a, edge_context *head_b)
-union_context	edgecontext.h	/^edge_context *union_context(edge_context *head_a, edge_context *head_b) ;$/;"	p	signature:(edge_context *head_a, edge_context *head_b)
+union_context	cfg.c	/^edge_context *union_context(edge_context *head_a, edge_context *head_b, cfg_func_t *function) {$/;"	f	signature:(edge_context *head_a, edge_context *head_b, cfg_func_t *function)
+union_context	cfg.h	/^edge_context *union_context(edge_context *head_a, edge_context *head_b, cfg_func_t *function) ;$/;"	p	signature:(edge_context *head_a, edge_context *head_b, cfg_func_t *function)
 up_value	interval.h	/^    interval_value_type up_value;$/;"	m	struct:__anon2	access:public
 update_range	rangeanalysis.c	/^void update_range(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num) {$/;"	f	signature:(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num)
 update_range	rangeanalysis.h	/^void update_range(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num) ;$/;"	p	signature:(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num)
@@ -482,4 +504,6 @@ value_set	edgecontext.h	/^    interval_node *value_set ;$/;"	m	struct:edge_conte
 var_num	cfg.h	/^    int var_num ;$/;"	m	struct:cfg_func_t	access:public
 var_number	cfg.h	/^    char *var_number ;$/;"	m	struct:call_parameter	access:public
 variable_type	cfg.h	/^    int variable_type ;$/;"	m	struct:declaration_t	access:public
+while_junction	cfg.c	/^cfg_node_t *while_junction(cfg_node_t *if_node, cfg_func_t *function) {$/;"	f	signature:(cfg_node_t *if_node, cfg_func_t *function)
+while_junction	cfg.h	/^cfg_node_t *while_junction(cfg_node_t *if_node, cfg_func_t *function) ;$/;"	p	signature:(cfg_node_t *if_node, cfg_func_t *function)
 while_pointer	cfg.h	/^    cfg_node_t *while_pointer ;$/;"	m	struct:token_list	access:public

@@ -54,7 +54,6 @@ edge_context *copy_context(edge_context *src)
         temp_context = make_context() ;
         temp_context->name_d = context_iter->name_d ;
 
-
         iter = context_iter->value_set ;
         if (iter == NULL) {
             perror("copy_context's context value_set is NULL!!") ;
@@ -105,46 +104,6 @@ void destroy_context(edge_context *head)
 void free_context_node(edge_context *p) {
     destroy_set(p->value_set) ;
     free(p);
-}
-
-//assume that all edge_context is originally generated to the same length and same variable sort.
-edge_context *union_context(edge_context *head_a, edge_context *head_b) {
-    if (head_a == NULL || head_b == NULL) {
-        perror("union_context's input head is NULL!") ;
-        exit(EXIT_FAILURE) ;
-    }
-    //handle null and XN condition.
-    if (head_a->next == NULL) {
-        return copy_context(head_b) ;
-    }
-    if (head_b->next == NULL) {
-        return copy_context(head_a) ;
-    }
-
-    edge_context *iter_a = NULL, *iter_b = NULL ;
-    edge_context *context_p = NULL, *iter_r = NULL, *result = NULL ;
-    iter_a = head_a->next ;
-    iter_b = head_b->next ;
-
-    //union set and set
-    while (iter_a != NULL) {
-        iter_r = make_context() ;
-        iter_r->name_d = iter_a->name_d ;
-        iter_r->value_set = set_set_union(iter_a->value_set, iter_b->value_set) ;
-        if (result == NULL) {
-            result = make_context() ;
-            result->next = iter_r ;
-            context_p = result->next ;
-        }
-        else {
-            context_p->next = iter_r ;
-            context_p = context_p->next ;
-        }
-        iter_a = iter_a->next ;
-        iter_b = iter_b->next ;
-    }
-    return result ;
-
 }
 
 edge_context *get_var(int var_name, edge_context *context) {

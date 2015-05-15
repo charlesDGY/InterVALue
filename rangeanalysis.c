@@ -165,7 +165,7 @@ edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, 
     int cmp_operand ;
     bool a_low_c = false, a_up_c = false, b_low_c = false, b_up_c = false ;
     double a_low, a_up, b_low, b_up ;
-    char l_s[] = ">", lq_s[] = ">=", s_s[] = "<", sq_s[] = "=<", eq_s[] = "==", nq_s[] = "!=" ;
+    char l_s[] = ">", lq_s[] = ">=", s_s[] = "<", sq_s[] = "<=", eq_s[] = "==", nq_s[] = "!=" ;
     edge_context *pointer_a = NULL ;
     edge_context *pointer_b = NULL ;
     edge_context *f_pointer_a = NULL ;
@@ -450,7 +450,7 @@ edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, 
     //==
     else if (strcmp(current_node->if_test_i->cmp_operand, eq_s) == 0) {
         //true
-        node_pointer = set_set_intersect(pointer_a->value_set, pointer_b->value_set) ;
+        node_pointer = set_set_intersect(pointer_a->value_set, pointer_b->value_set, function->func_vars_table[a_i]->variable_type) ;
         node_pointer_b = copy_set(node_pointer) ;
         //false
         if (function->func_vars_table[a_i]->variable_type != 5 && function->func_vars_table[a_i]->variable_type != 6) {
@@ -493,7 +493,7 @@ edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, 
             node_pointer_b = copy_set(pointer_b->value_set) ;
         }
         //false
-        f_node_pointer = set_set_intersect(f_pointer_a->value_set, f_pointer_b->value_set) ;
+        f_node_pointer = set_set_intersect(f_pointer_a->value_set, f_pointer_b->value_set, function->func_vars_table[a_i]->variable_type) ;
         f_node_pointer_b = copy_set(f_node_pointer) ;
     }
 
@@ -532,22 +532,23 @@ edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, 
     /*pointer->next = new_context ;*/
 /*}*/
 
-void update_range(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num) {
+void update_range(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num, cfg_func_t *function) {
     edge_context *result = NULL ;
     if (new_edge->context_set == NULL) {
         new_edge->context_set = make_context() ;
     }
     if (is_context_equal(new_context, new_edge->context_set) == false) {
-        result = union_context(new_edge->context_set, new_context) ;
+        result = union_context(new_edge->context_set, new_context, function) ;
         destroy_context(new_edge->context_set) ;
         destroy_context(new_context) ;
         new_edge->context_set = result ;
 
         push_edges(new_edge, edges, edges_num) ;
     }
+
 }
 
-void creat_return_set(cfg_node_t *current_node, edge_context *current_context, interval_node *result) {
+void creat_return_set(cfg_node_t *current_node, edge_context *current_context, interval_node *result, cfg_func_t *function) {
     int a_i ;
     double a_d ;
     interval_node *new_set = NULL ;
@@ -558,18 +559,100 @@ void creat_return_set(cfg_node_t *current_node, edge_context *current_context, i
         a_i = atoi(current_node->return_i->return_num) ;
         pointer_a = get_var(a_i, current_context) ;
         new_set = copy_set(pointer_a->value_set) ;
+        temp = set_set_union(result, new_set, function->func_vars_table[a_i]->variable_type) ;
     }
     else if (current_node->return_i->return_is_var == false) {
         a_d = atof(current_node->return_i->return_num) ;
         new_set = convert_to_set(a_d) ;
+        temp = set_set_union(result, new_set, 5) ;
     }
 
-    temp = set_set_union(result, new_set) ;
     destroy_set(result->next) ;
     result->next = temp->next ;
     free_node(temp) ;
 
 }
+
+//exec_switch
+edge_context *exec_switch_test(cfg_node_t *current_node, edge_context *current_context, edge_context *temp_context, int case_number) {
+    int var_name ;
+    edge_context *pointer = NULL ;
+    edge_context *result = NULL ;
+    interval_node *temp = NULL ;
+    interval_node *node_pointer = NULL ;
+    result = copy_context(current_context) ;
+    var_name = current_node->switch_test_i->switch_var ;
+    pointer = get_var(var_name, result) ;
+
+    temp = pointer->value_set ;
+    //case handle
+    while (temp->next != NULL) {
+        temp = temp->next ;
+        if (temp->item.low_value <= case_number && temp->item.up_value >= case_number) {
+            temp = NULL ;
+            break ;
+        }
+    }
+    if (temp == NULL) {
+        destroy_set(pointer->value_set) ;
+        pointer->value_set = convert_to_set(case_number) ;
+    }
+    else {
+        destroy_context(result->next) ;
+        result->next = NULL ;
+    }
+
+    //default handle
+    pointer = get_var(var_name, temp_context) ;
+    node_pointer = split_set_mid(pointer->value_set, case_number) ;
+    destroy_set(pointer->value_set) ;
+    pointer->value_set = node_pointer ;
+
+    return result ;
+}
+
+
+void print_set(interval_node *head) {
+    interval_node *pointer = NULL ;
+    pointer = head ;
+    printf("{") ;
+    while (pointer->next != NULL) {
+        pointer = pointer->next ;
+        if (pointer->item.low_value == MIN_VALUE && pointer->item.up_value != MAX_VALUE) {
+            printf("[-oo,%.1f]", pointer->item.up_value) ;
+        }
+        else if (pointer->item.low_value != MIN_VALUE && pointer->item.up_value == MAX_VALUE) {
+            printf("[%.1f,+oo]", pointer->item.low_value) ;
+        }
+        if (pointer->item.low_value == MIN_VALUE && pointer->item.up_value == MAX_VALUE) {
+            printf("[-oo,+oo]") ;
+        }
+        if (pointer->item.low_value != MIN_VALUE && pointer->item.up_value != MAX_VALUE) {
+            printf("[%.1f,%.1f]", pointer->item.low_value, pointer->item.up_value) ;
+        }
+    }
+    printf("}") ;
+}
+
+void print_context(edge_context *head, cfg_func_t *function) {
+    if (head == NULL) {
+        printf("no edge_context\n");
+        return ;
+    }
+    edge_context *pointer = NULL ;
+    pointer = head ;
+    while (pointer->next != NULL) {
+        pointer = pointer->next ;
+        printf("(") ;
+        printf("%s,", function->func_vars_table[pointer->name_d]->name) ;
+        print_set(pointer->value_set) ;
+        printf(")") ;
+        if (pointer->next != NULL) {
+            printf(",") ;
+        }
+    }
+}
+
 
 interval_node *range_analysis(edge_context *global_var_range, edge_context *func_actual_arg, int func_num, cfg_func_t **functions) {
     if (global_var_range == NULL || func_actual_arg == NULL) {
@@ -580,6 +663,9 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
     int edges_num = 0 ;
     edges[0] = NULL ;
     cfg_node_t *junctions[MAX_JUNC_STACK] ;
+    cfg_node_t *while_junctions[MAX_JUNC_STACK] ;
+    while_junctions[0] = NULL ;
+    int while_junc_num = 0 ;
     int junctions_num = 0 ;
     junctions[0] = NULL ;
 
@@ -588,6 +674,9 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
     item.up_value = 0 ;
     interval_node *result = NULL ;
     result = make_node(item) ;
+
+    //switch
+    case_t **case_pointer = NULL ;
 
     cfg_node_t *current_node = NULL ;
     cfg_edge_t *current_edge = NULL ;
@@ -610,6 +699,7 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
     global_pointer = global_var_range ;
 
     declaration_t **var_table = NULL ;
+    int global_position ;
     var_table = functions[func_num]->func_vars_table ;
     //set initial edge_context
     while (func_pointer->next != NULL) {
@@ -621,6 +711,8 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
         init_pointer = init_pointer->next ;
         var_table++ ;
     }
+
+    global_position = var_table - functions[func_num]->func_vars_table ;
 
     while (global_pointer->next != NULL) {
         global_pointer = global_pointer->next ;
@@ -658,39 +750,55 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
 
             if (current_node->node_type == JUNCTION) {
                 push_junctions(current_node, junctions, &junctions_num) ;
+                if (current_node->is_if_junction == false) {
+                    push_junctions(current_node, while_junctions, &while_junc_num) ;
+                }
             }
 
             if (current_node->node_type == CALL) {
 
+                //update global vars to pre_edges context_set
+                //call
             }
 
             if (current_node->node_type == ASSIGNMENT) {
                 succ_context = exec_assignment(current_node, current_context, functions[func_num]) ;
-                update_range(current_node->succ_edges[0], succ_context, edges, &edges_num) ;
+                update_range(current_node->succ_edges[0], succ_context, edges, &edges_num, functions[func_num]) ;
             }
 
             if (current_node->node_type == IF_TEST) {
                 succ_context = make_context() ;
                 false_succ_context = make_context() ;
                 exec_if_test(current_node, current_context, functions[func_num], succ_context, false_succ_context) ;
-                if (succ_context->next != NULL) {
-                    update_range(current_node->succ_edges[0], succ_context, edges, &edges_num) ;
-                }
-                else {
-                    destroy_context(succ_context) ;
-                }
                 if (false_succ_context->next != NULL) {
-                    update_range(current_node->succ_edges[1], false_succ_context, edges, &edges_num) ;
+                    update_range(current_node->succ_edges[1], false_succ_context, edges, &edges_num, functions[func_num]) ;
                 }
                 else {
                     destroy_context(false_succ_context) ;
                 }
+                if (succ_context->next != NULL) {
+                    update_range(current_node->succ_edges[0], succ_context, edges, &edges_num, functions[func_num]) ;
+                }
+                else {
+                    destroy_context(succ_context) ;
+                }
             }
 
             if (current_node->node_type == SWITCH_TEST) {
-               /* for*/
-                    /*succ*/
-                    /*update*/
+                temp_context = copy_context(current_context) ;
+                for (case_pointer = current_node->switch_test_i->case_chain; *(case_pointer + 1) != NULL; case_pointer++) {
+                    succ_context = exec_switch_test(current_node, current_context, temp_context, (*case_pointer)->case_number) ;
+                    if (succ_context->next != NULL) {
+                        update_range(current_node->succ_edges[case_pointer - current_node->switch_test_i->case_chain], succ_context, edges, &edges_num, functions[func_num]) ;
+                    }
+                    else {
+                        destroy_context(succ_context) ;
+                    }
+                }
+                //default
+                if (temp_context->next != NULL) {
+                    update_range(current_node->succ_edges[case_pointer - current_node->switch_test_i->case_chain], temp_context, edges, &edges_num, functions[func_num]) ;
+                }
             }
 
             if (current_node->node_type == GOTO) {
@@ -706,8 +814,8 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
             }
 
             if (current_node->node_type == RETURN) {
-                creat_return_set(current_node, current_context, result) ;
-                if (current_node->succ_edges[0]->end_node->node_type == EXIT) {
+                creat_return_set(current_node, current_context, result, functions[func_num]) ;
+                if (current_node->succ_edges[0] != NULL && current_node->succ_edges[0]->end_node->node_type == EXIT) {
                     push_edges(current_node->succ_edges[0], edges, &edges_num) ;
                     destroy_context(current_node->succ_edges[0]->context_set) ;
                     current_node->succ_edges[0]->context_set = copy_context(current_context) ;
@@ -715,6 +823,13 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
             }
 
             if (current_node->node_type == EXIT) {
+            }
+
+            printf("new edge:\n");
+            for (pre_edges = current_node->succ_edges; *pre_edges != NULL; pre_edges++) {
+                printf("node:%d, pre_edge:%d ", current_node->node_id, current_edge->edge_id);
+                print_context((*pre_edges)->context_set, functions[func_num]) ;
+                printf("\n");
             }
         }
         //junctions
@@ -725,7 +840,7 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
                 if ((*pre_edges)->context_set == NULL) {
                     (*pre_edges)->context_set = make_context() ;
                 }
-                temp_context = union_context(succ_context, (*pre_edges)->context_set) ;
+                temp_context = union_context(succ_context, (*pre_edges)->context_set, functions[func_num]) ;
                 destroy_context(succ_context) ;
                 succ_context = temp_context ;
             }
@@ -736,11 +851,17 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
 
             if (is_context_equal((*new_junction)->succ_edges[0]->context_set, succ_context) == false) {
                 if ((*new_junction)->is_if_junction == true) {
-                    update_range((*new_junction)->succ_edges[0], succ_context, edges, &edges_num) ;
+                    update_range((*new_junction)->succ_edges[0], succ_context, edges, &edges_num, functions[func_num]) ;
                 }
                 else {
-                    temp_context = broaden_context((*new_junction)->succ_edges[0]->context_set, succ_context) ;
-                    update_range((*new_junction)->succ_edges[0], temp_context, edges, &edges_num) ;
+                    if ((*new_junction)->loop_times > 0) {
+                        update_range((*new_junction)->succ_edges[0], succ_context, edges, &edges_num, functions[func_num]) ;
+                        (*new_junction)->loop_times-- ;
+                    }
+                    else {
+                        temp_context = broaden_context((*new_junction)->succ_edges[0]->context_set, succ_context) ;
+                        update_range((*new_junction)->succ_edges[0], temp_context, edges, &edges_num, functions[func_num]) ;
+                    }
                 }
             }
         }
@@ -749,5 +870,25 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
         junctions[0] = NULL ;
         junctions_num = 0 ;
     }
+
+    //update global variable
+    global_pointer = global_var_range ;
+    temp_context = current_node->pre_edges[0]->context_set ;
+    while (global_position != 0 && global_pointer->next != NULL) {
+        temp_context = temp_context->next ;
+        global_position-- ;
+    }
+    while (global_pointer->next != NULL) {
+        temp_context = temp_context->next ;
+        global_pointer = global_pointer->next ;
+        global_pointer->name_d = temp_context->name_d ;
+        destroy_set(global_pointer->value_set) ;
+        global_pointer->value_set = copy_set(temp_context->value_set) ;
+    }
+    //reset while_junctions' loop_times to LOOP_TIMES
+    for (new_junction = while_junctions; *new_junction != NULL; new_junction++) {
+        (*new_junction)->loop_times = LOOP_TIMES ;
+    }
+
     return result ;
 }

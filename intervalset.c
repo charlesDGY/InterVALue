@@ -288,11 +288,12 @@ void interval_set_intersect(interval a, interval_node *head) {
 
 
 //set and set union operate, no change head_a and head_b , return a new result use new dynamic space.
-interval_node *set_set_union(interval_node *head_a, interval_node *head_b) {
+interval_node *set_set_union(interval_node *head_a, interval_node *head_b, int variable_type) {
     if (head_a == NULL || head_b == NULL) {
         perror("input interval_set's head is NULL!") ;
         exit(EXIT_FAILURE) ;
     }
+    interval_node *iter = NULL, *pre_iter = NULL, *result = NULL ;
     //handle null and XN condition.
     if ((head_a->next == NULL) || (head_a->item.low_value == MIN_VALUE && head_a->item.up_value == MAX_VALUE)) {
         return copy_set(head_b) ;
@@ -300,7 +301,6 @@ interval_node *set_set_union(interval_node *head_a, interval_node *head_b) {
     if ((head_b->next == NULL) || (head_b->item.low_value == MIN_VALUE && head_b->item.up_value == MAX_VALUE)) {
         return copy_set(head_a) ;
     }
-    interval_node *iter = NULL, *result = NULL ;
     result = copy_set(head_b) ;
 
     //union set and set
@@ -309,11 +309,28 @@ interval_node *set_set_union(interval_node *head_a, interval_node *head_b) {
         interval_set_union(iter->item, result) ;
         iter = iter->next ;
     }
+    //handle int
+    if (variable_type != 5 && variable_type != 6) {
+        iter = result->next ;
+        pre_iter = iter ;
+        while (iter->next != NULL) {
+            iter = iter->next ;
+            if (pre_iter->item.up_value == iter->item.low_value - 1) {
+                pre_iter->item.up_value = iter->item.up_value ;
+                pre_iter->next = iter->next ;
+                free_node(iter) ;
+                iter = pre_iter ;
+            }
+            else {
+                pre_iter = pre_iter->next ;
+            }
+        }
+    }
     return result ;
 }
 
 //set and set union operate, no change head_a and head_b, return a new result use new dynamic space.
-interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) {
+interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b, int variable_type) {
     if (head_a == NULL || head_b == NULL) {
         perror("input interval_set's head is NULL!") ;
         exit(EXIT_FAILURE) ;
@@ -339,7 +356,7 @@ interval_node *set_set_intersect(interval_node *head_a, interval_node *head_b) {
     while (iter != NULL) {
         temp_head = copy_set(head_b) ;
         interval_set_intersect(iter->item, temp_head) ;
-        result = set_set_union(temp_head, result) ;
+        result = set_set_union(temp_head, result, variable_type) ;
         iter = iter->next ;
     }
     return result ;

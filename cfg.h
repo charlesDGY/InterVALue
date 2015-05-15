@@ -39,12 +39,16 @@
 
 #define MAX_EDGE_NUM 64
 
+#define MAX_SWITCH_CASE 128
+
+#define LOOP_TIMES 1000
 
 typedef enum {ENTRY, RETURN, GOTO, EXIT, DECLARATION, ASSIGNMENT, IF_TEST, SWITCH_TEST, JUNCTION, CALL, UNKNOWN_CALL} node_type_t ;
 
 typedef struct declaration_t declaration_t ;
 typedef struct assignment_t assignment_t ;
 typedef struct if_test_t if_test_t ;
+typedef struct case_t case_t ;
 typedef struct switch_test_t switch_test_t ;
 //typedef struct junction_t junction_t ;
 typedef struct call_t call_t ;
@@ -97,11 +101,16 @@ struct if_test_t {
     /*[>int case_num ;<]*/
     /*[>switch_chain *next ;<]*/
 /*[>}<]*/
+struct case_t {
+    int case_number ;
+    char *token_name ;
+} ;
 
 struct switch_test_t {
-    int switch_var;
+    int switch_var ;
 //    switch_chain *case_chain ;     //the first case_chain member corresponding to the first succ_edges, default branch corresponding to the last succ_edges.
-    int *case_chain ;
+    case_t *case_chain[MAX_SWITCH_CASE] ;
+    int case_num ;
 } ;
 
 /*struct junction_t {*/
@@ -163,6 +172,7 @@ struct cfg_node_t {
     cfg_edge_t *succ_edges[MAX_EDGE_NUM] ;
     node_type_t node_type ;
     bool is_if_junction ;
+    int loop_times ;
     call_t *call_i ;
 //    declaration_t *declaration_i ;
     assignment_t *assignment_i ;
@@ -191,6 +201,7 @@ struct cfg_func_t {
 
 } ;
 
+edge_context *union_context(edge_context *head_a, edge_context *head_b, cfg_func_t *function) ;
 
 cfg_func_t **new_functions() ;
 
@@ -211,6 +222,10 @@ cfg_node_t *new_node(cfg_func_t *function) ;
 token_list *new_token_list() ;
 
 if_test_t *new_if() ;
+
+case_t *new_case() ;
+
+switch_test_t *new_switch() ;
 
 call_parameter *new_call_parameter() ;
 
@@ -253,7 +268,8 @@ cfg_node_t *creat_if_junction(cfg_node_t *temp_node, cfg_func_t *function) ;
 
 //interpose a while junction between the if junction and it's succ junction.
 cfg_node_t *add_while_junction(cfg_node_t *if_junc_node, cfg_func_t *function) ;
-
+//
+cfg_node_t *while_junction(cfg_node_t *if_node, cfg_func_t *function) ;
 //if_test
 void build_if_node(char *line_str, cfg_node_t *current_node, cfg_func_t *function, int current_domain) ;
 
@@ -271,7 +287,6 @@ void build_cfg_tree(FILE *fp, cfg_func_t *function, cfg_func_t **function_table)
 void build_input_args(FILE *fp, cfg_func_t *function) ;
 
 cfg_func_t **build_cfgs(char *cfg_file) ;
-
 
 
 

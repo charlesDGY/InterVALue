@@ -1,23 +1,41 @@
 f (int i)
 {
-  int D.1732;
+  int D.1740;
   int j;
 
   j = 0;
-  if (i > 0) goto <D.1729>; else goto <D.1730>;
-  <D.1729>:
+  if (i > 0) goto <D.1737>; else goto <D.1738>;
+  <D.1737>:
   goto <D.1726>;
   <D.1725>:
   j = j + 5;
   <D.1726>:
-  if (j <= 99) goto <D.1725>; else goto <D.1727>;
+  if (j <= 9) goto <D.1725>; else goto <D.1727>;
   <D.1727>:
-  goto <D.1731>;
+  goto <D.1739>;
+  <D.1738>:
+  j = j + 1;
+  <D.1739>:
+  goto <D.1734>;
+  <D.1733>:
+  switch (i) <default: <D.1732>, case 3: <D.1728>, case 4: <D.1730>, case 5: <D.1731>>
+  <D.1728>:
+  i = 3;
+  goto <D.1729>;
   <D.1730>:
-  j = j + -1;
+  i = 4;
   <D.1731>:
-  D.1732 = j;
-  return D.1732;
+  i = 5;
+  goto <D.1729>;
+  <D.1732>:
+  i = 6;
+  <D.1729>:
+  j = j + -1;
+  <D.1734>:
+  if (j > 0) goto <D.1733>; else goto <D.1735>;
+  <D.1735>:
+  D.1740 = i;
+  return D.1740;
 }
 
 
