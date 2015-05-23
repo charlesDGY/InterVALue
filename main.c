@@ -288,7 +288,7 @@ int main(int argc, const char *argv[])
     //global
     interval_node *result_set = NULL ;
     edge_context *global_var_range = NULL ;
-    global_var_range = make_context() ;
+    global_var_range = get_global_context(result_cfg) ;
 
     //input i
     edge_context *func_actual_arg = NULL ;
@@ -302,7 +302,7 @@ int main(int argc, const char *argv[])
     input_i->value_set->next = make_node(item) ;
     func_actual_arg->next = input_i ;
 
-    result_set = range_analysis(global_var_range, func_actual_arg, 0, result_cfg) ;
+    result_set = range_analysis(global_var_range, func_actual_arg, 3, result_cfg) ;
 
     return 0;
 }

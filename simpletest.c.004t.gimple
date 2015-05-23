@@ -1,41 +1,77 @@
+global ()
+{
+  int glob1;
+  int glob2;
+
+  glob1 = 1;
+  glob2 = 2;
+}
+
+
+add (int a, int b)
+{
+  int glob1.0;
+  int D.1752;
+  int c;
+  int d;
+  extern int mul ();
+
+  glob1 = 5;
+  c = a + b;
+  glob1.0 = glob1;
+  d = mul (c, glob1.0);
+  D.1752 = d;
+  return D.1752;
+}
+
+
+mul (int a, int b)
+{
+  int D.1754;
+
+  D.1754 = a * b;
+  return D.1754;
+}
+
+
 f (int i)
 {
-  int D.1740;
-  int j;
+  int D.1763;
+  int a;
+  int b;
 
-  j = 0;
-  if (i > 0) goto <D.1737>; else goto <D.1738>;
-  <D.1737>:
-  goto <D.1726>;
-  <D.1725>:
-  j = j + 5;
-  <D.1726>:
-  if (j <= 9) goto <D.1725>; else goto <D.1727>;
-  <D.1727>:
-  goto <D.1739>;
-  <D.1738>:
-  j = j + 1;
-  <D.1739>:
-  goto <D.1734>;
-  <D.1733>:
-  switch (i) <default: <D.1732>, case 3: <D.1728>, case 4: <D.1730>, case 5: <D.1731>>
-  <D.1728>:
-  i = 3;
-  goto <D.1729>;
-  <D.1730>:
-  i = 4;
-  <D.1731>:
-  i = 5;
-  goto <D.1729>;
-  <D.1732>:
-  i = 6;
-  <D.1729>:
-  j = j + -1;
-  <D.1734>:
-  if (j > 0) goto <D.1733>; else goto <D.1735>;
-  <D.1735>:
-  D.1740 = i;
-  return D.1740;
+  a = 1;
+  b = 7;
+  goto <D.1748>;
+  <D.1747>:
+  goto <D.1745>;
+  <D.1744>:
+  if (b > 5) goto <D.1756>; else goto <D.1757>;
+  <D.1756>:
+  b = b * 3;
+  goto <D.1758>;
+  <D.1757>:
+  b = b + 2;
+  <D.1758>:
+  if (b > 9) goto <D.1761>; else goto <D.1759>;
+  <D.1761>:
+  if (b <= 12) goto <D.1762>; else goto <D.1759>;
+  <D.1762>:
+  a = a + 10;
+  goto <D.1760>;
+  <D.1759>:
+  a = a + 1;
+  <D.1760>:
+  <D.1745>:
+  if (b < a) goto <D.1744>; else goto <D.1746>;
+  <D.1746>:
+  a = a + 2;
+  b = b + -10;
+  <D.1748>:
+  if (a <= 29) goto <D.1747>; else goto <D.1749>;
+  <D.1749>:
+  D.1763 = 0;
+  return D.1763;
 }
 
 

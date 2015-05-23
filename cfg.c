@@ -209,6 +209,7 @@ char const *sys_var_type[] = {
     "typedef",
     "long",
     "short",
+    "extern",
     NULL
 } ;
 
@@ -287,6 +288,9 @@ cfg_func_t *new_func() {
     p->need_tokens[0] = NULL ;
     p->pre_entry = NULL ;
 
+    p->all_edges[0] = NULL ;
+    p->all_nodes[0] = NULL ;
+
     return p ;
 }
 
@@ -355,7 +359,11 @@ cfg_edge_t *new_edge(cfg_func_t *function) {
     p->end_node = NULL ;
     p->context_set = NULL ;
     p->edge_id = function->edge_num ;
+
+    function->all_edges[function->edge_num] = p ;
     function->edge_num++ ;
+    function->all_edges[function->edge_num] = NULL ;
+
     return p ;
 }
 
@@ -378,7 +386,11 @@ cfg_node_t *new_node(cfg_func_t *function) {
     //p->junction_t = NULL ;
     p->is_if_junction = false ;
     p->node_id = function->node_num ;
+
+    function->all_nodes[function->node_num] = p ;
     function->node_num++ ;
+    function->all_nodes[function->node_num] = NULL ;
+
 
     return p ;
 }
@@ -496,6 +508,19 @@ int is_known_func(char *seek, cfg_func_t **functions) {
     return temp ;
 }
 
+char *remove_dot(char *src) {
+    //judge whether is the same variable like int j.1 and int j.2
+    char *array_token = NULL ;
+    char *result = NULL ;
+    result = copy_string(src) ;
+    array_token = strchr(result, '.') ;
+    if (array_token != NULL && !(result[0] == 'D' && result[1] == '.' && result[2] >= '0' && result[2] <= '9')) {
+        array_token = '\0' ;
+    }
+
+    return result ;
+}
+
 //is a instant number
 char *is_instant_number(char *seek) {
     char *pointer = NULL ;
@@ -576,7 +601,7 @@ char *get_var_position(char *seek, cfg_func_t *function, int current_domain) {
     char *array_token = NULL ;
     char struct_pointer[] = "->" ;
     int is_struct = 0 ;
-    int temp_domain = 0 ;
+    int temp_domain = -1 ;
 
     pointer = copy_string(seek) ;
     array_token = strchr(pointer, '.') ;
@@ -670,7 +695,7 @@ void build_vars_table(char *line_buffer, cfg_func_t *function, int var_type, int
     int var_num = function->var_num ;
     line_buffer[strlen(line_buffer) - 1] = '\0' ;
 
-    if(var_type != 16 && var_type != 15) {
+    if(var_type != 16 && var_type != 15 && var_type != 19) {
         /*ch = fgetc(fp) ;*/
         /*row = 1 ;*/
         /*strcpy(type_buffer[0], sys_var_type[var_type]) ;*/
@@ -698,6 +723,11 @@ void build_vars_table(char *line_buffer, cfg_func_t *function, int var_type, int
             temp = strncpy(array_name, type_buffer[row], array_token - type_buffer[row]) ;
             array_name[array_token - type_buffer[row]] = '\0' ;
             for(var_table = function->func_vars_table; *var_table != NULL; var_table++) {
+                //handle global like int glob1.0 = glob1 ;
+                if (*(array_token + 1) == '0' && strcmp(array_name, (*var_table)->name) == 0 && (*var_table)->effect_domain == 0) {
+                    return ;
+                }
+                //handle repeat like int i.1, i.2, i.3
                 if (strcmp(array_name, (*var_table)->name) == 0 && effect_domain == (*var_table)->effect_domain) {
                     return ;
                 }
@@ -798,10 +828,14 @@ void build_vars_table(char *line_buffer, cfg_func_t *function, int var_type, int
             //////////////////////////
         }
     }
+    else if (var_type == 19 || var_type == 16) {
+        return ;
+    }
     //enum
     else {
         //fgets(var_type_buffer, MAX_TYPE_NAME, fp);
     }
+
     if (function->func_vars_table[function->var_num] != NULL) {
         function->var_num++ ;
         function->func_vars_table[function->var_num] = NULL ;

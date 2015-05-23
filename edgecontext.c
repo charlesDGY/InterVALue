@@ -53,26 +53,27 @@ edge_context *copy_context(edge_context *src)
     while (context_iter != NULL) {
         temp_context = make_context() ;
         temp_context->name_d = context_iter->name_d ;
+        temp_context->value_set->next = copy_set(context_iter->value_set->next) ;
 
-        iter = context_iter->value_set ;
-        if (iter == NULL) {
-            perror("copy_context's context value_set is NULL!!") ;
-            exit(EXIT_FAILURE) ;
-        }
-        temp_interval.low_value = iter->item.low_value ;
-        temp_interval.up_value = iter->item.up_value ;
-        result = make_node(temp_interval) ;
-        p = result ;
+        /*iter = context_iter->value_set ;*/
+        /*if (iter == NULL) {*/
+            /*perror("copy_context's context value_set is NULL!!") ;*/
+            /*exit(EXIT_FAILURE) ;*/
+        /*}*/
+        /*temp_interval.low_value = iter->item.low_value ;*/
+        /*temp_interval.up_value = iter->item.up_value ;*/
+        /*result = make_node(temp_interval) ;*/
+        /*p = result ;*/
 
-        while (iter->next != NULL) {
-            iter = iter->next ;
-            temp_interval.low_value = iter->item.low_value ;
-            temp_interval.up_value = iter->item.up_value ;
-            p->next = make_node(temp_interval) ;
-            p = p->next ;
-        }
+        /*while (iter->next != NULL) {*/
+            /*iter = iter->next ;*/
+            /*temp_interval.low_value = iter->item.low_value ;*/
+            /*temp_interval.up_value = iter->item.up_value ;*/
+            /*p->next = make_node(temp_interval) ;*/
+            /*p = p->next ;*/
+        /*}*/
 
-        temp_context->value_set = result ;
+        /*temp_context->value_set = result ;*/
 
         if (context_result == NULL) {
             context_result = temp_context ;
@@ -96,6 +97,7 @@ void destroy_context(edge_context *head)
         q = p;
         p = p->next;
         destroy_set(q->value_set);
+        q->value_set = NULL ;
         free(q) ;
     }
 }

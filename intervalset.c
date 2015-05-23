@@ -55,8 +55,7 @@ void destroy_set(interval_node *head)
 interval_node *copy_set(interval_node *src)
 {
     if (src == NULL) {
-        perror("source copy input is NULL!!") ;
-        exit(EXIT_FAILURE) ;
+        return NULL ;
     }
     interval temp_interval ;
     interval_node *iter = src, *result = NULL, *p = NULL ;
@@ -279,7 +278,9 @@ void interval_set_intersect(interval a, interval_node *head) {
         }
         p->next = NULL ;
         destroy_set(head->next) ;
+        head->next = NULL ;
         destroy_set(q) ;
+        q = NULL ;
         head->next = temp_node_head ;
         return ;
     }
@@ -708,6 +709,7 @@ interval_node *split_set_low(interval_node *head, double key) {
         }
         else if (key_node->item.low_value > key && pre_key_node->item.up_value < key) {
             destroy_set(key_node) ;
+            key_node = NULL ;
             pre_key_node->next = NULL ;
             break ;
         }

@@ -191,6 +191,8 @@ struct cfg_func_t {
     int var_num ;
 //    char *return_num ;
 //    bool return_is_var ;
+    cfg_edge_t *all_edges[MAX_EDGE_NUM] ;
+    cfg_node_t *all_nodes[MAX_EDGE_NUM] ;
     call_argument *input_argument[MAX_INPUT_VAR] ;
     declaration_t *func_vars_table[MAX_FUNC_VARS] ;
     cfg_edge_t *pre_entry ;
@@ -233,7 +235,7 @@ call_t *new_call() ;
 
 char *copy_string(char *str) ;
 
-
+char *remove_dot(char *src) ;
 //estimate whether a string is a function added in the function table(return the position), or an unknown function name(return -1).
 int is_known_func(char *seek, cfg_func_t **functions) ;
 
