@@ -462,7 +462,17 @@ edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, 
         node_pointer = set_set_intersect(pointer_a->value_set, pointer_b->value_set, function->func_vars_table[a_i]->variable_type) ;
         node_pointer_b = copy_set(node_pointer) ;
         //false
-        if (function->func_vars_table[a_i]->variable_type != 5 && function->func_vars_table[a_i]->variable_type != 6) {
+        if (f_pointer_a->value_set->next->next == NULL && f_pointer_b->value_set->next->next == NULL &&
+                f_pointer_a->value_set->next->item.low_value == f_pointer_a->value_set->next->item.up_value &&
+                f_pointer_b->value_set->next->item.low_value == f_pointer_b->value_set->next->item.up_value &&
+                f_pointer_a->value_set->next->item.low_value == f_pointer_b->value_set->next->item.low_value) {
+            interval item ;
+            item.up_value = 0 ;
+            item.low_value = 0 ;
+            f_node_pointer = make_node(item) ;
+            f_node_pointer_b = make_node(item) ;
+        }
+        else if (function->func_vars_table[a_i]->variable_type != 5 && function->func_vars_table[a_i]->variable_type != 6) {
             if (f_pointer_a->value_set->next->next == NULL && f_pointer_a->value_set->next->item.low_value == f_pointer_a->value_set->next->item.up_value) {
                 f_node_pointer = copy_set(f_pointer_a->value_set) ;
                 f_node_pointer_b = split_set_mid(f_pointer_b->value_set, f_pointer_a->value_set->next->item.low_value) ;
@@ -483,7 +493,17 @@ edge_context *exec_if_test(cfg_node_t *current_node, edge_context *pre_context, 
     }
     else if (strcmp(current_node->if_test_i->cmp_operand, nq_s) == 0) {
         //true
-        if (function->func_vars_table[a_i]->variable_type != 5 && function->func_vars_table[a_i]->variable_type != 6) {
+        if (pointer_a->value_set->next->next == NULL && pointer_b->value_set->next->next == NULL &&
+                pointer_a->value_set->next->item.low_value == pointer_a->value_set->next->item.up_value &&
+                pointer_b->value_set->next->item.low_value == pointer_b->value_set->next->item.up_value &&
+                pointer_a->value_set->next->item.low_value == pointer_b->value_set->next->item.low_value) {
+            interval item ;
+            item.up_value = 0 ;
+            item.low_value = 0 ;
+            node_pointer = make_node(item) ;
+            node_pointer_b = make_node(item) ;
+        }
+        else if (function->func_vars_table[a_i]->variable_type != 5 && function->func_vars_table[a_i]->variable_type != 6) {
             if (pointer_a->value_set->next->next == NULL && pointer_a->value_set->next->item.low_value == pointer_a->value_set->next->item.up_value) {
                 node_pointer = copy_set(pointer_a->value_set) ;
                 node_pointer_b = split_set_mid(pointer_b->value_set, pointer_a->value_set->next->item.low_value) ;
@@ -766,6 +786,7 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
     int while_junc_num = 0 ;
     int junctions_num = 0 ;
     int junction_prt ;
+    int i = 0 ;
     junctions[0] = NULL ;
 
     interval item ;
@@ -1053,9 +1074,10 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
             if (current_node->node_type == EXIT) {
             }
 
+            i++ ;
             printf("new edge: function: %s \n", functions[func_num]->func_name);
             for (pre_edges = current_node->succ_edges; *pre_edges != NULL; pre_edges++) {
-                printf("node:%d, pre_edge:%d ", current_node->node_id, current_edge->edge_id);
+                printf("%d, node:%d, pre_edge:%d ", i, current_node->node_id, current_edge->edge_id);
                 print_context((*pre_edges)->context_set, functions[func_num]) ;
                 printf("\n");
             }
