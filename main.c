@@ -272,10 +272,11 @@ int main(int argc, const char *argv[])
     cfg_tree = build_cfgs(fp) ;
     result_cfg = cfg_tree ;
     int j = 0 ;
+    int i ;
     while ((*cfg_tree) != NULL) {
         printf("func_num: %d\n", (*cfg_tree)->func_num) ;
         printf("func name: %s\n", (*cfg_tree)->func_name) ;
-        int i = 0 ;
+        i = 0 ;
         while ((*cfg_tree)->input_argument[i] != NULL) {
             printf("input_argument %d : %s \nis_struct :%d \nis_pointer :%d \nstruct_name: %s\n",
                     (*cfg_tree)->input_argument[i]->arg_type, (*cfg_tree)->input_argument[i]->arg_name,
@@ -302,7 +303,7 @@ int main(int argc, const char *argv[])
     input_i->value_set->next = make_node(item) ;
     func_actual_arg->next = input_i ;
 
-    result_set = range_analysis(global_var_range, func_actual_arg, 3, result_cfg) ;
+    result_set = range_analysis(global_var_range, func_actual_arg, i, result_cfg) ;
 
     return 0;
 }

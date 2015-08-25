@@ -1101,6 +1101,13 @@ interval_node *range_analysis(edge_context *global_var_range, edge_context *func
             }
             update_range(least_junction->succ_edges[0], succ_context, edges, &edges_num, functions[func_num]) ;
 
+            printf("new edge: function: %s \n", functions[func_num]->func_name);
+            for (pre_edges = least_junction->succ_edges; *pre_edges != NULL; pre_edges++) {
+                printf("%d, node:%d, pre_edge:%d ", i, least_junction->node_id, least_junction->succ_edges[0]->edge_id);
+                print_context((*pre_edges)->context_set, functions[func_num]) ;
+                printf("\n");
+            }
+
         }
 
     }
