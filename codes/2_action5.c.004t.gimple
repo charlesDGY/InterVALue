@@ -1,0 +1,12 @@
+action5 (int x)
+{
+  int D.1727;
+  extern int blue ();
+
+  x = x + -2;
+  blue ();
+  D.1727 = 0;
+  return D.1727;
+}
+
+

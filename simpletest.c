@@ -1,7 +1,7 @@
-int global() {
-    int glob1 = 1 ;
-    int glob2 = 2 ;
-}
+/*int global() {*/
+/*//    int glob1 = 1 ;*/
+/*//    int glob2 = 2 ;*/
+/*}*/
 
 /*int glob1 = 1 ;*/
 /*int glob2 = 2 ;*/
@@ -19,11 +19,12 @@ int global() {
     /*return a * b ;*/
 /*}*/
 
-void f (int k)
+int f (int k)
 {
     int j = 2;
     if (k > 0) {
         j++ ;
+        return j;
     }
     else {
         j-- ;

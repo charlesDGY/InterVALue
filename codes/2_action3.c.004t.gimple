@@ -1,0 +1,17 @@
+action3 (int x)
+{
+  int D.1730;
+  extern int yellow ();
+
+  goto <D.1725>;
+  <D.1724>:
+  x = x + 1;
+  <D.1725>:
+  if (x <= 2) goto <D.1724>; else goto <D.1726>;
+  <D.1726>:
+  yellow ();
+  D.1730 = 0;
+  return D.1730;
+}
+
+

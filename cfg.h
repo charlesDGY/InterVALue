@@ -205,6 +205,8 @@ struct cfg_func_t {
 
 edge_context *union_context(edge_context *head_a, edge_context *head_b, cfg_func_t *function) ;
 
+edge_context *union_context_new(edge_context *head_a, edge_context *head_b, int type_array[]) ;
+
 cfg_func_t **new_functions() ;
 
 

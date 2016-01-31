@@ -253,6 +253,46 @@ edge_context *union_context(edge_context *head_a, edge_context *head_b, cfg_func
 
 }
 
+edge_context *union_context_new(edge_context *head_a, edge_context *head_b, int type_array[]) {
+    if (head_a == NULL || head_b == NULL) {
+        perror("union_context's input head is NULL!") ;
+        exit(EXIT_FAILURE) ;
+    }
+    //handle null and XN condition.
+    if (head_a->next == NULL) {
+        return copy_context(head_b) ;
+    }
+    if (head_b->next == NULL) {
+        return copy_context(head_a) ;
+    }
+
+    edge_context *iter_a = NULL, *iter_b = NULL ;
+    edge_context *context_p = NULL, *iter_r = NULL, *result = NULL ;
+    iter_a = head_a->next ;
+    iter_b = head_b->next ;
+
+    //union set and set
+    while (iter_a != NULL) {
+        iter_r = make_context() ;
+        iter_r->name_d = iter_a->name_d ;
+        iter_r->value_set = set_set_union(iter_a->value_set, iter_b->value_set, type_array[iter_r->name_d]) ;
+        if (result == NULL) {
+            result = make_context() ;
+            result->next = iter_r ;
+            context_p = result->next ;
+        }
+        else {
+            context_p->next = iter_r ;
+            context_p = context_p->next ;
+        }
+        iter_a = iter_a->next ;
+        iter_b = iter_b->next ;
+    }
+    return result ;
+
+}
+
+
 
 
 cfg_func_t **new_functions() {
@@ -852,12 +892,24 @@ void link_nodes(cfg_node_t *a, cfg_node_t *b, cfg_func_t *function) {
     new_link_edge = new_edge(function) ;
     new_link_edge->start_node = a ;
     new_link_edge->end_node = b ;
-    a->succ_edges[a->succ_edges_num] = new_link_edge ;
-    a->succ_edges_num++ ;
-    a->succ_edges[a->succ_edges_num] = NULL ;
-    b->pre_edges[b->pre_edges_num] = new_link_edge ;
-    b->pre_edges_num++ ;
-    b->pre_edges[b->pre_edges_num] = NULL ;
+    if (a->succ_edges_num == 2 && a->node_type == IF_TEST) {
+        a->succ_edges[0] = new_link_edge ;
+        a->succ_edges_num = 2;
+        a->succ_edges[a->succ_edges_num] = NULL ;
+        b->pre_edges[b->pre_edges_num] = new_link_edge ;
+        b->pre_edges_num++ ;
+        b->pre_edges[b->pre_edges_num] = NULL ;
+
+    }
+    else {
+        a->succ_edges[a->succ_edges_num] = new_link_edge ;
+        a->succ_edges_num++ ;
+        a->succ_edges[a->succ_edges_num] = NULL ;
+        b->pre_edges[b->pre_edges_num] = new_link_edge ;
+        b->pre_edges_num++ ;
+        b->pre_edges[b->pre_edges_num] = NULL ;
+
+    }
 }
 
 void add_need_token(char *seek, cfg_node_t *pointer, cfg_func_t *function) {
@@ -918,6 +970,7 @@ cfg_node_t *add_pre_junction(cfg_node_t *source, cfg_func_t *function) {
 //if the last exist token hasn't pointer to a node, link the need_node to the new_current_node.
 void link_last_token(cfg_node_t *new_current_node, cfg_func_t *function) {
     token_list **need_token_prt = NULL ;
+    /*token_list **true_token_prt = NULL ;*/
     case_t *temp_case = NULL ;
     int i ;
     //if there are new exist_token that hasn't been pointer to a node, then pointer to the new if node, and estimate whether has need_token pointer to the token, then link_nodes.
@@ -925,6 +978,11 @@ void link_last_token(cfg_node_t *new_current_node, cfg_func_t *function) {
         function->exist_tokens[function->exist_token_num - 1]->pointer = new_current_node ;
         for (need_token_prt = function->need_tokens; *need_token_prt != NULL; need_token_prt++) {
             if(strcmp((*need_token_prt)->token_name, function->exist_tokens[function->exist_token_num - 1]->token_name) == 0) {
+                if ((need_token_prt - function->need_tokens > 0) && ((*need_token_prt)->pointer->succ_edges_num == 0) && ((*(need_token_prt - 1))->pointer->node_id == (*need_token_prt)->pointer->node_id)) {
+                    (*need_token_prt)->pointer->succ_edges_num++ ;
+                    (*need_token_prt)->pointer->succ_edges[(*need_token_prt)->pointer->succ_edges_num] = NULL ;
+                }
+
                 link_nodes((*need_token_prt)->pointer, function->exist_tokens[function->exist_token_num - 1]->pointer, function) ;
                 if ((*need_token_prt)->pointer->node_type == SWITCH_TEST) {
                     for (i = 0; i < (*need_token_prt)->pointer->switch_test_i->case_num; i++) {

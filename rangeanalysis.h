@@ -40,10 +40,11 @@ edge_context *exec_call(edge_context *global_var_range, int func_num, cfg_func_t
 
 void update_range(cfg_edge_t *new_edge, edge_context *new_context, cfg_edge_t **edges, int *edges_num, cfg_func_t *function) ;
 
-void creat_return_set(cfg_node_t *current_node, edge_context *current_context, interval_node *result, cfg_func_t *function) ;
+void creat_return_set(cfg_node_t *current_node, edge_context *current_context, interval_node *result, cfg_func_t *function, edge_context *end_context) ;
 
-interval_node *range_analysis(edge_context *global_var_range, edge_context *func_actual_arg, int func_num, cfg_func_t **functions) ;
+interval_node *range_analysis(edge_context *global_var_range, edge_context *func_actual_arg, int func_num, cfg_func_t **functions, edge_context *end_context) ;
 
+interval_node *range_analysis_condition(edge_context *global_var_range, edge_context *func_actual_arg, int func_num, cfg_func_t **functions, edge_context *end_context) ;
 
 void print_set(interval_node *head) ;
 

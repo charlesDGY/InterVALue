@@ -1,0 +1,12 @@
+action1 (int x)
+{
+  int D.1727;
+  extern int accelerate ();
+
+  x = x + 1;
+  accelerate (x);
+  D.1727 = 0;
+  return D.1727;
+}
+
+

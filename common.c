@@ -383,6 +383,15 @@ interval_value_type div_inf(interval_value_type a, interval_value_type b, int va
 
 
 
+double get_max_value(){
+    return MAX_VALUE ;
+}
+
+double get_min_value(){
+    return MIN_VALUE ;
+}
+
+
 
 //////////////////////////////////////////////////////
 //file operate

@@ -14,7 +14,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "rangeanalysis.h"
+//***************
+#include "new_range_analysis.h"
+//#include "rangeanalysis.h"
 
 int main(int argc, const char *argv[])
 {
@@ -265,6 +267,7 @@ int main(int argc, const char *argv[])
         /*result++ ;*/
     /*}*/
 
+    /******************************************************************************************************************************************
     char *fp = "/home/dgy/Programming/VInterval/simpletest.c.004t.gimple" ;
     char *glob_var_file = NULL ;
     cfg_func_t **cfg_tree = NULL ;
@@ -306,4 +309,45 @@ int main(int argc, const char *argv[])
     result_set = range_analysis(global_var_range, func_actual_arg, i, result_cfg) ;
 
     return 0;
+    **********************************************************************************************************************************************/
+    char *fp = "/home/dgy/Programming/VInterval/codes/2_condition2.c.004t.gimple" ;
+    char *action_fp = "/home/dgy/Programming/VInterval/codes/2_action2.c.004t.gimple" ;
+
+    cfg_func_t **condition_cfg = NULL ;
+    cfg_func_t **action_cfg = NULL ;
+
+    int num = 1 ;
+    condition_cfg = get_cfg(fp, &num) ;
+    int i = 1 ;
+    action_cfg = get_cfg(action_fp, &i) ;
+    //input i
+    edge_context *func_actual_arg = NULL ;
+    edge_context *input_i = NULL ;
+    func_actual_arg = make_context() ;
+    input_i = make_context() ;
+    input_i->name_d = 0 ;
+    interval item ;
+    item.low_value = 1 ;
+    item.up_value = 1 ;
+    input_i->value_set->next = make_node(item) ;
+    func_actual_arg->next = input_i ;
+
+
+    edge_context *end_context = NULL ;
+
+    end_context = new_range_analysis(func_actual_arg, 0, condition_cfg, num) ;
+
+    if (end_context->next != NULL) {
+        printf("%f", end_context->next->value_set->next->item.low_value) ;
+        printf("%f", end_context->next->value_set->next->item.up_value) ;
+
+
+        end_context = new_range_analysis(end_context, 1, action_cfg, i) ;
+
+        printf("%f", end_context->next->value_set->next->item.low_value) ;
+        printf("%f", end_context->next->value_set->next->item.up_value) ;
+    }
+
+    return 0;
+
 }

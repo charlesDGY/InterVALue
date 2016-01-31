@@ -1,0 +1,12 @@
+condition1 (int y)
+{
+  int D.1727;
+
+  if (y <= 3) goto <D.1725>; else goto <D.1726>;
+  <D.1725>:
+  D.1727 = 0;
+  return D.1727;
+  <D.1726>:
+}
+
+

@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <float.h>
 
-#define bool unsigned char
+#define bool int
 #define true 1
 #define false 0
 
@@ -31,6 +31,9 @@ interval_value_type interval_value_max(interval_value_type a, interval_value_typ
 //calculate the min of a and b
 interval_value_type interval_value_min(interval_value_type a, interval_value_type b);
 
+double get_max_value() ;
+
+double get_min_value() ;
 
 void add_overflow(interval_value_type *a, interval_value_type *b) ;
 

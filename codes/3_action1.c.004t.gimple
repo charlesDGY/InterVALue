@@ -1,0 +1,13 @@
+action1 (int y)
+{
+  int D.1728;
+  int j;
+  extern int test ();
+
+  y = y + 1;
+  j = test ();
+  D.1728 = 0;
+  return D.1728;
+}
+
+

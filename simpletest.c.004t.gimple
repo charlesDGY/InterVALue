@@ -1,25 +1,16 @@
-global ()
-{
-  int glob1;
-  int glob2;
-
-  glob1 = 1;
-  glob2 = 2;
-}
-
-
 f (int k)
 {
+  int D.1728;
   int j;
 
   j = 2;
-  if (k > 0) goto <D.1730>; else goto <D.1731>;
-  <D.1730>:
+  if (k > 0) goto <D.1726>; else goto <D.1727>;
+  <D.1726>:
   j = j + 1;
-  goto <D.1732>;
-  <D.1731>:
+  D.1728 = j;
+  return D.1728;
+  <D.1727>:
   j = j + -1;
-  <D.1732>:
 }
 
 
